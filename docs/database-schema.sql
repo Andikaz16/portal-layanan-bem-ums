@@ -99,7 +99,7 @@ CREATE TABLE tickets (
   -- ── Penyelesaian ──
   resolution_note TEXT,                               -- Catatan penyelesaian akhir
   resolved_at     TIMESTAMPTZ,                        -- Kapan diselesaikan
-  resolved_by     UUID            REFERENCES admins(id) ON SET NULL,
+  resolved_by     UUID            REFERENCES admins(id) ON DELETE SET NULL,
 
   -- ── Metadata ──
   created_at      TIMESTAMPTZ     DEFAULT NOW(),
@@ -137,7 +137,7 @@ CREATE TABLE status_logs (
   ticket_id       UUID            NOT NULL REFERENCES tickets(id) ON DELETE CASCADE,
   previous_status ticket_status,                     -- NULL jika status pertama (baru dibuat)
   new_status      ticket_status   NOT NULL,
-  changed_by      UUID            REFERENCES admins(id) ON SET NULL,  -- NULL jika oleh sistem
+  changed_by      UUID            REFERENCES admins(id) ON DELETE SET NULL,  -- NULL jika oleh sistem
   note            TEXT,                               -- Catatan perubahan status
   created_at      TIMESTAMPTZ     DEFAULT NOW()
 );
@@ -152,7 +152,7 @@ COMMENT ON TABLE status_logs IS 'Log perubahan status tiket sebagai audit trail'
 CREATE TABLE admin_notes (
   id          UUID          PRIMARY KEY DEFAULT gen_random_uuid(),
   ticket_id   UUID          NOT NULL REFERENCES tickets(id) ON DELETE CASCADE,
-  admin_id    UUID          NOT NULL REFERENCES admins(id) ON SET NULL,
+  admin_id    UUID          REFERENCES admins(id) ON DELETE SET NULL,
   content     TEXT          NOT NULL,               -- Isi catatan
   is_internal BOOLEAN       DEFAULT TRUE,           -- TRUE = catatan internal antar admin
                                                      -- FALSE = respon publik (bisa dilihat pelapor)

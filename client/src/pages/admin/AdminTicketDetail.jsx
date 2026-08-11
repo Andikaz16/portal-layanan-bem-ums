@@ -20,7 +20,7 @@ export default function AdminTicketDetail() {
   const fetchTicketDetail = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5000/api/v1/admin/tickets/${id}`, {
+      const response = await fetch(`/api/v1/admin/tickets/${id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!response.ok) {
@@ -40,7 +40,7 @@ export default function AdminTicketDetail() {
     setUpdating(true);
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5000/api/v1/admin/tickets/${id}/status`, {
+      const response = await fetch(`/api/v1/admin/tickets/${id}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ export default function AdminTicketDetail() {
     setSubmittingReply(true);
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5000/api/v1/admin/tickets/${id}/notes`, {
+      const response = await fetch(`/api/v1/admin/tickets/${id}/notes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -193,13 +193,13 @@ export default function AdminTicketDetail() {
                     {ticket.attachments.map((attachment, index) => (
                       <a 
                         key={attachment.id || index} 
-                        href={`http://localhost:5000${attachment.file_url}`} 
+                        href={`${attachment.file_url}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="block group rounded-lg overflow-hidden border border-gray-200"
                       >
                         <img 
-                          src={`http://localhost:5000${attachment.file_url}`} 
+                          src={`${attachment.file_url}`} 
                           alt="Lampiran" 
                           className="w-full h-32 object-cover group-hover:opacity-75 transition-opacity"
                         />

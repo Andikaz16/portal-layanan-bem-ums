@@ -16,8 +16,8 @@ export default function AdminDashboard() {
         const headers = { 'Authorization': `Bearer ${token}` };
         
         const [ticketsRes, statsRes] = await Promise.all([
-          fetch('http://localhost:5000/api/v1/admin/tickets', { headers }),
-          fetch('http://localhost:5000/api/v1/admin/statistics', { headers })
+          fetch('/api/v1/admin/tickets', { headers }),
+          fetch('/api/v1/admin/statistics', { headers })
         ]);
         
         if (!ticketsRes.ok) throw new Error('Gagal mengambil data tiket');

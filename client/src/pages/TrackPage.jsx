@@ -100,7 +100,7 @@ export default function TrackPage() {
 
 
     try {
-      const response = await fetch(`http://localhost:5000/api/v1/reports/track/${searchCode}`);
+      const response = await fetch(`/api/v1/reports/track/${searchCode}`);
       const data = await response.json();
 
       if (!response.ok) {

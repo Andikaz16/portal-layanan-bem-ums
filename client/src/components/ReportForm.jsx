@@ -135,7 +135,7 @@ export default function ReportForm() {
         data.append('attachments', file);
       });
 
-      const response = await fetch('http://localhost:5000/api/v1/reports', {
+      const response = await fetch('/api/v1/reports', {
         method: 'POST',
         body: data,
       });

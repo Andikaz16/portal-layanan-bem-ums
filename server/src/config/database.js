@@ -1,16 +1,27 @@
 const { Pool } = require('pg');
 const env = require('./env');
 
-const pool = new Pool({
-  host: env.db.host,
-  port: env.db.port,
-  database: env.db.database,
-  user: env.db.user,
-  password: env.db.password,
-  max: 20,                    // max connections in pool
-  idleTimeoutMillis: 30000,   // close idle connections after 30s
-  connectionTimeoutMillis: 5000, // fail if connection takes > 5s
-});
+// Support DATABASE_URL (cloud) or individual params (local)
+const poolConfig = process.env.DATABASE_URL
+  ? {
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
+      max: 10,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 5000,
+    }
+  : {
+      host: env.db.host,
+      port: env.db.port,
+      database: env.db.database,
+      user: env.db.user,
+      password: env.db.password,
+      max: 20,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 5000,
+    };
+
+const pool = new Pool(poolConfig);
 
 // Test connection on startup
 pool.on('connect', () => {

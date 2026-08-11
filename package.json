@@ -6,8 +6,5 @@
   "scripts": {
     "start": "node server/server.js",
     "install": "cd server && npm install"
-  },
-  "engines": {
-    "node": "18.x"
   }
 }

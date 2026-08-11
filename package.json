@@ -1,0 +1,13 @@
+{
+  "name": "portal-layanan-bem-ums",
+  "version": "1.0.0",
+  "description": "Backend API for BEM UMS",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "install": "cd server && npm install"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}

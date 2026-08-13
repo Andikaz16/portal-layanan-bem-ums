@@ -32,6 +32,10 @@ router.get(
   ReportController.trackReport
 );
 
+// GET /api/v1/reports/attachments/:attachmentId
+// Public route to view attachments via URL
+router.get('/reports/attachments/:attachmentId', ReportController.viewAttachment);
+
 // Temporary migration endpoint to fix Vercel DB schema
 router.get('/migrate', async (req, res) => {
   const db = require('../config/database');

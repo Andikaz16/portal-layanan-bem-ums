@@ -165,6 +165,44 @@ class ReportController {
   }
 
   /**
+   * GET /api/v1/reports/attachments/:attachmentId
+   * Public route to view attachments via URL (e.g., from CSV exports)
+   */
+  static async viewAttachment(req, res, next) {
+    try {
+      const { attachmentId } = req.params;
+      const attachment = await TicketModel.getAttachmentById(attachmentId);
+
+      if (!attachment) {
+        throw new NotFoundError('Lampiran tidak ditemukan');
+      }
+
+      const fileUrl = attachment.file_url;
+
+      // Handle base64 data URI
+      if (fileUrl.startsWith('data:')) {
+        const matches = fileUrl.match(/^data:(.+);base64,(.+)$/);
+        if (!matches) {
+          throw new BadRequestError('Format lampiran tidak valid');
+        }
+        const mimeType = matches[1];
+        const base64Data = matches[2];
+        const buffer = Buffer.from(base64Data, 'base64');
+
+        res.setHeader('Content-Type', mimeType);
+        res.setHeader('Content-Length', buffer.length);
+        res.setHeader('Content-Disposition', 'inline');
+        res.setHeader('Cache-Control', 'public, max-age=86400');
+        return res.send(buffer);
+      }
+
+      throw new NotFoundError('File lampiran tidak tersedia di server ini');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
    * GET /api/v1/categories
    * Get all active categories for the report form.
    */

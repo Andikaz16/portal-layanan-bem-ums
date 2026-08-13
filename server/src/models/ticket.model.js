@@ -250,10 +250,10 @@ class TicketModel {
         t.status,
         t.created_at,
         (
-          SELECT COUNT(id) 
+          SELECT string_agg(id::text, ',') 
           FROM ticket_attachments ta 
           WHERE ta.ticket_id = t.id
-        ) AS lampiran_count
+        ) AS lampiran_ids
        FROM tickets t
        LEFT JOIN categories c ON c.id = t.category_id`;
 

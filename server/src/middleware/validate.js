@@ -132,6 +132,10 @@ const createReportSchema = Joi.object({
       'string.min': 'Isi laporan minimal 50 karakter',
       'any.required': 'Isi laporan wajib diisi',
     }),
+
+  attachments_base64: Joi.array()
+    .items(Joi.string())
+    .optional(),
 });
 
 /**

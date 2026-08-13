@@ -124,20 +124,32 @@ export default function ReportForm() {
     setIsSubmitting(true);
 
     try {
-      const data = new FormData();
-      
-      Object.entries(formData).forEach(([key, value]) => {
-        const formKey = key === 'student_id' ? 'student_nim' : key;
-        data.append(formKey, value);
+      // Helper function to convert a File to Base64
+      const fileToBase64 = (file) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
       });
 
-      attachments.forEach((file) => {
-        data.append('attachments', file);
-      });
+      // Convert all attachments to Base64 strings
+      const base64Attachments = await Promise.all(
+        attachments.map((file) => fileToBase64(file))
+      );
+
+      // Prepare JSON payload
+      const payload = {
+        ...formData,
+        student_nim: formData.student_nim || formData.student_id,
+        attachments_base64: base64Attachments,
+      };
 
       const response = await fetch('/api/v1/reports', {
         method: 'POST',
-        body: data,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
       });
 
       const result = await response.json();

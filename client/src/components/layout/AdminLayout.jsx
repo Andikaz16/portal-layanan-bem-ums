@@ -15,7 +15,7 @@ export default function AdminLayout() {
             <div className="flex-shrink-0 flex items-center">
               <Link to="/admin/dashboard" className="flex items-center group">
                 <img 
-                  src="/logo-bem.png" 
+                  src="/logo-nvbar.png" 
                   alt="BEM UMS Logo" 
                   className="w-32 sm:w-44 h-auto max-h-12 object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-md" 
                 />

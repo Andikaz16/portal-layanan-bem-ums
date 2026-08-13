@@ -7,3 +7,10 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../server/.
 const app = require('../server/src/app');
 
 module.exports = app;
+
+// Disable Vercel's default body parser so multer can consume the stream
+module.exports.config = {
+  api: {
+    bodyParser: false,
+  },
+};

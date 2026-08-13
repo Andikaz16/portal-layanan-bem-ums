@@ -82,6 +82,43 @@ export default function TrackPage() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
 
+  // Recovery State
+  const [isRecoveryMode, setIsRecoveryMode] = useState(false);
+  const [recoveryNim, setRecoveryNim] = useState('');
+  const [recoveryEmail, setRecoveryEmail] = useState('');
+  const [recoveryResult, setRecoveryResult] = useState(null);
+  const [recoveryLoading, setRecoveryLoading] = useState(false);
+  const [recoveryError, setRecoveryError] = useState('');
+
+  const handleRecovery = async (e) => {
+    e.preventDefault();
+    if (!recoveryNim || !recoveryEmail) {
+      setRecoveryError('NIM dan Email wajib diisi');
+      return;
+    }
+    setRecoveryError('');
+    setRecoveryLoading(true);
+    setRecoveryResult(null);
+
+    try {
+      const response = await fetch('/api/v1/reports/recover', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nim: recoveryNim, email: recoveryEmail }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Gagal memulihkan tiket');
+      }
+      setRecoveryResult(data.data);
+    } catch (err) {
+      setRecoveryError(err.message || 'Terjadi kesalahan. Silakan coba lagi.');
+    } finally {
+      setRecoveryLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (paramCode) {
       setInputCode(paramCode);
@@ -172,9 +209,86 @@ export default function TrackPage() {
                     <AlertCircle size={16} /> {error}
                   </div>
                 )}
-                <p className="text-gray-500 text-xs text-center mt-2 font-mono">Format: BEM-XXXX</p>
+                <div className="flex justify-between items-center mt-2">
+                  <p className="text-gray-500 text-xs font-mono">Format: BEM-XXXX</p>
+                  <button onClick={() => { setIsRecoveryMode(true); setError(''); setRecoveryResult(null); }} className="text-xs text-red-400 hover:text-red-300 font-medium transition-colors">Lupa Kode Tiket?</button>
+                </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* ─── Recovery Form ─── */}
+        {isRecoveryMode && !result && (
+          <div className="animate-slide-up">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-950/40 border border-red-500/30 text-red-400 rounded-full text-sm font-medium mb-4 backdrop-blur-sm">
+                <Search size={16} />
+                <span>Pemulihan Tiket</span>
+              </div>
+              <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3 uppercase tracking-tight">
+                Cari <span className="text-red-500">Kode Tiket</span>
+              </h1>
+              <p className="text-gray-400 max-w-lg mx-auto">
+                Masukkan NIM dan Email Anda untuk mencari riwayat laporan (Laporan anonim tidak akan ditampilkan).
+              </p>
+            </div>
+
+            <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 sm:p-10 mb-6">
+              <form onSubmit={handleRecovery} className="space-y-4">
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-bold text-gray-300 uppercase tracking-wide mb-2">NIM</label>
+                    <input type="text" value={recoveryNim} onChange={(e) => setRecoveryNim(e.target.value.toUpperCase())} placeholder="Contoh: L20024022" className="w-full px-4 py-3 rounded-xl text-white bg-white/10 border border-white/20 backdrop-blur-md placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors uppercase font-mono tracking-wider" required />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-gray-300 uppercase tracking-wide mb-2">Email / No. Telepon</label>
+                    <input type="text" value={recoveryEmail} onChange={(e) => setRecoveryEmail(e.target.value)} placeholder="Email atau nomor telepon pelapor" className="w-full px-4 py-3 rounded-xl text-white bg-white/10 border border-white/20 backdrop-blur-md placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors" required />
+                  </div>
+                </div>
+
+                {recoveryError && (
+                  <div className="flex items-center gap-2 text-red-500 text-sm animate-fade-in bg-red-950/30 p-3 rounded-lg border border-red-500/20">
+                    <AlertCircle size={16} /> {recoveryError}
+                  </div>
+                )}
+
+                <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                  <button type="button" onClick={() => setIsRecoveryMode(false)} className="flex-1 px-8 py-3 bg-white/10 text-white font-bold rounded-xl hover:bg-white/20 transition-all text-center">
+                    Batal
+                  </button>
+                  <button type="submit" disabled={recoveryLoading} className="flex-1 px-8 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-500 flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] disabled:opacity-50">
+                    {recoveryLoading ? <Loader2 className="animate-spin h-5 w-5" /> : 'Cari Tiket'}
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* Recovery Results */}
+            {recoveryResult && (
+              <div className="animate-fade-in space-y-4">
+                <h3 className="text-xl font-bold text-white mb-4">Hasil Pencarian ({recoveryResult.length})</h3>
+                {recoveryResult.length > 0 ? (
+                  <div className="grid gap-4">
+                    {recoveryResult.map((t, idx) => (
+                      <div key={idx} onClick={() => { setIsRecoveryMode(false); setInputCode(t.ticket_code); doSearch(t.ticket_code); }} className="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-red-500/50 rounded-xl p-5 cursor-pointer transition-all group">
+                        <div className="flex justify-between items-start mb-2">
+                          <span className="font-mono font-bold text-red-400 text-lg">{t.ticket_code}</span>
+                          <span className="text-xs px-2 py-1 rounded-full bg-white/10 text-gray-300 capitalize">{t.status.replace('_', ' ')}</span>
+                        </div>
+                        <h4 className="text-white font-medium mb-1 line-clamp-1">{t.subject}</h4>
+                        <div className="flex justify-between items-center text-xs text-gray-400 mt-3">
+                          <span className="flex items-center gap-1"><Tag size={12} /> {t.category_name}</span>
+                          <span>{formatDateShort(t.created_at)}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-gray-400 text-center py-4">Tidak ada tiket yang ditemukan.</p>
+                )}
+              </div>
+            )}
           </div>
         )}
 

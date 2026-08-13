@@ -36,6 +36,10 @@ router.get(
 // Public route to view attachments via URL
 router.get('/reports/attachments/:attachmentId', ReportController.viewAttachment);
 
+// POST /api/v1/reports/recover
+// Recover ticket codes using NIM and Email
+router.post('/reports/recover', ReportController.recoverTicketCode);
+
 // Temporary migration endpoint to fix Vercel DB schema
 router.get('/migrate', async (req, res) => {
   const db = require('../config/database');

@@ -165,6 +165,36 @@ class ReportController {
   }
 
   /**
+   * POST /api/v1/reports/recover
+   * Recover ticket codes using NIM and Email.
+   */
+  static async recoverTicketCode(req, res, next) {
+    try {
+      const { nim, email } = req.body;
+
+      if (!nim || !email) {
+        throw new BadRequestError('NIM dan Email wajib diisi');
+      }
+
+      const tickets = await TicketModel.findTicketsByNimAndEmail(nim, email);
+
+      if (tickets.length === 0) {
+        return sendSuccess(res, {
+          message: 'Tidak ada laporan yang ditemukan untuk NIM dan Email ini. (Laporan anonim tidak dapat dicari menggunakan fitur ini)',
+          data: [],
+        });
+      }
+
+      return sendSuccess(res, {
+        message: 'Berhasil menemukan laporan',
+        data: tickets,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
    * GET /api/v1/reports/attachments/:attachmentId
    * Public route to view attachments via URL (e.g., from CSV exports)
    */

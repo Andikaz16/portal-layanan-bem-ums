@@ -32,4 +32,15 @@ router.get(
   ReportController.trackReport
 );
 
+// Temporary migration endpoint to fix Vercel DB schema
+router.get('/migrate', async (req, res) => {
+  const db = require('../config/database');
+  try {
+    await db.query(`ALTER TABLE ticket_attachments ALTER COLUMN file_url TYPE TEXT;`);
+    res.json({ success: true, message: 'Migration successful: file_url changed to TEXT' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 module.exports = router;

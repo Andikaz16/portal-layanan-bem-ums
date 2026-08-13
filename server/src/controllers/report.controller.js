@@ -62,13 +62,9 @@ class ReportController {
       if (req.files && req.files.length > 0) {
         for (const file of req.files) {
           try {
-            const fileData = fs.readFileSync(file.path);
-            const base64Data = fileData.toString('base64');
+            const base64Data = file.buffer.toString('base64');
             const fileUrl = `data:${file.mimetype};base64,${base64Data}`;
             await TicketModel.addAttachment(ticket.id, fileUrl);
-            
-            // Clean up temporary file from /tmp
-            fs.unlinkSync(file.path);
           } catch (fileErr) {
             console.error('Error processing attachment:', fileErr);
             // Non-fatal, we continue to save the ticket itself

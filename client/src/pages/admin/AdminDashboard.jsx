@@ -46,7 +46,7 @@ export default function AdminDashboard() {
   const handleExport = async () => {
     try {
       const token = sessionStorage.getItem('adminToken');
-      const response = await fetch('/api/v1/admin/tickets/export', {
+      const response = await fetch(`/api/v1/admin/tickets/export?t=${Date.now()}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       

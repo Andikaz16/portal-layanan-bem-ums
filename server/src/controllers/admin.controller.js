@@ -212,8 +212,9 @@ const exportTickets = async (req, res, next) => {
 
     // UTF-8 BOM so Excel reads it as UTF-8
     const BOM = '\uFEFF';
-    // Tell Excel the separator is comma
-    let csvContent = BOM + 'sep=,\r\n' + headers.join(',') + '\r\n';
+    
+    // Use semicolon (;) which is standard for Indonesian/European Excel locales
+    let csvContent = BOM + headers.join(';') + '\r\n';
 
     tickets.forEach(t => {
       const row = [
@@ -231,7 +232,7 @@ const exportTickets = async (req, res, next) => {
         t.status,
         new Date(t.created_at).toLocaleString('id-ID')
       ];
-      csvContent += row.map(escapeCsv).join(',') + '\r\n';
+      csvContent += row.map(escapeCsv).join(';') + '\r\n';
     });
 
     res.setHeader('Content-Type', 'text/csv');

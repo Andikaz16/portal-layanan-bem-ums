@@ -199,17 +199,21 @@ const exportTickets = async (req, res, next) => {
     ];
 
     // Simple manual CSV stringifier for basic data
+    // Simple manual CSV stringifier for basic data
     const escapeCsv = (str) => {
       if (str === null || str === undefined) return '';
       const stringified = String(str);
-      // If it contains quote, comma, or newline, wrap in quotes and escape quotes
-      if (/[",\n\r]/.test(stringified)) {
+      // If it contains quote, comma, semicolon, or newline, wrap in quotes and escape quotes
+      if (/[",;\n\r]/.test(stringified)) {
         return '"' + stringified.replace(/"/g, '""') + '"';
       }
       return stringified;
     };
 
-    let csvContent = headers.join(',') + '\r\n';
+    // UTF-8 BOM so Excel reads it as UTF-8
+    const BOM = '\uFEFF';
+    // Tell Excel the separator is comma
+    let csvContent = BOM + 'sep=,\r\n' + headers.join(',') + '\r\n';
 
     tickets.forEach(t => {
       const row = [

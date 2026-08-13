@@ -17,7 +17,7 @@ export default function AdminLayout() {
                 <img 
                   src="/logo-bem.png" 
                   alt="BEM UMS Logo" 
-                  className="h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-md" 
+                  className="w-32 sm:w-44 h-auto max-h-12 object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-md" 
                 />
               </Link>
             </div>

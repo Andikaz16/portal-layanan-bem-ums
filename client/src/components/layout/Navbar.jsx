@@ -37,7 +37,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 sm:h-18">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <img src="/logo-nvbar.png" alt="Logo BEM UMS" className="w-40 sm:w-56 h-auto max-h-14 object-contain drop-shadow-[0_0_10px_rgba(220,38,38,0.5)] group-hover:scale-105 transition-transform origin-left" />
+            <img src="/logo-nvbar.png" alt="Logo BEM UMS" className="w-32 sm:w-44 h-auto max-h-12 object-contain drop-shadow-[0_0_10px_rgba(220,38,38,0.5)] group-hover:scale-105 transition-transform origin-left" />
           </Link>
 
           {/* Desktop Nav */}

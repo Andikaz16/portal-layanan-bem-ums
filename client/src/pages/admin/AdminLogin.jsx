@@ -44,7 +44,7 @@ export default function AdminLogin() {
         <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-red-600/20 rounded-full blur-3xl"></div>
         
         <div className="flex flex-col items-center relative z-10">
-          <img src="/logo-bem.png" alt="Logo BEM" className="h-20 w-auto mb-2 drop-shadow-lg" />
+          <img src="/logo-bem.png" alt="Logo BEM" className="w-40 sm:w-56 h-auto max-h-20 mb-4 object-contain drop-shadow-[0_0_15px_rgba(220,38,38,0.5)]" />
           <h2 className="mt-2 text-center text-3xl font-black text-white uppercase tracking-wider">
             Admin <span className="text-red-500">Login</span>
           </h2>

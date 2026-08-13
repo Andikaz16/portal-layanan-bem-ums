@@ -194,7 +194,8 @@ const exportTickets = async (req, res, next) => {
       'Subjek',
       'Deskripsi',
       'Status',
-      'Tanggal Dibuat'
+      'Tanggal Dibuat',
+      'Lampiran'
     ];
 
     // Simple manual CSV stringifier for basic data
@@ -229,7 +230,8 @@ const exportTickets = async (req, res, next) => {
         t.subject,
         t.description,
         t.status,
-        new Date(t.created_at).toLocaleString('id-ID')
+        new Date(t.created_at).toLocaleString('id-ID'),
+        t.lampiran || 'Tidak ada'
       ];
       csvContent += row.map(escapeCsv).join(';') + '\r\n';
     });

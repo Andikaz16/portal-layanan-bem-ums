@@ -247,7 +247,12 @@ class TicketModel {
         t.subject,
         t.description,
         t.status,
-        t.created_at
+        t.created_at,
+        (
+          SELECT string_agg(file_url, ', ') 
+          FROM ticket_attachments ta 
+          WHERE ta.ticket_id = t.id
+        ) AS lampiran
        FROM tickets t
        LEFT JOIN categories c ON c.id = t.category_id`;
 

@@ -156,17 +156,15 @@ const deleteTicket = async (req, res, next) => {
     // Check if ticket exists
     const ticket = await TicketModel.adminGetById(id);
     if (!ticket) {
-      throw new AppError('Tiket tidak ditemukan', 404);
+      return res.status(404).json({ success: false, message: 'Tiket tidak ditemukan' });
     }
     
     await TicketModel.deleteTicket(id);
     
-    return sendSuccess(res, {
-      statusCode: 200,
-      message: 'Tiket berhasil dihapus',
-    });
+    return res.status(200).json({ success: true, message: 'Tiket berhasil dihapus' });
   } catch (error) {
-    next(error);
+    console.error('Delete Ticket Error:', error);
+    return res.status(500).json({ success: false, message: 'Gagal menghapus tiket' });
   }
 };
 
@@ -178,7 +176,7 @@ const exportTickets = async (req, res, next) => {
     const tickets = await TicketModel.getAllTicketsForExport();
     
     if (tickets.length === 0) {
-      throw new AppError('Belum ada data tiket untuk diekspor', 404);
+      return res.status(404).json({ success: false, message: 'Belum ada data tiket yang selesai untuk diekspor' });
     }
 
     // CSV Headers
@@ -240,7 +238,8 @@ const exportTickets = async (req, res, next) => {
     
     return res.status(200).send(csvContent);
   } catch (error) {
-    next(error);
+    console.error('Export Error:', error);
+    return res.status(500).json({ success: false, message: 'Gagal mengekspor tiket' });
   }
 };
 

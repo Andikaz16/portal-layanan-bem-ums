@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Filter, Eye, Download } from 'lucide-react';
+import { Search, Filter, Eye, Download, Trash2, AlertCircle } from 'lucide-react';
 
 export default function AdminDashboard() {
   const [tickets, setTickets] = useState([]);
   const [stats, setStats] = useState({ total: 0, new_this_month: 0, waiting: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [ticketToDelete, setTicketToDelete] = useState(null);
+  const [deleting, setDeleting] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,6 +63,29 @@ export default function AdminDashboard() {
       a.remove();
     } catch (err) {
       alert(err.message);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!ticketToDelete) return;
+    try {
+      setDeleting(true);
+      const token = sessionStorage.getItem('adminToken');
+      const response = await fetch(`/api/v1/admin/tickets/${ticketToDelete.id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.message);
+      
+      // Update local state
+      setTickets(tickets.filter(t => t.id !== ticketToDelete.id));
+      setTicketToDelete(null);
+    } catch (err) {
+      alert(err.message || 'Gagal menghapus tiket');
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -242,16 +267,28 @@ export default function AdminDashboard() {
                       {getStatusBadge(ticket.status)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button 
-                        className="text-red-600 hover:text-red-900 flex items-center justify-end w-full"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigate(`/admin/tickets/${ticket.id}`);
-                        }}
-                      >
-                        <Eye className="h-4 w-4 mr-1" />
-                        Detail
-                      </button>
+                      <div className="flex items-center justify-end space-x-3">
+                        <button 
+                          className="text-gray-500 hover:text-red-700 flex items-center transition-colors"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/admin/tickets/${ticket.id}`);
+                          }}
+                        >
+                          <Eye className="w-4 h-4 mr-1" />
+                          Detail
+                        </button>
+                        <button 
+                          className="text-gray-400 hover:text-red-600 transition-colors"
+                          title="Hapus Tiket"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setTicketToDelete(ticket);
+                          }}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -260,6 +297,53 @@ export default function AdminDashboard() {
           </table>
         </div>
       </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {ticketToDelete && (
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div className="fixed inset-0 transition-opacity" aria-hidden="true" onClick={() => setTicketToDelete(null)}>
+              <div className="absolute inset-0 bg-black opacity-75"></div>
+            </div>
+            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div className="inline-block align-bottom bg-white rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <AlertCircle className="h-6 w-6 text-red-600" aria-hidden="true" />
+                  </div>
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">Hapus Tiket</h3>
+                    <div className="mt-2">
+                      <p className="text-sm text-gray-500">
+                        Apakah Anda yakin ingin menghapus tiket <strong>{ticketToDelete.ticket_code}</strong>? Aksi ini permanen.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100">
+                <button
+                  type="button"
+                  disabled={deleting}
+                  onClick={handleDelete}
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50"
+                >
+                  {deleting ? 'Menghapus...' : 'Ya, Hapus'}
+                </button>
+                <button
+                  type="button"
+                  disabled={deleting}
+                  onClick={() => setTicketToDelete(null)}
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50"
+                >
+                  Batal
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -235,6 +235,7 @@ class TicketModel {
    */
   static async getAllTicketsForExport(type = 'completed') {
     let query = `SELECT 
+        t.id,
         t.ticket_code,
         t.student_name,
         t.student_nim,

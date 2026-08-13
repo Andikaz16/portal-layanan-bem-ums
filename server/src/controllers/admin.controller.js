@@ -235,7 +235,7 @@ const exportTickets = async (req, res, next) => {
       csvContent += row.map(escapeCsv).join(';') + '\r\n';
     });
 
-    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
     res.setHeader('Content-Disposition', 'attachment; filename="rekap-laporan-bem.csv"');
     
     return res.status(200).send(csvContent);

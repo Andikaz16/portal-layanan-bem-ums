@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { adminLogin, getAllTickets, getTicketDetail, updateTicketStatus, addTicketNote, getStatistics, viewAttachment } = require('../controllers/admin.controller');
+const { adminLogin, getAllTickets, getTicketDetail, updateTicketStatus, addTicketNote, getStatistics, viewAttachment, deleteTicket, exportTickets } = require('../controllers/admin.controller');
 const authMiddleware = require('../middleware/auth');
 
 const router = Router();
@@ -20,11 +20,18 @@ router.use(authMiddleware);
 // GET /api/v1/admin/statistics
 router.get('/statistics', getStatistics);
 
+// GET /api/v1/admin/tickets/export - MUST be before /tickets/:id
+router.get('/tickets/export', exportTickets);
+
 // GET /api/v1/admin/tickets
 router.get('/tickets', getAllTickets);
 
 // GET /api/v1/admin/tickets/:id
+// GET /api/v1/admin/tickets/:id
 router.get('/tickets/:id', getTicketDetail);
+
+// DELETE /api/v1/admin/tickets/:id
+router.delete('/tickets/:id', deleteTicket);
 
 // PATCH /api/v1/admin/tickets/:id/status
 router.patch('/tickets/:id/status', updateTicketStatus);

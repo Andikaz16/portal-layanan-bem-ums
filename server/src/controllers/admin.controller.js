@@ -146,6 +146,99 @@ const viewAttachment = async (req, res) => {
   }
 };
 
+/**
+ * Delete a ticket and its associated records
+ */
+const deleteTicket = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    
+    // Check if ticket exists
+    const ticket = await TicketModel.adminGetById(id);
+    if (!ticket) {
+      throw new AppError('Tiket tidak ditemukan', 404);
+    }
+    
+    await TicketModel.deleteTicket(id);
+    
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: 'Tiket berhasil dihapus',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Export all tickets as CSV
+ */
+const exportTickets = async (req, res, next) => {
+  try {
+    const tickets = await TicketModel.getAllTicketsForExport();
+    
+    if (tickets.length === 0) {
+      throw new AppError('Belum ada data tiket untuk diekspor', 404);
+    }
+
+    // CSV Headers
+    const headers = [
+      'Kode Tiket',
+      'Nama Mahasiswa',
+      'NIM',
+      'Email',
+      'No. Telepon',
+      'Fakultas',
+      'Prodi',
+      'Kategori',
+      'Anonim?',
+      'Subjek',
+      'Deskripsi',
+      'Status',
+      'Tanggal Dibuat'
+    ];
+
+    // Simple manual CSV stringifier for basic data
+    const escapeCsv = (str) => {
+      if (str === null || str === undefined) return '';
+      const stringified = String(str);
+      // If it contains quote, comma, or newline, wrap in quotes and escape quotes
+      if (/[",\n\r]/.test(stringified)) {
+        return '"' + stringified.replace(/"/g, '""') + '"';
+      }
+      return stringified;
+    };
+
+    let csvContent = headers.join(',') + '\\n';
+
+    tickets.forEach(t => {
+      const row = [
+        t.ticket_code,
+        t.student_name,
+        t.student_nim,
+        t.student_email,
+        t.student_phone,
+        t.student_faculty,
+        t.student_program,
+        t.is_anonymous ? 'Ya' : 'Tidak',
+        t.category_name,
+        t.subject,
+        t.description,
+        t.status,
+        new Date(t.created_at).toLocaleString('id-ID')
+      ];
+      csvContent += row.map(escapeCsv).join(',') + '\\n';
+    });
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename="rekap-laporan-bem.csv"');
+    
+    return res.status(200).send(csvContent);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   adminLogin,
   getAllTickets,
@@ -153,5 +246,7 @@ module.exports = {
   updateTicketStatus,
   addTicketNote,
   getStatistics,
-  viewAttachment
+  viewAttachment,
+  deleteTicket,
+  exportTickets
 };

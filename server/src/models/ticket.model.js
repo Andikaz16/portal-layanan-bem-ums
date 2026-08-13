@@ -229,6 +229,45 @@ class TicketModel {
   }
 
   /**
+   * Admin: Get all tickets with full details for export
+   *
+   * @returns {Promise<Array>} List of tickets
+   */
+  static async getAllTicketsForExport() {
+    const result = await db.query(
+      `SELECT 
+        t.ticket_code,
+        t.student_name,
+        t.student_nim,
+        t.student_email,
+        t.student_phone,
+        t.student_faculty,
+        t.student_program,
+        t.is_anonymous,
+        c.name AS category_name,
+        t.subject,
+        t.description,
+        t.status,
+        t.created_at
+       FROM tickets t
+       LEFT JOIN categories c ON c.id = t.category_id
+       ORDER BY t.created_at DESC`
+    );
+    return result.rows;
+  }
+
+  /**
+   * Admin: Delete a ticket and all its related records (handled by CASCADE)
+   */
+  static async deleteTicket(id) {
+    const result = await db.query(
+      `DELETE FROM tickets WHERE id = $1 RETURNING id`,
+      [id]
+    );
+    return result.rowCount > 0;
+  }
+
+  /**
    * Admin: Get single ticket detail by ID
    */
   static async adminGetById(id) {

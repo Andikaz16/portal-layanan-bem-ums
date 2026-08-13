@@ -67,7 +67,22 @@ class ReportController {
             await TicketModel.addAttachment(ticket.id, fileUrl);
           } catch (fileErr) {
             console.error('Error processing attachment:', fileErr);
-            // Non-fatal, we continue to save the ticket itself
+            await TicketModel.addAdminNote(ticket.id, 'SYSTEM ERROR UPLOADING ATTACHMENT: ' + fileErr.message + ' | ' + (fileErr.stack || ''), true);
+          }
+        }
+      }
+
+      // Handle JSON base64 attachments (preferred for Vercel)
+      if (req.body.attachments_base64) {
+        let base64Array = req.body.attachments_base64;
+        if (typeof base64Array === 'string') {
+          try { base64Array = JSON.parse(base64Array); } catch(e) { base64Array = []; }
+        }
+        if (Array.isArray(base64Array)) {
+          for (const base64String of base64Array) {
+            if (base64String && base64String.startsWith('data:')) {
+              await TicketModel.addAttachment(ticket.id, base64String);
+            }
           }
         }
       }

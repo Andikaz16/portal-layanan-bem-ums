@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Send, CheckCircle2, Clock, AlertCircle, MessageCircle } from 'lucide-react';
+import { ArrowLeft, Send, CheckCircle2, Clock, AlertCircle, MessageCircle, Paperclip, ExternalLink, Image } from 'lucide-react';
 
 export default function AdminTicketDetail() {
   const { id } = useParams();
@@ -50,8 +50,6 @@ export default function AdminTicketDetail() {
       });
       
       if (!response.ok) throw new Error('Gagal memperbarui status');
-      
-      // Re-fetch ticket detail to get updated data including new timeline entry
       await fetchTicketDetail();
     } catch (err) {
       alert(err.message);
@@ -80,8 +78,6 @@ export default function AdminTicketDetail() {
       });
       
       if (!response.ok) throw new Error('Gagal mengirim balasan');
-      
-      // Refresh ticket detail to get new notes
       await fetchTicketDetail();
       setReplyContent('');
     } catch (err) {
@@ -106,6 +102,11 @@ export default function AdminTicketDetail() {
     }
   };
 
+  const getAttachmentViewUrl = (attachmentId) => {
+    const token = sessionStorage.getItem('adminToken');
+    return `/api/v1/admin/attachments/${attachmentId}?token=${token}`;
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -127,6 +128,7 @@ export default function AdminTicketDetail() {
   }
 
   const StatusIcon = getStatusConfig(ticket.status).icon;
+  const attachmentCount = ticket.attachments?.length || 0;
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-12">
@@ -186,23 +188,36 @@ export default function AdminTicketDetail() {
                 {ticket.description}
               </div>
               
-              {ticket.attachments && ticket.attachments.length > 0 && (
-                <div className="mt-6">
-                  <h3 className="text-sm font-medium text-gray-900 mb-3">Lampiran</h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {/* Lampiran Bukti - Link Style */}
+              {attachmentCount > 0 && (
+                <div className="mt-6 pt-4 border-t border-gray-100">
+                  <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                    <Paperclip className="w-4 h-4 text-gray-500" />
+                    Lampiran Bukti ({attachmentCount} file)
+                  </h3>
+                  <div className="space-y-2">
                     {ticket.attachments.map((attachment, index) => (
-                      <a 
-                        key={attachment.id || index} 
-                        href={`${attachment.file_url}`} 
-                        target="_blank" 
+                      <a
+                        key={attachment.id || index}
+                        href={getAttachmentViewUrl(attachment.id)}
+                        target="_blank"
                         rel="noopener noreferrer"
-                        className="block group rounded-lg overflow-hidden border border-gray-200"
+                        className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 bg-gray-50 hover:bg-indigo-50 hover:border-indigo-300 transition-all group"
                       >
-                        <img 
-                          src={`${attachment.file_url}`} 
-                          alt="Lampiran" 
-                          className="w-full h-32 object-cover group-hover:opacity-75 transition-opacity"
-                        />
+                        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center group-hover:bg-indigo-200 transition-colors">
+                          <Image className="w-5 h-5 text-indigo-600" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-900 group-hover:text-indigo-700 transition-colors">
+                            📎 Lampiran #{index + 1}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            Diunggah {new Date(attachment.created_at).toLocaleDateString('id-ID', {
+                              day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                            })}
+                          </p>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-indigo-500 flex-shrink-0" />
                       </a>
                     ))}
                   </div>
@@ -273,9 +288,10 @@ export default function AdminTicketDetail() {
           </div>
         </div>
 
-        {/* Sidebar - Timeline/Notes */}
-        <div className="lg:col-span-1">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden sticky top-6">
+        {/* Sidebar */}
+        <div className="lg:col-span-1 space-y-6">
+          {/* Aktivitas & Catatan Card */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="px-6 py-4 border-b border-gray-100 font-medium text-gray-900 flex justify-between items-center">
               <span>Aktivitas & Catatan</span>
               <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
@@ -283,10 +299,8 @@ export default function AdminTicketDetail() {
               </span>
             </div>
             <div className="px-6 py-5 max-h-[600px] overflow-y-auto">
-              {/* Timeline entries */}
               {(ticket.timeline && ticket.timeline.length > 0) || (ticket.public_responses && ticket.public_responses.length > 0) ? (
                 <div className="space-y-4">
-                  {/* Status Timeline */}
                   {ticket.timeline?.map((entry, idx) => (
                     <div key={`tl-${idx}`} className="flex items-start gap-3">
                       <div className="h-8 w-8 rounded-full flex items-center justify-center bg-blue-100 flex-shrink-0 mt-0.5">
@@ -306,7 +320,6 @@ export default function AdminTicketDetail() {
                     </div>
                   ))}
 
-                  {/* Admin Responses */}
                   {ticket.public_responses?.map((resp, idx) => (
                     <div key={`resp-${idx}`} className="flex items-start gap-3">
                       <div className="h-8 w-8 rounded-full flex items-center justify-center bg-red-100 flex-shrink-0 mt-0.5">
@@ -327,6 +340,52 @@ export default function AdminTicketDetail() {
                 <div className="text-center py-8">
                   <MessageCircle className="mx-auto h-8 w-8 text-gray-300" />
                   <p className="mt-2 text-sm text-gray-500">Belum ada catatan atau aktivitas</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Lampiran Bukti Card */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="px-6 py-4 border-b border-gray-100 font-medium text-gray-900 flex justify-between items-center">
+              <span className="flex items-center gap-2">
+                <Paperclip className="w-4 h-4 text-gray-500" />
+                Lampiran Bukti
+              </span>
+              <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
+                {attachmentCount} file
+              </span>
+            </div>
+            <div className="px-6 py-5">
+              {attachmentCount > 0 ? (
+                <div className="space-y-3">
+                  {ticket.attachments.map((attachment, index) => (
+                    <a
+                      key={attachment.id || index}
+                      href={getAttachmentViewUrl(attachment.id)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 bg-gray-50 hover:bg-blue-50 hover:border-blue-300 transition-all group cursor-pointer"
+                    >
+                      <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                        <Image className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-800 group-hover:text-blue-700 transition-colors truncate">
+                          📎 Lampiran #{index + 1}
+                        </p>
+                        <p className="text-xs text-gray-400 mt-0.5">
+                          Klik untuk melihat
+                        </p>
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-blue-500 flex-shrink-0 transition-colors" />
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-6">
+                  <Paperclip className="mx-auto h-8 w-8 text-gray-300" />
+                  <p className="mt-2 text-sm text-gray-500">Tidak ada lampiran</p>
                 </div>
               )}
             </div>

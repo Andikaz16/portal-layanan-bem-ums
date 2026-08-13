@@ -320,6 +320,19 @@ class TicketModel {
   }
 
   /**
+   * Get a single attachment by its ID
+   */
+  static async getAttachmentById(attachmentId) {
+    const result = await db.query(
+      `SELECT id, ticket_id, file_url, created_at
+       FROM ticket_attachments
+       WHERE id = $1`,
+      [attachmentId]
+    );
+    return result.rows[0] || null;
+  }
+
+  /**
    * Admin: Get statistics
    */
   static async getStatistics() {

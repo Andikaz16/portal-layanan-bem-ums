@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { adminLogin, getAllTickets, getTicketDetail, updateTicketStatus, addTicketNote, getStatistics } = require('../controllers/admin.controller');
+const { adminLogin, getAllTickets, getTicketDetail, updateTicketStatus, addTicketNote, getStatistics, viewAttachment } = require('../controllers/admin.controller');
 const authMiddleware = require('../middleware/auth');
 
 const router = Router();
@@ -32,4 +32,8 @@ router.patch('/tickets/:id/status', updateTicketStatus);
 // POST /api/v1/admin/tickets/:id/notes
 router.post('/tickets/:id/notes', addTicketNote);
 
+// GET /api/v1/admin/attachments/:attachmentId — View attachment file
+router.get('/attachments/:attachmentId', viewAttachment);
+
 module.exports = router;
+

@@ -110,11 +110,48 @@ const addTicketNote = async (req, res) => {
   }
 };
 
+const viewAttachment = async (req, res) => {
+  try {
+    const { attachmentId } = req.params;
+    const attachment = await TicketModel.getAttachmentById(attachmentId);
+
+    if (!attachment) {
+      return res.status(404).json({ success: false, message: 'Lampiran tidak ditemukan' });
+    }
+
+    const fileUrl = attachment.file_url;
+
+    // Handle base64 data URI
+    if (fileUrl.startsWith('data:')) {
+      const matches = fileUrl.match(/^data:(.+);base64,(.+)$/);
+      if (!matches) {
+        return res.status(400).json({ success: false, message: 'Format lampiran tidak valid' });
+      }
+      const mimeType = matches[1];
+      const base64Data = matches[2];
+      const buffer = Buffer.from(base64Data, 'base64');
+
+      res.setHeader('Content-Type', mimeType);
+      res.setHeader('Content-Length', buffer.length);
+      res.setHeader('Content-Disposition', 'inline');
+      res.setHeader('Cache-Control', 'public, max-age=86400');
+      return res.send(buffer);
+    }
+
+    // For old URL-based attachments, return info
+    return res.status(404).json({ success: false, message: 'File lampiran tidak tersedia di server ini' });
+  } catch (error) {
+    console.error('[AdminController] Error viewing attachment:', error);
+    res.status(500).json({ success: false, message: 'Gagal memuat lampiran' });
+  }
+};
+
 module.exports = {
   adminLogin,
   getAllTickets,
   getTicketDetail,
   updateTicketStatus,
   addTicketNote,
-  getStatistics
+  getStatistics,
+  viewAttachment
 };

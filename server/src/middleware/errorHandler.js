@@ -53,13 +53,11 @@ const errorHandler = (err, req, res, _next) => {
     });
   }
 
-  // Handle unexpected errors
-  return sendError(res, {
-    statusCode: 500,
-    message:
-      process.env.NODE_ENV === 'development'
-        ? err.message
-        : 'Terjadi kesalahan internal server',
+  // Handle unexpected errors (TEMPORARILY EXPOSE FULL STACK FOR VERCEL DEBUG)
+  return res.status(500).json({
+    success: false,
+    message: err.message || 'Terjadi kesalahan internal server',
+    stack: err.stack
   });
 };
 

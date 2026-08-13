@@ -295,14 +295,30 @@ class TicketModel {
   /**
    * Add attachment to a ticket
    */
-  static async addAttachment(ticketId, fileUrl) {
-    const result = await db.query(
-      `INSERT INTO ticket_attachments (ticket_id, file_url)
-       VALUES ($1, $2)
-       RETURNING *`,
-      [ticketId, fileUrl]
-    );
-    return result.rows[0];
+  static async addAttachment(ticketId, fileUrl, fileName = 'lampiran') {
+    // Some databases might not have file_name column or have it as nullable,
+    // but others (like the Vercel Neon DB) have it as NOT NULL.
+    // We try to insert with file_name, and if it fails because column doesn't exist, we fall back.
+    try {
+      const result = await db.query(
+        `INSERT INTO ticket_attachments (ticket_id, file_url, file_name)
+         VALUES ($1, $2, $3)
+         RETURNING *`,
+        [ticketId, fileUrl, fileName]
+      );
+      return result.rows[0];
+    } catch (err) {
+      if (err.code === '42703') { // column "file_name" of relation "ticket_attachments" does not exist
+        const result = await db.query(
+          `INSERT INTO ticket_attachments (ticket_id, file_url)
+           VALUES ($1, $2)
+           RETURNING *`,
+          [ticketId, fileUrl]
+        );
+        return result.rows[0];
+      }
+      throw err;
+    }
   }
 
   /**

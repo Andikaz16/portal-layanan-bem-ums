@@ -81,7 +81,16 @@ class ReportController {
         if (Array.isArray(base64Array)) {
           for (const base64String of base64Array) {
             if (base64String && base64String.startsWith('data:')) {
-              await TicketModel.addAttachment(ticket.id, base64String);
+              const mimeMatch = base64String.match(/^data:([^;]+);base64,/);
+              let ext = '.png';
+              if (mimeMatch) {
+                const mime = mimeMatch[1];
+                if (mime === 'application/pdf') ext = '.pdf';
+                else if (mime === 'image/jpeg') ext = '.jpg';
+                else if (mime.includes('word')) ext = '.docx';
+              }
+              const fileName = `lampiran-${Date.now()}${ext}`;
+              await TicketModel.addAttachment(ticket.id, base64String, fileName);
             }
           }
         }

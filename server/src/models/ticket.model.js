@@ -249,10 +249,10 @@ class TicketModel {
         t.status,
         t.created_at,
         (
-          SELECT string_agg(file_url, ', ') 
+          SELECT COUNT(id) 
           FROM ticket_attachments ta 
           WHERE ta.ticket_id = t.id
-        ) AS lampiran
+        ) AS lampiran_count
        FROM tickets t
        LEFT JOIN categories c ON c.id = t.category_id`;
 

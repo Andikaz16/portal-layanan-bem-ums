@@ -231,7 +231,7 @@ const exportTickets = async (req, res, next) => {
         t.description,
         t.status,
         new Date(t.created_at).toLocaleString('id-ID'),
-        t.lampiran || 'Tidak ada'
+        Number(t.lampiran_count) > 0 ? `Terdapat ${t.lampiran_count} File (Lihat di Web)` : 'Tidak ada'
       ];
       csvContent += row.map(escapeCsv).join(';') + '\r\n';
     });

@@ -173,10 +173,11 @@ const deleteTicket = async (req, res, next) => {
  */
 const exportTickets = async (req, res, next) => {
   try {
-    const tickets = await TicketModel.getAllTicketsForExport();
+    const type = req.query.type || 'completed'; // 'completed' or 'all'
+    const tickets = await TicketModel.getAllTicketsForExport(type);
     
     if (tickets.length === 0) {
-      return res.status(404).json({ success: false, message: 'Belum ada data tiket yang selesai untuk diekspor' });
+      return res.status(404).json({ success: false, message: 'Belum ada data tiket untuk diekspor' });
     }
 
     // CSV Headers

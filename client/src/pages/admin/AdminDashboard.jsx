@@ -43,10 +43,10 @@ export default function AdminDashboard() {
     fetchData();
   }, []);
 
-  const handleExport = async () => {
+  const handleExport = async (type = 'completed') => {
     try {
       const token = sessionStorage.getItem('adminToken');
-      const response = await fetch(`/api/v1/admin/tickets/export?t=${Date.now()}`, {
+      const response = await fetch(`/api/v1/admin/tickets/export?type=${type}&t=${Date.now()}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -55,8 +55,7 @@ export default function AdminDashboard() {
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url;
-      a.download = 'rekap-laporan-bem.csv';
+      a.download = type === 'all' ? 'rekap-semua-laporan-bem.csv' : 'rekap-laporan-selesai-bem.csv';
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -215,13 +214,13 @@ export default function AdminDashboard() {
               />
             </div>
             <div className="flex space-x-2">
-              <button className="inline-flex items-center px-4 py-2 border border-gray-200 shadow-sm text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">
-                <Filter className="h-4 w-4 mr-2 text-gray-500" />
-                Filter
-              </button>
-              <button onClick={handleExport} className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-xl text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all group">
+              <button onClick={() => handleExport('completed')} className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-xl text-white bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all group">
                 <Download className="h-4 w-4 mr-2 group-hover:-translate-y-0.5 transition-transform" />
-                Unduh Rekap
+                Rekap Selesai
+              </button>
+              <button onClick={() => handleExport('all')} className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-xl text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all group">
+                <Download className="h-4 w-4 mr-2 group-hover:-translate-y-0.5 transition-transform" />
+                Rekap Semua
               </button>
             </div>
           </div>

@@ -233,9 +233,8 @@ class TicketModel {
    *
    * @returns {Promise<Array>} List of tickets
    */
-  static async getAllTicketsForExport() {
-    const result = await db.query(
-      `SELECT 
+  static async getAllTicketsForExport(type = 'completed') {
+    let query = `SELECT 
         t.ticket_code,
         t.student_name,
         t.student_nim,
@@ -250,10 +249,15 @@ class TicketModel {
         t.status,
         t.created_at
        FROM tickets t
-       LEFT JOIN categories c ON c.id = t.category_id
-       WHERE t.status = 'selesai'
-       ORDER BY t.created_at DESC`
-    );
+       LEFT JOIN categories c ON c.id = t.category_id`;
+
+    if (type === 'completed') {
+      query += ` WHERE t.status = 'selesai'`;
+    }
+
+    query += ` ORDER BY t.created_at DESC`;
+
+    const result = await db.query(query);
     return result.rows;
   }
 

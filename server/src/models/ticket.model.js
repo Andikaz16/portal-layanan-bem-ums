@@ -251,6 +251,7 @@ class TicketModel {
         t.created_at
        FROM tickets t
        LEFT JOIN categories c ON c.id = t.category_id
+       WHERE t.status = 'selesai'
        ORDER BY t.created_at DESC`
     );
     return result.rows;

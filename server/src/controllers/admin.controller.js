@@ -209,7 +209,7 @@ const exportTickets = async (req, res, next) => {
       return stringified;
     };
 
-    let csvContent = headers.join(',') + '\\n';
+    let csvContent = headers.join(',') + '\r\n';
 
     tickets.forEach(t => {
       const row = [
@@ -227,7 +227,7 @@ const exportTickets = async (req, res, next) => {
         t.status,
         new Date(t.created_at).toLocaleString('id-ID')
       ];
-      csvContent += row.map(escapeCsv).join(',') + '\\n';
+      csvContent += row.map(escapeCsv).join(',') + '\r\n';
     });
 
     res.setHeader('Content-Type', 'text/csv');

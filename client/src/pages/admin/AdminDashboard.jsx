@@ -11,35 +11,35 @@ export default function AdminDashboard() {
   const [deleting, setDeleting] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = sessionStorage.getItem('adminToken');
-        const headers = { 'Authorization': `Bearer ${token}` };
-        
-        const [ticketsRes, statsRes] = await Promise.all([
-          fetch('/api/v1/admin/tickets', { headers }),
-          fetch('/api/v1/admin/statistics', { headers })
-        ]);
-        
-        if (!ticketsRes.ok) throw new Error('Gagal mengambil data tiket');
-        
-        const ticketsData = await ticketsRes.json();
-        setTickets(ticketsData.data || []);
-        
-        if (statsRes.ok) {
-          const statsData = await statsRes.json();
-          if (statsData.success) {
-            setStats(statsData.data);
-          }
+  const fetchData = async () => {
+    try {
+      const token = sessionStorage.getItem('adminToken');
+      const headers = { 'Authorization': `Bearer ${token}` };
+      
+      const [ticketsRes, statsRes] = await Promise.all([
+        fetch('/api/v1/admin/tickets', { headers }),
+        fetch('/api/v1/admin/statistics', { headers })
+      ]);
+      
+      if (!ticketsRes.ok) throw new Error('Gagal mengambil data tiket');
+      
+      const ticketsData = await ticketsRes.json();
+      setTickets(ticketsData.data || []);
+      
+      if (statsRes.ok) {
+        const statsData = await statsRes.json();
+        if (statsData.success) {
+          setStats(statsData.data);
         }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -79,9 +79,11 @@ export default function AdminDashboard() {
       const result = await response.json();
       if (!response.ok) throw new Error(result.message);
       
-      // Update local state
-      setTickets(tickets.filter(t => t.id !== ticketToDelete.id));
+      // Close modal first
       setTicketToDelete(null);
+      
+      // Refetch all data to update both table and stats
+      await fetchData();
     } catch (err) {
       alert(err.message || 'Gagal menghapus tiket');
     } finally {

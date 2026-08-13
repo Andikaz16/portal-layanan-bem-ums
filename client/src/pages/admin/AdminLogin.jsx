@@ -24,7 +24,7 @@ export default function AdminLogin() {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        localStorage.setItem('adminToken', data.data.token);
+        sessionStorage.setItem('adminToken', data.data.token);
         navigate('/admin/dashboard');
       } else {
         setError(data.message || 'Login gagal. Periksa kembali username dan password.');

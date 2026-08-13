@@ -12,7 +12,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('adminToken');
+        const token = sessionStorage.getItem('adminToken');
         const headers = { 'Authorization': `Bearer ${token}` };
         
         const [ticketsRes, statsRes] = await Promise.all([

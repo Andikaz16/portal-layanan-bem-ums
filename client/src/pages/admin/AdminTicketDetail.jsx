@@ -19,7 +19,7 @@ export default function AdminTicketDetail() {
 
   const fetchTicketDetail = async () => {
     try {
-      const token = localStorage.getItem('adminToken');
+      const token = sessionStorage.getItem('adminToken');
       const response = await fetch(`/api/v1/admin/tickets/${id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -39,7 +39,7 @@ export default function AdminTicketDetail() {
     const newStatus = e.target.value;
     setUpdating(true);
     try {
-      const token = localStorage.getItem('adminToken');
+      const token = sessionStorage.getItem('adminToken');
       const response = await fetch(`/api/v1/admin/tickets/${id}/status`, {
         method: 'PATCH',
         headers: {
@@ -66,7 +66,7 @@ export default function AdminTicketDetail() {
 
     setSubmittingReply(true);
     try {
-      const token = localStorage.getItem('adminToken');
+      const token = sessionStorage.getItem('adminToken');
       const response = await fetch(`/api/v1/admin/tickets/${id}/notes`, {
         method: 'POST',
         headers: {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Filter, Eye, Download, Trash2, AlertCircle } from 'lucide-react';
+import { Search, Filter, Eye, Download, Trash2, AlertCircle, FileText, Clock, CheckCircle } from 'lucide-react';
 
 export default function AdminDashboard() {
   const [tickets, setTickets] = useState([]);
@@ -17,8 +17,8 @@ export default function AdminDashboard() {
       const headers = { 'Authorization': `Bearer ${token}` };
       
       const [ticketsRes, statsRes] = await Promise.all([
-        fetch('/api/v1/admin/tickets', { headers }),
-        fetch('/api/v1/admin/statistics', { headers })
+        fetch(`/api/v1/admin/tickets?t=${Date.now()}`, { headers }),
+        fetch(`/api/v1/admin/statistics?t=${Date.now()}`, { headers })
       ]);
       
       if (!ticketsRes.ok) throw new Error('Gagal mengambil data tiket');
@@ -94,77 +94,88 @@ export default function AdminDashboard() {
   const getStatusBadge = (status) => {
     switch (status) {
       case 'menunggu_verifikasi':
-        return <span className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Menunggu</span>;
+        return <span className="px-3 py-1 inline-flex text-xs font-semibold rounded-full bg-orange-100 text-orange-700 border border-orange-200 shadow-sm">Menunggu</span>;
       case 'diproses':
-        return <span className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Diproses</span>;
+        return <span className="px-3 py-1 inline-flex text-xs font-semibold rounded-full bg-blue-100 text-blue-700 border border-blue-200 shadow-sm">Diproses</span>;
       case 'selesai':
-        return <span className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Selesai</span>;
+        return <span className="px-3 py-1 inline-flex text-xs font-semibold rounded-full bg-green-100 text-green-700 border border-green-200 shadow-sm">Selesai</span>;
       case 'ditolak':
-        return <span className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Ditolak</span>;
+        return <span className="px-3 py-1 inline-flex text-xs font-semibold rounded-full bg-red-100 text-red-700 border border-red-200 shadow-sm">Ditolak</span>;
       default:
-        return <span className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">{status}</span>;
+        return <span className="px-3 py-1 inline-flex text-xs font-semibold rounded-full bg-gray-100 text-gray-700 border border-gray-200 shadow-sm">{status}</span>;
     }
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col items-center justify-center text-center gap-2 mb-10 mt-6">
+      <div className="flex flex-col items-center justify-center text-center gap-2 mb-12 mt-8">
         <h1 className="text-4xl md:text-5xl font-black uppercase tracking-[0.15em] text-white drop-shadow-[0_0_15px_rgba(220,38,38,0.8)]">
-          Layanan Mahasiswa BEM UMS
+          Ringkasan Layanan Advokasi
         </h1>
-        <p className="text-base text-gray-300 font-medium max-w-2xl mt-2 tracking-wide">
-          Sistem Informasi Pengelolaan Keluhan & Aspirasi Mahasiswa
+        <p className="text-base text-red-100 font-medium max-w-2xl mt-3 tracking-wide">
+          Pantau seluruh aspirasi dan keluhan mahasiswa secara real-time
         </p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100">
-          <div className="p-5">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="bg-white overflow-hidden rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 group">
+          <div className="p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center">
-                  <span className="text-red-600 font-bold text-lg">{stats.total}</span>
+                <div className="w-14 h-14 bg-gradient-to-br from-red-50 to-red-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm border border-red-50">
+                  <FileText className="w-6 h-6 text-red-600" />
                 </div>
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Total Tiket</dt>
-                  <dd className="text-lg font-semibold text-gray-900">Semua Waktu</dd>
+                  <dt className="text-sm font-semibold text-gray-500 truncate uppercase tracking-wider">Total Tiket</dt>
+                  <dd className="text-2xl font-bold text-gray-900 mt-1 flex items-baseline">
+                    {stats.total}
+                    <span className="ml-2 text-xs font-medium text-gray-400">Semua Waktu</span>
+                  </dd>
                 </dl>
               </div>
             </div>
           </div>
         </div>
-        <div className="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100">
-          <div className="p-5">
+
+        <div className="bg-white overflow-hidden rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 group">
+          <div className="p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
-                  <span className="text-blue-600 font-bold text-lg">{stats.new_this_month}</span>
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm border border-blue-50">
+                  <CheckCircle className="w-6 h-6 text-blue-600" />
                 </div>
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Tiket Baru</dt>
-                  <dd className="text-lg font-semibold text-gray-900">Bulan Ini</dd>
+                  <dt className="text-sm font-semibold text-gray-500 truncate uppercase tracking-wider">Tiket Baru</dt>
+                  <dd className="text-2xl font-bold text-gray-900 mt-1 flex items-baseline">
+                    {stats.new_this_month}
+                    <span className="ml-2 text-xs font-medium text-gray-400">Bulan Ini</span>
+                  </dd>
                 </dl>
               </div>
             </div>
           </div>
         </div>
-        <div className="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100">
-          <div className="p-5">
+
+        <div className="bg-white overflow-hidden rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 group">
+          <div className="p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 bg-yellow-50 rounded-lg flex items-center justify-center">
-                  <span className="text-yellow-600 font-bold text-lg">{stats.waiting}</span>
+                <div className="w-14 h-14 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm border border-orange-50">
+                  <Clock className="w-6 h-6 text-orange-600" />
                 </div>
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Menunggu</dt>
-                  <dd className="text-lg font-semibold text-gray-900">Verifikasi</dd>
+                  <dt className="text-sm font-semibold text-gray-500 truncate uppercase tracking-wider">Menunggu</dt>
+                  <dd className="text-2xl font-bold text-gray-900 mt-1 flex items-baseline">
+                    {stats.waiting}
+                    <span className="ml-2 text-xs font-medium text-gray-400">Verifikasi</span>
+                  </dd>
                 </dl>
               </div>
             </div>
@@ -186,28 +197,33 @@ export default function AdminDashboard() {
 
       {/* Table Section */}
       {!loading && !error && (
-      <div className="bg-white shadow-sm rounded-xl border border-gray-100 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <h2 className="text-lg font-medium text-gray-900">Tiket Terbaru</h2>
-          <div className="flex space-x-2">
-            <div className="relative">
+      <div className="bg-white shadow-xl rounded-2xl border border-gray-100 overflow-hidden mt-8">
+        <div className="px-6 py-5 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gray-50/50">
+          <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+            <FileText className="w-5 h-5 text-red-600" />
+            Daftar Tiket Laporan
+          </h2>
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+            <div className="relative w-full sm:w-64">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Search className="h-4 w-4 text-gray-400" />
               </div>
               <input
                 type="text"
-                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500 sm:text-sm transition-colors"
-                placeholder="Cari tiket..."
+                className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 sm:text-sm transition-all"
+                placeholder="Cari kode tiket..."
               />
             </div>
-            <button className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-              <Filter className="h-4 w-4 mr-2 text-gray-400" />
-              Filter
-            </button>
-            <button onClick={handleExport} className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-              <Download className="h-4 w-4 mr-2" />
-              Unduh Rekap
-            </button>
+            <div className="flex space-x-2">
+              <button className="inline-flex items-center px-4 py-2 border border-gray-200 shadow-sm text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">
+                <Filter className="h-4 w-4 mr-2 text-gray-500" />
+                Filter
+              </button>
+              <button onClick={handleExport} className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-xl text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all group">
+                <Download className="h-4 w-4 mr-2 group-hover:-translate-y-0.5 transition-transform" />
+                Unduh Rekap
+              </button>
+            </div>
           </div>
         </div>
         <div className="overflow-x-auto">
@@ -245,7 +261,7 @@ export default function AdminDashboard() {
                 tickets.map((ticket) => (
                   <tr 
                     key={ticket.id || ticket.ticket_code} 
-                    className="hover:bg-gray-50 transition-colors cursor-pointer"
+                    className="hover:bg-red-50/40 transition-colors cursor-pointer group"
                     onClick={() => navigate(`/admin/tickets/${ticket.id}`)}
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -271,17 +287,17 @@ export default function AdminDashboard() {
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex items-center justify-end space-x-3">
                         <button 
-                          className="text-gray-500 hover:text-red-700 flex items-center transition-colors"
+                          className="text-gray-400 hover:text-red-700 bg-white hover:bg-red-50 p-1.5 rounded-lg border border-transparent hover:border-red-100 flex items-center transition-all shadow-sm group-hover:text-red-600"
                           onClick={(e) => {
                             e.stopPropagation();
                             navigate(`/admin/tickets/${ticket.id}`);
                           }}
                         >
-                          <Eye className="w-4 h-4 mr-1" />
-                          Detail
+                          <Eye className="w-4 h-4" />
+                          <span className="ml-1.5 font-semibold">Detail</span>
                         </button>
                         <button 
-                          className="text-gray-400 hover:text-red-600 transition-colors"
+                          className="text-gray-400 hover:text-red-600 bg-white hover:bg-red-50 p-1.5 rounded-lg border border-transparent hover:border-red-100 transition-all shadow-sm"
                           title="Hapus Tiket"
                           onClick={(e) => {
                             e.stopPropagation();

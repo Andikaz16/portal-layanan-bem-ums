@@ -209,7 +209,7 @@ export default function AdminTicketDetail() {
                 </div>
               )}
             </div>
-            <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 text-sm text-gray-500 grid grid-cols-2 gap-4">
+            <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 text-sm text-gray-500 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <span className="block font-medium text-gray-700 text-xs uppercase tracking-wider mb-1">Fakultas</span>
                 {ticket.student_faculty || '-'}

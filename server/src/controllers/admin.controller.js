@@ -80,8 +80,31 @@ const updateTicketStatus = async (req, res) => {
     const { id } = req.params;
     const { status, note } = req.body;
     
+    // Check ticket exists first
+    const ticket = await TicketModel.adminGetById(id);
+    if (!ticket) {
+      return res.status(404).json({ success: false, message: 'Tiket tidak ditemukan' });
+    }
+
     await TicketModel.updateStatus(id, status, note);
     
+    // Send email notification for status update
+    if (ticket.student_email) {
+      const { sendStatusUpdateEmail } = require('../utils/email');
+      try {
+        await sendStatusUpdateEmail(
+          ticket.student_email,
+          ticket.ticket_code,
+          ticket.student_name,
+          ticket.subject,
+          status,
+          note
+        );
+      } catch (err) {
+        console.error('[Email] Failed to send status update email, but continuing:', err);
+      }
+    }
+
     res.status(200).json({
       success: true,
       message: 'Status tiket berhasil diupdate'
@@ -97,8 +120,31 @@ const addTicketNote = async (req, res) => {
     const { id } = req.params;
     const { content, is_internal } = req.body;
     
+    // Check ticket exists first
+    const ticket = await TicketModel.adminGetById(id);
+    if (!ticket) {
+      return res.status(404).json({ success: false, message: 'Tiket tidak ditemukan' });
+    }
+
     const note = await TicketModel.addAdminNote(id, content, is_internal);
     
+    // Send email notification if note is public
+    if (!is_internal && ticket.student_email) {
+      const { sendStatusUpdateEmail } = require('../utils/email');
+      try {
+        await sendStatusUpdateEmail(
+          ticket.student_email,
+          ticket.ticket_code,
+          ticket.student_name,
+          ticket.subject,
+          ticket.status,
+          content
+        );
+      } catch (err) {
+        console.error('[Email] Failed to send note update email, but continuing:', err);
+      }
+    }
+
     res.status(201).json({
       success: true,
       message: 'Catatan berhasil ditambahkan',

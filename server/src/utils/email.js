@@ -33,7 +33,9 @@ const sendTicketEmail = async (to, ticketCode, studentName, subject) => {
   const mailOptions = {
     from: `"Portal Layanan BEM UMS" <${process.env.SMTP_USER}>`,
     to: to,
+    replyTo: process.env.SMTP_USER,
     subject: `Kode Tiket Laporan Anda: ${ticketCode}`,
+    text: `Halo ${name},\n\nTerima kasih telah menggunakan Portal Layanan BEM UMS. Laporan Anda dengan subjek "${subject}" telah berhasil kami terima.\n\nKODE TIKET ANDA: ${ticketCode}\n\nSimpan kode tiket ini untuk melacak status laporan Anda di website kami.\n\nLacak Laporan Sekarang: ${process.env.FRONTEND_URL || 'https://portal-layanan-bem-ums.vercel.app'}/lacak/${ticketCode}\n\nTerima kasih,\nBEM UMS`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eaeaea; border-radius: 10px; overflow: hidden;">
         <div style="background-color: #dc2626; padding: 20px; text-align: center;">
@@ -61,7 +63,11 @@ const sendTicketEmail = async (to, ticketCode, studentName, subject) => {
           <p style="font-size: 12px; color: #94a3b8; margin: 5px 0 0 0;">&copy; ${new Date().getFullYear()} BEM Universitas Muhammadiyah Surakarta</p>
         </div>
       </div>
-    `
+    `,
+    headers: {
+      'X-Priority': '1 (Highest)',
+      'X-Mailer': 'Nodemailer'
+    }
   };
 
   try {

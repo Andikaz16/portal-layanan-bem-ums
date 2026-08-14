@@ -96,7 +96,21 @@ class ReportController {
         }
       }
 
-      // 4. Return success response with ticket code
+      // 4. Send Email Notification (Asynchronous)
+      // If it's not anonymous, OR if they provided an email even when anonymous (though normally anonymous hides email).
+      // Since student_email might be null, we check it.
+      if (ticket.student_email) {
+        const { sendTicketEmail } = require('../utils/email');
+        // Do not await this, let it run in the background so it doesn't block the response
+        sendTicketEmail(
+          ticket.student_email, 
+          ticket.ticket_code, 
+          ticket.student_name, 
+          ticket.subject
+        ).catch(err => console.error('[Email] Background send error:', err));
+      }
+
+      // 5. Return success response with ticket code
       return sendSuccess(res, {
         statusCode: 201,
         message: 'Laporan berhasil dikirim',

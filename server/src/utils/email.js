@@ -66,7 +66,7 @@ const sendTicketEmail = async (to, ticketCode, studentName, subject) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log(\`[Email] Ticket notification sent to \${to} for ticket \${ticketCode}\`);
+    console.log(`[Email] Ticket notification sent to ${to} for ticket ${ticketCode}`);
   } catch (error) {
     console.error('[Email] Failed to send ticket notification:', error);
   }

@@ -96,18 +96,22 @@ class ReportController {
         }
       }
 
-      // 4. Send Email Notification (Asynchronous)
-      // If it's not anonymous, OR if they provided an email even when anonymous (though normally anonymous hides email).
+      // 4. Send Email Notification
       // Since student_email might be null, we check it.
       if (ticket.student_email) {
         const { sendTicketEmail } = require('../utils/email');
-        // Do not await this, let it run in the background so it doesn't block the response
-        sendTicketEmail(
-          ticket.student_email, 
-          ticket.ticket_code, 
-          ticket.student_name, 
-          ticket.subject
-        ).catch(err => console.error('[Email] Background send error:', err));
+        // We MUST await this in Vercel, otherwise the serverless function 
+        // freezes before the email is sent out.
+        try {
+          await sendTicketEmail(
+            ticket.student_email, 
+            ticket.ticket_code, 
+            ticket.student_name, 
+            ticket.subject
+          );
+        } catch (err) {
+          console.error('[Email] Failed to send email, but continuing:', err);
+        }
       }
 
       // 5. Return success response with ticket code

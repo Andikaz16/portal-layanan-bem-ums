@@ -151,34 +151,6 @@ class TicketModel {
   }
 
   /**
-   * Find tickets by NIM and Email for ticket recovery.
-   * Excludes anonymous tickets to protect privacy.
-   *
-   * @param {string} nim - Student NIM
-   * @param {string} email - Student Email
-   * @returns {Promise<Array>} List of matching tickets
-   */
-  static async findTicketsByNimAndEmail(nim, email) {
-    const result = await db.query(
-      `SELECT 
-        t.ticket_code,
-        t.subject,
-        t.status,
-        t.created_at,
-        c.name AS category_name
-       FROM tickets t
-       JOIN categories c ON c.id = t.category_id
-       WHERE t.student_nim = $1 
-         AND t.student_email = $2
-         AND t.is_anonymous = FALSE
-       ORDER BY t.created_at DESC`,
-      [nim, email]
-    );
-
-    return result.rows;
-  }
-
-  /**
    * Get the status timeline (status_logs) for a given ticket.
    *
    * @param {string} ticketId - UUID of the ticket

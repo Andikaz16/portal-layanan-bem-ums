@@ -80,7 +80,9 @@ class TicketModel {
           status,
           is_anonymous,
           category_id,
-          created_at
+          created_at,
+          student_email,
+          student_name
       `;
 
       const values = [

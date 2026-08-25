@@ -114,25 +114,35 @@ class ReportController {
         }
       }
 
-      // 5. Send WhatsApp Notification to Admin (CallMeBot)
+      // 5. Send WhatsApp Notification to Admin (Fonnte)
       const waPhone = process.env.ADMIN_WA_PHONE;
-      const waApiKey = process.env.ADMIN_WA_APIKEY;
-      if (waPhone && waApiKey) {
+      const fonnteToken = process.env.FONNTE_TOKEN;
+      if (waPhone && fonnteToken) {
         const reporterName = ticket.is_anonymous ? 'Anonim' : ticket.student_name;
         const messageText = `🚨 *LAPORAN BARU MASUK!* 🚨\n\n*Kode Tiket:* ${ticket.ticket_code}\n*Pengirim:* ${reporterName}\n*Subjek:* ${ticket.subject}\n\nSilakan cek detailnya di Dashboard Admin BEM UMS!`;
-        const waUrl = `https://api.callmebot.com/whatsapp.php?phone=${waPhone}&text=${encodeURIComponent(messageText)}&apikey=${waApiKey}`;
         
         try {
           // We MUST await this so Vercel Serverless Function doesn't terminate before it finishes
-          const waRes = await fetch(waUrl);
-          if (!waRes.ok) {
-            const errText = await waRes.text();
-            console.error(`[WhatsApp] Failed to send notification: ${waRes.statusText} - ${errText}`);
+          const waRes = await fetch('https://api.fonnte.com/send', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': fonnteToken
+            },
+            body: JSON.stringify({
+              target: waPhone,
+              message: messageText
+            })
+          });
+          
+          const waResult = await waRes.json();
+          if (!waRes.ok || !waResult.status) {
+            console.error('[WhatsApp] Fonnte failed to send notification:', waResult);
           } else {
-            console.log(`[WhatsApp] Admin notification sent successfully for ${ticket.ticket_code}`);
+            console.log(`[WhatsApp] Admin notification sent successfully via Fonnte for ${ticket.ticket_code}`);
           }
         } catch (err) {
-          console.error('[WhatsApp] Error sending notification:', err.message);
+          console.error('[WhatsApp] Error sending Fonnte notification:', err.message);
         }
       }
 

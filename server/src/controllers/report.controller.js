@@ -114,7 +114,29 @@ class ReportController {
         }
       }
 
-      // 5. Return success response with ticket code
+      // 5. Send WhatsApp Notification to Admin (CallMeBot)
+      const waPhone = process.env.ADMIN_WA_PHONE;
+      const waApiKey = process.env.ADMIN_WA_APIKEY;
+      if (waPhone && waApiKey) {
+        const reporterName = ticket.is_anonymous ? 'Anonim' : ticket.student_name;
+        const messageText = `🚨 *LAPORAN BARU MASUK!* 🚨\n\n*Kode Tiket:* ${ticket.ticket_code}\n*Pengirim:* ${reporterName}\n*Subjek:* ${ticket.subject}\n\nSilakan cek detailnya di Dashboard Admin BEM UMS!`;
+        const waUrl = `https://api.callmebot.com/whatsapp.php?phone=${waPhone}&text=${encodeURIComponent(messageText)}&apikey=${waApiKey}`;
+        
+        try {
+          // We MUST await this so Vercel Serverless Function doesn't terminate before it finishes
+          const waRes = await fetch(waUrl);
+          if (!waRes.ok) {
+            const errText = await waRes.text();
+            console.error(`[WhatsApp] Failed to send notification: ${waRes.statusText} - ${errText}`);
+          } else {
+            console.log(`[WhatsApp] Admin notification sent successfully for ${ticket.ticket_code}`);
+          }
+        } catch (err) {
+          console.error('[WhatsApp] Error sending notification:', err.message);
+        }
+      }
+
+      // 6. Return success response with ticket code
       return sendSuccess(res, {
         statusCode: 201,
         message: 'Laporan berhasil dikirim',

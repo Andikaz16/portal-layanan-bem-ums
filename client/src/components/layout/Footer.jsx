@@ -59,7 +59,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3 text-sm text-gray-400">
                 <MapPin size={16} className="text-red-500 shrink-0 mt-0.5" />
-                <span>Gedung Rektorat Lt. 2, Sekretariat BEM</span>
+                <span>Griya Mahasiswa Lt. 2, Sekretariat BEM U</span>
               </li>
             </ul>
           </div>

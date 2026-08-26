@@ -122,17 +122,18 @@ class ReportController {
         const messageText = `🚨 *LAPORAN BARU MASUK!* 🚨\n\n*Kode Tiket:* ${ticket.ticket_code}\n*Pengirim:* ${reporterName}\n*Subjek:* ${ticket.subject}\n\nSilakan cek detailnya di Dashboard Admin BEM UMS!`;
         
         try {
+          // Fonnte API works best with URL-encoded form data
+          const params = new URLSearchParams();
+          params.append('target', waPhone);
+          params.append('message', messageText);
+
           // We MUST await this so Vercel Serverless Function doesn't terminate before it finishes
           const waRes = await fetch('https://api.fonnte.com/send', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
               'Authorization': fonnteToken
             },
-            body: JSON.stringify({
-              target: waPhone,
-              message: messageText
-            })
+            body: params
           });
           
           const waResult = await waRes.json();

@@ -115,9 +115,13 @@ class ReportController {
       }
 
       // 5. Send WhatsApp Notification to Admin (Fonnte)
-      const waPhone = process.env.ADMIN_WA_PHONE;
+      let waPhone = process.env.ADMIN_WA_PHONE;
       const fonnteToken = process.env.FONNTE_TOKEN;
+      
       if (waPhone && fonnteToken) {
+        // Sanitize phone number (remove spaces, dashes, plus signs, etc.)
+        waPhone = waPhone.replace(/\D/g, '');
+        
         const reporterName = ticket.is_anonymous ? 'Anonim' : ticket.student_name;
         const messageText = `🚨 *LAPORAN BARU MASUK!* 🚨\n\n*Kode Tiket:* ${ticket.ticket_code}\n*Pengirim:* ${reporterName}\n*Subjek:* ${ticket.subject}\n\nSilakan cek detailnya di Dashboard Admin BEM UMS!`;
         

@@ -66,12 +66,12 @@ export default function StepDetail({
     const ext = name.split('.').pop()?.toLowerCase() || '';
 
     if (type.startsWith('image/') || ['jpg', 'jpeg', 'png', 'webp', 'gif'].includes(ext)) {
-      return <FileImage className="w-5 h-5 text-indigo-600 flex-shrink-0" />;
+      return <FileImage className="w-5 h-5 text-forest-800 flex-shrink-0" />;
     }
     if (type.includes('pdf') || ['pdf', 'doc', 'docx'].includes(ext)) {
-      return <FileText className="w-5 h-5 text-indigo-600 flex-shrink-0" />;
+      return <FileText className="w-5 h-5 text-forest-800 flex-shrink-0" />;
     }
-    return <Paperclip className="w-5 h-5 text-indigo-600 flex-shrink-0" />;
+    return <Paperclip className="w-5 h-5 text-forest-800 flex-shrink-0" />;
   };
 
   // Validate and handle adding files
@@ -152,15 +152,15 @@ export default function StepDetail({
   // Counter styling helpers
   const subjectLength = formData.subject?.length || 0;
   const getSubjectCounterClass = () => {
-    if (subjectLength >= 255) return 'text-red-500 font-semibold';
+    if (subjectLength >= 255) return 'text-red-600 font-semibold';
     if (subjectLength >= 230) return 'text-amber-600 font-medium';
-    return 'text-surface-400';
+    return 'text-charcoal-400';
   };
 
   const descLength = formData.description?.length || 0;
   const getDescCounterClass = () => {
     if (descLength < 50) return 'text-amber-600 font-medium';
-    return 'text-emerald-600 font-medium';
+    return 'text-forest-800 font-semibold';
   };
 
   return (
@@ -168,12 +168,12 @@ export default function StepDetail({
       {/* 1. Kategori Laporan */}
       <div>
         <div className="mb-3">
-          <label className="form-label flex items-center justify-between text-base">
+          <label className="form-label flex items-center justify-between text-xs sm:text-sm">
             <span>
-              Kategori Laporan <span className="text-red-500">*</span>
+              Kategori Laporan <span className="text-terracotta-500">*</span>
             </span>
           </label>
-          <p className="text-xs text-surface-500">
+          <p className="text-xs text-charcoal-500">
             Pilih kategori yang paling sesuai dengan permasalahan yang Anda laporkan.
           </p>
         </div>
@@ -195,38 +195,38 @@ export default function StepDetail({
                 }}
                 role="button"
                 tabIndex={0}
-                className={`group relative p-4 rounded-xl border transition-all duration-200 hover:scale-[1.02] cursor-pointer flex flex-col justify-between select-none ${
+                className={`group relative p-4 rounded-2xl border transition-all duration-200 hover:scale-[1.02] cursor-pointer flex flex-col justify-between select-none ${
                   isSelected
-                    ? 'border-indigo-600 bg-indigo-50/60 ring-2 ring-indigo-500/20 shadow-md text-indigo-950'
-                    : 'border-surface-200 bg-white hover:border-indigo-300 hover:bg-indigo-50/20 text-surface-700 shadow-sm'
+                    ? 'border-terracotta-500 bg-terracotta-50 ring-2 ring-terracotta-500/20 shadow-sm text-terracotta-900'
+                    : 'border-cream-300 bg-cream-50/50 hover:border-sage-400 hover:bg-sage-50/40 text-charcoal-700 shadow-sm'
                 }`}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div
-                    className={`p-2.5 rounded-lg transition-colors ${
+                    className={`p-2.5 rounded-xl transition-colors ${
                       isSelected
-                        ? 'bg-indigo-600 text-white shadow-sm'
-                        : 'bg-surface-100 text-surface-600 group-hover:bg-indigo-100 group-hover:text-indigo-600'
+                        ? 'bg-terracotta-500 text-white shadow-sm'
+                        : 'bg-white border border-cream-300 text-charcoal-600 group-hover:bg-sage-100 group-hover:text-forest-900'
                     }`}
                   >
                     <IconComponent className="w-5 h-5" />
                   </div>
                   {isSelected && (
-                    <CheckCircle2 className="w-5 h-5 text-indigo-600 animate-fade-in flex-shrink-0" />
+                    <CheckCircle2 className="w-5 h-5 text-terracotta-500 animate-fade-in flex-shrink-0" />
                   )}
                 </div>
 
                 <div>
                   <h4
-                    className={`font-semibold text-sm mb-1 ${
-                      isSelected ? 'text-indigo-950 font-bold' : 'text-surface-900'
+                    className={`font-bold text-sm mb-1 ${
+                      isSelected ? 'text-terracotta-900' : 'text-forest-900'
                     }`}
                   >
                     {cat.name}
                   </h4>
                   <p
                     className={`text-xs leading-relaxed line-clamp-2 ${
-                      isSelected ? 'text-indigo-800/90' : 'text-surface-500'
+                      isSelected ? 'text-terracotta-700' : 'text-charcoal-500'
                     }`}
                   >
                     {cat.description}
@@ -249,7 +249,7 @@ export default function StepDetail({
       <div>
         <div className="flex items-center justify-between mb-1.5">
           <label htmlFor="subject-input" className="form-label mb-0">
-            Perihal / Judul Laporan <span className="text-red-500">*</span>
+            Perihal / Judul Laporan <span className="text-terracotta-500">*</span>
           </label>
           <span className={`text-xs transition-colors ${getSubjectCounterClass()}`}>
             {subjectLength} / 255
@@ -257,7 +257,7 @@ export default function StepDetail({
         </div>
 
         <div className="relative">
-          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-surface-400 pointer-events-none">
+          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-charcoal-400 pointer-events-none">
             <Pencil className="w-4 h-4" />
           </div>
           <input
@@ -287,9 +287,9 @@ export default function StepDetail({
       <div>
         <div className="flex items-center justify-between mb-1.5">
           <label htmlFor="description-input" className="form-label mb-0 flex items-center gap-1.5">
-            <AlignLeft className="w-4 h-4 text-surface-500" />
+            <AlignLeft className="w-4 h-4 text-forest-800" />
             <span>
-              Isi Laporan <span className="text-red-500">*</span>
+              Isi Laporan <span className="text-terracotta-500">*</span>
             </span>
           </label>
           <span className={`text-xs transition-colors ${getDescCounterClass()}`}>
@@ -326,9 +326,9 @@ export default function StepDetail({
       <div>
         <div className="flex items-center justify-between mb-1.5">
           <label className="form-label mb-0">
-            Lampiran Bukti <span className="text-surface-400 font-normal text-xs">(Opsional)</span>
+            Lampiran Bukti <span className="text-charcoal-400 font-normal text-xs">(Opsional)</span>
           </label>
-          <span className="text-xs text-surface-400">
+          <span className="text-xs text-charcoal-400">
             {attachments?.length || 0} / {MAX_FILES} file
           </span>
         </div>
@@ -341,7 +341,7 @@ export default function StepDetail({
           onClick={() => fileInputRef.current?.click()}
           className={`upload-zone text-center ${
             isDragging ? 'upload-zone-active' : ''
-          } ${errors.attachments || uploadError ? 'border-red-400 bg-red-50/10' : ''}`}
+          } ${errors.attachments || uploadError ? 'border-red-400 bg-red-50/20' : ''}`}
         >
           <input
             ref={fileInputRef}
@@ -356,16 +356,16 @@ export default function StepDetail({
           />
 
           <div className="flex flex-col items-center justify-center space-y-2 pointer-events-none">
-            <div className="w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center mb-1 transition-transform group-hover:scale-110">
+            <div className="w-12 h-12 rounded-2xl bg-sage-100 text-forest-800 flex items-center justify-center mb-1 transition-transform group-hover:scale-105">
               <Upload className="w-6 h-6" />
             </div>
 
-            <div className="text-sm text-surface-700">
-              <span className="font-semibold text-indigo-600">Klik untuk mengunggah</span> atau
+            <div className="text-sm text-charcoal-700">
+              <span className="font-bold text-forest-900">Klik untuk mengunggah</span> atau
               tarik & lepas file di sini
             </div>
 
-            <p className="text-xs text-surface-400">
+            <p className="text-xs text-charcoal-400">
               Format: JPG, PNG, PDF, DOC, DOCX (Maks. 5MB per file, maksimal 5 file)
             </p>
           </div>
@@ -390,24 +390,24 @@ export default function StepDetail({
         {/* Attached Files List */}
         {Array.isArray(attachments) && attachments.length > 0 && (
           <div className="mt-4 space-y-2">
-            <h5 className="text-xs font-semibold text-surface-500 uppercase tracking-wider mb-2">
+            <h5 className="text-xs font-bold text-forest-800 uppercase tracking-wider mb-2">
               File Terlampir ({attachments.length})
             </h5>
             <div className="space-y-2">
               {attachments.map((file, idx) => (
                 <div
                   key={`${file.name}-${idx}`}
-                  className="animate-fade-in flex items-center justify-between p-3 rounded-xl border border-surface-200 bg-white hover:border-surface-300 transition-all shadow-sm group"
+                  className="animate-fade-in flex items-center justify-between p-3 rounded-2xl border border-cream-300 bg-cream-50/70 hover:border-sage-300 transition-all shadow-sm group"
                 >
                   <div className="flex items-center space-x-3 min-w-0 pr-2">
-                    <div className="p-2 rounded-lg bg-indigo-50">
+                    <div className="p-2 rounded-xl bg-sage-100">
                       {getFileIcon(file)}
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-surface-800 truncate">
+                      <p className="text-sm font-semibold text-forest-900 truncate">
                         {file.name}
                       </p>
-                      <p className="text-xs text-surface-400">
+                      <p className="text-xs text-charcoal-400">
                         {formatFileSize(file.size)}
                       </p>
                     </div>
@@ -419,7 +419,7 @@ export default function StepDetail({
                       e.stopPropagation();
                       handleRemoveFile(idx);
                     }}
-                    className="p-1.5 rounded-lg text-surface-400 hover:text-red-500 hover:bg-red-50 transition-colors flex-shrink-0"
+                    className="p-1.5 rounded-xl text-charcoal-400 hover:text-red-500 hover:bg-red-50 transition-colors flex-shrink-0"
                     title="Hapus file"
                   >
                     <X className="w-4 h-4" />

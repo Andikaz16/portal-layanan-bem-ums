@@ -30,31 +30,35 @@ export default function Navbar() {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       scrolled
-        ? 'bg-black/90 backdrop-blur-xl shadow-lg border-b border-white/10'
-        : 'bg-transparent'
+        ? 'bg-cream-200/90 backdrop-blur-xl shadow-warm border-b border-cream-300'
+        : 'bg-canvas/80 backdrop-blur-md'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <img src="/logo-nvbar.png" alt="Logo BEM UMS" className="w-32 sm:w-44 h-auto max-h-12 object-contain drop-shadow-[0_0_10px_rgba(220,38,38,0.5)] group-hover:scale-105 transition-transform origin-left" />
+            <img 
+              src="/logo-nvbar.png" 
+              alt="Logo BEM UMS" 
+              className="w-32 sm:w-44 h-auto max-h-12 object-contain group-hover:scale-105 transition-transform origin-left filter brightness-0 opacity-90" 
+            />
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-1.5 bg-white/70 border border-cream-300/80 p-1.5 rounded-full shadow-sm">
             {navLinks.map((link) => {
               const Icon = link.icon;
               return (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                     isActive(link.to)
-                      ? 'bg-red-950/50 text-red-400 shadow-sm border border-red-500/20'
-                      : 'text-gray-300 hover:bg-white/10 hover:text-white'
+                      ? 'bg-sage-100 text-forest-900 border border-sage-200 shadow-sm'
+                      : 'text-charcoal-600 hover:bg-cream-200 hover:text-forest-900'
                   }`}
                 >
-                  <Icon size={16} />
+                  <Icon size={16} className={isActive(link.to) ? 'text-forest-800' : 'text-charcoal-400'} />
                   {link.label}
                 </Link>
               );
@@ -72,7 +76,7 @@ export default function Navbar() {
           {/* Mobile Hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-xl text-gray-300 hover:bg-white/10 transition-colors"
+            className="md:hidden p-2 rounded-2xl text-charcoal-700 hover:bg-cream-300/50 transition-colors"
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
@@ -84,26 +88,26 @@ export default function Navbar() {
       <div className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
         isOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
       }`}>
-        <div className="bg-black/95 backdrop-blur-xl border-t border-white/10 px-4 py-4 space-y-1 shadow-lg">
+        <div className="bg-cream-100/98 backdrop-blur-xl border-t border-cream-300 px-4 py-4 space-y-1.5 shadow-warm">
           {navLinks.map((link) => {
             const Icon = link.icon;
             return (
               <Link
                 key={link.to}
                 to={link.to}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all ${
                   isActive(link.to)
-                    ? 'bg-red-950/50 text-red-400 border border-red-500/20'
-                    : 'text-gray-300 hover:bg-white/10'
+                    ? 'bg-sage-100 text-forest-900 border border-sage-200'
+                    : 'text-charcoal-700 hover:bg-cream-200'
                 }`}
               >
-                <Icon size={18} />
+                <Icon size={18} className={isActive(link.to) ? 'text-forest-800' : 'text-charcoal-400'} />
                 {link.label}
               </Link>
             );
           })}
-          <div className="pt-2 border-t border-white/10">
-            <Link to="/lapor" className="btn-primary w-full text-sm py-2.5 mt-1 bg-red-600 hover:bg-red-500 text-white border-none shadow-[0_0_10px_rgba(220,38,38,0.3)]">
+          <div className="pt-2 border-t border-cream-300">
+            <Link to="/lapor" className="btn-primary w-full text-sm py-2.5 mt-1">
               <FileEdit size={16} />
               Lapor Sekarang
             </Link>

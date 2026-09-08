@@ -37,51 +37,54 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#1a0505] to-black py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white/5 backdrop-blur-md p-10 rounded-xl shadow-[0_0_30px_rgba(220,38,38,0.2)] border border-white/10 relative overflow-hidden">
-        {/* Glow effect */}
-        <div className="absolute -top-20 -right-20 w-40 h-40 bg-red-600/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-red-600/20 rounded-full blur-3xl"></div>
+    <div className="min-h-screen flex items-center justify-center bg-canvas py-12 px-4 sm:px-6 lg:px-8 relative">
+      {/* Soft Ambient Glows */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-sage-200/40 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-terracotta-100/40 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-md w-full space-y-8 bg-white p-8 sm:p-10 rounded-3xl shadow-warm-lg border border-cream-300 relative z-10">
         
-        <div className="flex flex-col items-center relative z-10">
-          <img src="/logo-nvbar.png" alt="Logo BEM" className="w-40 sm:w-56 h-auto max-h-20 mb-4 object-contain drop-shadow-[0_0_15px_rgba(220,38,38,0.5)]" />
-          <h2 className="mt-2 text-center text-3xl font-black text-white uppercase tracking-wider">
-            Admin <span className="text-red-500">Login</span>
+        <div className="flex flex-col items-center">
+          <img src="/logo-nvbar.png" alt="Logo BEM" className="w-40 sm:w-52 h-auto max-h-16 mb-4 object-contain filter brightness-0 opacity-90" />
+          <h2 className="mt-2 text-center text-3xl font-black text-forest-900 uppercase tracking-wider">
+            Admin <span className="text-terracotta-500">Login</span>
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-400">
+          <p className="mt-2 text-center text-xs sm:text-sm text-charcoal-500">
             Portal Layanan BEM UMS
           </p>
         </div>
         
         {error && (
-          <div className="bg-red-950/50 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg relative text-sm z-10" role="alert">
-            <span className="block sm:inline">{error}</span>
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl text-sm" role="alert">
+            <span className="block">{error}</span>
           </div>
         )}
 
-        <form className="mt-8 space-y-6 relative z-10" onSubmit={handleSubmit}>
+        <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-xs font-bold text-forest-800 uppercase tracking-wider mb-1.5">
                 Username
               </label>
               <input
                 type="text"
                 required
-                className="appearance-none rounded-lg relative block w-full px-4 py-3 bg-white/5 border border-white/10 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors sm:text-sm"
+                className="appearance-none rounded-2xl relative block w-full px-4 py-3.5 bg-cream-100 border border-cream-400 placeholder-charcoal-400 text-forest-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500/25 focus:border-terracotta-500 transition-colors sm:text-sm"
                 placeholder="Masukkan username admin"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-xs font-bold text-forest-800 uppercase tracking-wider mb-1.5">
                 Password
               </label>
               <input
                 type="password"
                 required
-                className="appearance-none rounded-lg relative block w-full px-4 py-3 bg-white/5 border border-white/10 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors sm:text-sm"
+                className="appearance-none rounded-2xl relative block w-full px-4 py-3.5 bg-cream-100 border border-cream-400 placeholder-charcoal-400 text-forest-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500/25 focus:border-terracotta-500 transition-colors sm:text-sm"
                 placeholder="Masukkan password admin"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -93,7 +96,7 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-red-600 hover:bg-red-500 shadow-[0_0_15px_rgba(220,38,38,0.4)] transition-all disabled:opacity-50"
+              className="btn-primary w-full py-3.5 text-sm"
             >
               {isLoading ? 'Sedang Masuk...' : 'Masuk'}
             </button>

@@ -17,6 +17,7 @@ export default function App() {
         {/* Public Routes */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<Navigate to="/" replace />} />
           <Route path="/lapor" element={<ReportForm />} />
           <Route path="/lacak" element={<TrackPage />} />
           <Route path="/lacak/:ticketCode" element={<TrackPage />} />

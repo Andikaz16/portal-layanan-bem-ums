@@ -58,7 +58,7 @@ const SuccessModal = ({ ticketCode = 'BEM-X9A2', onClose, onTrack }) => {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-forest-950/40 backdrop-blur-sm animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-950/40 backdrop-blur-sm animate-fade-in">
       {/* Background dynamic floating dots */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {confettiDots.map((dot, index) => (
@@ -77,14 +77,14 @@ const SuccessModal = ({ ticketCode = 'BEM-X9A2', onClose, onTrack }) => {
       </div>
 
       {/* Centered Glass Card */}
-      <div className="relative w-full max-w-md bg-white border border-cream-300 shadow-warm-lg rounded-3xl p-6 sm:p-8 text-center overflow-hidden animate-slide-up">
+      <div className="relative w-full max-w-md bg-navy-800 border border-panel-600 shadow-neon-lg rounded-3xl p-6 sm:p-8 text-center overflow-hidden animate-slide-up">
         {/* Top ambient glow */}
-        <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-48 h-48 bg-sage-200/50 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-48 h-48 bg-panel-700/50 rounded-full blur-3xl pointer-events-none" />
 
         {/* 1. Large Animated Checkmark Circle */}
         <div className="relative mb-6 flex justify-center">
           <div
-            className={`w-20 h-20 rounded-full bg-sage-100 text-forest-800 flex items-center justify-center shadow-sage ring-4 ring-sage-200 transition-all duration-700 transform ${
+            className={`w-20 h-20 rounded-full bg-panel-800 text-white flex items-center justify-center shadow-neon ring-4 ring-sage-200 transition-all duration-700 transform ${
               animateCheckmark ? 'scale-100 opacity-100' : 'scale-50 opacity-0'
             }`}
           >
@@ -93,26 +93,26 @@ const SuccessModal = ({ ticketCode = 'BEM-X9A2', onClose, onTrack }) => {
         </div>
 
         {/* 2. Title */}
-        <h2 className="text-2xl font-black text-forest-900 mb-2">
+        <h2 className="text-2xl font-black text-white mb-2">
           Laporan Berhasil Dikirim!
         </h2>
 
         {/* 3. Subtitle */}
-        <p className="text-sm text-charcoal-500 mb-6 leading-relaxed">
+        <p className="text-sm text-sky-300 mb-6 leading-relaxed">
           Terima kasih telah melapor. Laporan Anda akan segera ditinjau oleh tim BEM.
         </p>
 
         {/* 4. Ticket Code Box */}
         <div className="mb-5 text-left">
           <div className="flex items-center gap-1.5 mb-2">
-            <Ticket className="w-4 h-4 text-charcoal-400" />
-            <span className="text-xs font-bold uppercase tracking-wider text-charcoal-400">
+            <Ticket className="w-4 h-4 text-sky-400" />
+            <span className="text-xs font-bold uppercase tracking-wider text-sky-400">
               Kode Tiket Anda
             </span>
           </div>
 
-          <div className="bg-cream-100 border-2 border-dashed border-terracotta-400/50 rounded-2xl p-4 flex items-center justify-between gap-3 group hover:border-terracotta-500 transition-colors">
-            <span className="font-mono text-xl sm:text-2xl font-bold tracking-wider text-forest-900 select-all">
+          <div className="bg-navy-900 border-2 border-dashed border-neon-400/50 rounded-2xl p-4 flex items-center justify-between gap-3 group hover:border-neon-500 transition-colors">
+            <span className="font-mono text-xl sm:text-2xl font-bold tracking-wider text-white select-all">
               {ticketCode}
             </span>
 
@@ -121,8 +121,8 @@ const SuccessModal = ({ ticketCode = 'BEM-X9A2', onClose, onTrack }) => {
               onClick={handleCopy}
               className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200 shadow-sm focus:outline-none ${
                 copied
-                  ? 'bg-sage-600 text-white shadow-sage'
-                  : 'bg-white text-forest-900 border border-cream-300 hover:bg-sage-50'
+                  ? 'bg-neon-600 text-white shadow-neon'
+                  : 'bg-navy-800 text-white border border-panel-600 hover:bg-navy-800'
               }`}
               title="Salin Kode Tiket"
             >
@@ -133,7 +133,7 @@ const SuccessModal = ({ ticketCode = 'BEM-X9A2', onClose, onTrack }) => {
                 </>
               ) : (
                 <>
-                  <Copy className="w-4 h-4 text-charcoal-500 group-hover:text-forest-900 transition-colors" />
+                  <Copy className="w-4 h-4 text-sky-300 group-hover:text-white transition-colors" />
                   <span>Salin</span>
                 </>
               )}
@@ -142,7 +142,7 @@ const SuccessModal = ({ ticketCode = 'BEM-X9A2', onClose, onTrack }) => {
         </div>
 
         {/* 5. Warning Note */}
-        <div className="bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm p-3.5 rounded-2xl mb-6 flex items-start gap-2.5 text-left font-medium">
+        <div className="bg-amber-950 border border-amber-700 text-amber-900 text-xs sm:text-sm p-3.5 rounded-2xl mb-6 flex items-start gap-2.5 text-left font-medium">
           <span className="text-base leading-none select-none">⚠️</span>
           <p className="leading-snug">
             <strong className="font-bold text-amber-950">Simpan kode tiket ini!</strong> Anda memerlukan kode ini untuk melacak status laporan Anda.
@@ -165,7 +165,7 @@ const SuccessModal = ({ ticketCode = 'BEM-X9A2', onClose, onTrack }) => {
             onClick={onClose}
             className="btn-secondary w-full flex items-center justify-center gap-2"
           >
-            <RotateCcw className="w-4 h-4 text-forest-800" />
+            <RotateCcw className="w-4 h-4 text-white" />
             <span>Buat Laporan Baru</span>
           </button>
         </div>

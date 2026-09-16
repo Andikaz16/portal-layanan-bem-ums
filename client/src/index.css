@@ -18,7 +18,7 @@
   }
 
   body {
-    @apply font-sans text-charcoal-900 bg-canvas;
+    @apply font-sans text-white bg-navy-900;
     margin: 0;
     padding: 0;
   }
@@ -27,20 +27,20 @@
 @layer components {
   /* ─── Bento & Surface Cards ─── */
   .glass-card {
-    @apply bg-white/90 backdrop-blur-xl border border-cream-300 rounded-3xl shadow-warm;
+    @apply bg-navy-800/90 backdrop-blur-xl border border-panel-600 rounded-3xl shadow-neon;
   }
 
   .glass-card-solid {
-    @apply bg-white border border-cream-300 rounded-3xl shadow-warm;
+    @apply bg-navy-800 border border-panel-600 rounded-3xl shadow-neon;
   }
 
   /* ─── Form Input Base ─── */
   .form-input {
-    @apply w-full px-4 py-3.5 bg-white border border-cream-400 rounded-2xl
-           text-charcoal-900 placeholder-charcoal-400
+    @apply w-full px-4 py-3.5 bg-navy-800 border border-panel-600 rounded-2xl
+           text-white placeholder-sky-400
            transition-all duration-200 ease-out
-           focus:outline-none focus:ring-2 focus:ring-terracotta-500/25 focus:border-terracotta-500
-           hover:border-sage-400;
+           focus:outline-none focus:ring-2 focus:ring-neon-500/25 focus:border-neon-500
+           hover:border-panel-400;
   }
 
   .form-input-error {
@@ -48,11 +48,11 @@
   }
 
   .form-label {
-    @apply block text-xs font-bold text-forest-800 mb-1.5 uppercase tracking-wider;
+    @apply block text-xs font-bold text-white mb-1.5 uppercase tracking-wider;
   }
 
   .form-helper {
-    @apply text-xs text-charcoal-500 mt-1;
+    @apply text-xs text-sky-300 mt-1;
   }
 
   .form-error {
@@ -62,57 +62,57 @@
   /* ─── Buttons ─── */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2
-           px-6 py-3.5 bg-terracotta-500 text-white font-bold rounded-full
-           shadow-terracotta
+           px-6 py-3.5 bg-sky-500 text-white font-bold rounded-full
+           shadow-sky
            transition-all duration-300 ease-out
-           hover:bg-terracotta-600 hover:shadow-lg hover:-translate-y-0.5
+           hover:bg-sky-600 hover:shadow-lg hover:-translate-y-0.5
            active:translate-y-0 active:shadow-md
-           focus:outline-none focus:ring-2 focus:ring-terracotta-500/50 focus:ring-offset-2
+           focus:outline-none focus:ring-2 focus:ring-neon-500/50 focus:ring-offset-2
            disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0;
   }
 
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2
-           px-6 py-3.5 bg-sage-100 text-forest-900 font-bold rounded-full
-           border border-sage-200
+           px-6 py-3.5 bg-panel-800 text-white font-bold rounded-full
+           border border-panel-600
            shadow-sm
            transition-all duration-300 ease-out
-           hover:bg-sage-200 hover:border-sage-400 hover:-translate-y-0.5
+           hover:bg-panel-700 hover:border-panel-400 hover:-translate-y-0.5
            active:translate-y-0
-           focus:outline-none focus:ring-2 focus:ring-sage-400/30 focus:ring-offset-2
+           focus:outline-none focus:ring-2 focus:ring-neon-400/30 focus:ring-offset-2
            disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2
-           px-4 py-2 text-charcoal-500 font-semibold rounded-full
+           px-4 py-2 text-sky-300 font-semibold rounded-full
            transition-all duration-200
-           hover:bg-sage-100/60 hover:text-forest-900
+           hover:bg-panel-800/60 hover:text-white
            focus:outline-none;
   }
 
   /* ─── Step Indicator ─── */
   .step-dot-active {
-    @apply w-10 h-10 rounded-full bg-terracotta-500 text-white flex items-center justify-center
-           font-bold text-sm shadow-terracotta ring-4 ring-terracotta-100 transition-all duration-500;
+    @apply w-10 h-10 rounded-full bg-sky-500 text-white flex items-center justify-center
+           font-bold text-sm shadow-sky ring-4 ring-sky-900 transition-all duration-500;
   }
 
   .step-dot-completed {
-    @apply w-10 h-10 rounded-full bg-sage-500 text-white flex items-center justify-center
-           font-bold text-sm shadow-sage transition-all duration-500;
+    @apply w-10 h-10 rounded-full bg-neon-500 text-white flex items-center justify-center
+           font-bold text-sm shadow-neon transition-all duration-500;
   }
 
   .step-dot-inactive {
-    @apply w-10 h-10 rounded-full bg-cream-300 text-charcoal-400 flex items-center justify-center
+    @apply w-10 h-10 rounded-full bg-panel-600 text-sky-400 flex items-center justify-center
            font-bold text-sm transition-all duration-500;
   }
 
   .step-line-active {
-    @apply h-0.5 flex-1 bg-terracotta-500 transition-all duration-500;
+    @apply h-0.5 flex-1 bg-sky-500 transition-all duration-500;
   }
 
   .step-line-inactive {
-    @apply h-0.5 flex-1 bg-cream-300 transition-all duration-500;
+    @apply h-0.5 flex-1 bg-panel-600 transition-all duration-500;
   }
 }
 
@@ -122,24 +122,24 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #F6F4EE;
+  background: #04044A; /* navy-900 */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C5D5CC;
+  background: #00259E; /* panel-800 */
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8FA89B;
+  background: #2463FF; /* panel-500 */
 }
 
 /* ─── Custom Checkbox ─── */
 .checkbox-custom {
-  @apply w-5 h-5 rounded-md border-2 border-cream-400 bg-white
+  @apply w-5 h-5 rounded-md border-2 border-panel-600 bg-navy-800
          transition-all duration-200
-         checked:bg-terracotta-500 checked:border-terracotta-500
-         focus:ring-2 focus:ring-terracotta-500/30 focus:ring-offset-1;
+         checked:bg-sky-500 checked:border-neon-500
+         focus:ring-2 focus:ring-neon-500/30 focus:ring-offset-1;
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
@@ -160,11 +160,11 @@
 
 /* ─── Upload Zone ─── */
 .upload-zone {
-  @apply border-2 border-dashed border-cream-400 bg-white rounded-2xl p-6
+  @apply border-2 border-dashed border-panel-600 bg-navy-800 rounded-2xl p-6
          transition-all duration-300 cursor-pointer
-         hover:border-sage-400 hover:bg-sage-50/50;
+         hover:border-panel-400 hover:bg-navy-800/50;
 }
 
 .upload-zone-active {
-  @apply border-terracotta-500 bg-terracotta-50/60 shadow-sm;
+  @apply border-neon-500 bg-sky-900/60 shadow-sm;
 }

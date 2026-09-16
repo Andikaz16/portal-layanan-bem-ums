@@ -214,28 +214,28 @@ export default function ReportForm() {
 
   return (
     <>
-      <div className="min-h-screen font-sans bg-canvas text-charcoal-900 relative pt-24 pb-16">
+      <div className="min-h-screen font-sans bg-navy-900 text-white relative pt-24 pb-16">
         {/* Soft Organic Ambient Blobs */}
         <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
-          <div className="absolute top-10 right-[5%] w-[450px] h-[450px] bg-sage-200/30 rounded-full blur-[100px]"></div>
-          <div className="absolute bottom-10 left-[5%] w-[400px] h-[400px] bg-terracotta-100/40 rounded-full blur-[90px]"></div>
+          <div className="absolute top-10 right-[5%] w-[450px] h-[450px] bg-panel-700/30 rounded-full blur-[100px]"></div>
+          <div className="absolute bottom-10 left-[5%] w-[400px] h-[400px] bg-sky-800/40 rounded-full blur-[90px]"></div>
         </div>
 
         {/* ─── Main Content ─── */}
         <div className="relative z-10 px-4 py-8 sm:px-6 lg:px-8">
           {/* ─── Header ─── */}
           <div className="text-center mb-10 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-sage-100 border border-sage-200 text-forest-900 rounded-full text-xs font-bold mb-4 shadow-sm">
-              <Megaphone size={14} className="text-forest-800" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-panel-800 border border-panel-600 text-white rounded-full text-xs font-bold mb-4 shadow-sm">
+              <Megaphone size={14} className="text-white" />
               <span>Layanan BEM UMS</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-forest-900 mb-3 uppercase tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-3 uppercase tracking-tight">
               Form Pelaporan
-              <span className="text-terracotta-500">
+              <span className="text-white0">
                 {' '}BEM UMS
               </span>
             </h1>
-            <p className="text-charcoal-600 max-w-xl mx-auto text-sm sm:text-base">
+            <p className="text-sky-200 max-w-xl mx-auto text-sm sm:text-base">
               Sampaikan keluhan atau aspirasi Anda terkait UKT, fasilitas kampus, akademik, dan lainnya.
               Laporan Anda akan ditindaklanjuti oleh BEM.
             </p>
@@ -246,13 +246,13 @@ export default function ReportForm() {
 
           {/* ─── Form Card ─── */}
           <div className="max-w-3xl mx-auto">
-            <div className="bg-white border border-cream-300 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-warm">
+            <div className="bg-navy-800 border border-panel-600 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-neon">
               {/* Step Title */}
               <div className="mb-6">
-                <h2 className="text-xl font-bold text-forest-900 uppercase tracking-wide">
+                <h2 className="text-xl font-bold text-white uppercase tracking-wide">
                   {STEPS[currentStep - 1].title}
                 </h2>
-                <div className="w-12 h-1 bg-terracotta-500 rounded-full mt-2" />
+                <div className="w-12 h-1 bg-sky-500 rounded-full mt-2" />
               </div>
 
               {/* Step Content */}
@@ -268,7 +268,7 @@ export default function ReportForm() {
               )}
 
               {/* ─── Navigation Buttons ─── */}
-              <div className="flex items-center justify-between mt-8 pt-6 border-t border-cream-200">
+              <div className="flex items-center justify-between mt-8 pt-6 border-t border-panel-800">
                 {currentStep > 1 ? (
                   <button
                     type="button"
@@ -316,7 +316,7 @@ export default function ReportForm() {
             </div>
 
             {/* ─── Disclaimer ─── */}
-            <p className="text-center text-xs text-charcoal-400 mt-6 px-4">
+            <p className="text-center text-xs text-sky-400 mt-6 px-4">
               Dengan mengirimkan laporan ini, saya menyatakan bahwa seluruh informasi yang diberikan adalah benar dan dapat dipertanggungjawabkan.
             </p>
           </div>

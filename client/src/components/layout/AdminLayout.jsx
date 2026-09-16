@@ -5,9 +5,9 @@ export default function AdminLayout() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-canvas text-charcoal-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-navy-900 text-white flex flex-col font-sans">
       {/* Top Navigation Bar - Deep Pine / Forest Green Theme */}
-      <header className="bg-forest-900 border-b border-forest-800 shadow-sm sticky top-0 z-30">
+      <header className="bg-navy-950 border-b border-navy-800 shadow-sm sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-18 py-3">
             
@@ -28,22 +28,22 @@ export default function AdminLayout() {
                 to="/admin/dashboard"
                 className={`flex items-center px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
                   location.pathname === '/admin/dashboard' 
-                    ? 'bg-sage-100/15 text-white border border-sage-400/30' 
-                    : 'text-sage-200 hover:text-white hover:bg-forest-800'
+                    ? 'bg-panel-800/15 text-white border border-panel-400/30' 
+                    : 'text-neon-200 hover:text-white hover:bg-navy-900'
                 }`}
               >
                 <LayoutDashboard className="w-4 h-4 sm:mr-2" />
                 <span className="hidden sm:inline">Dashboard</span>
               </Link>
 
-              <div className="h-6 w-px bg-forest-800 hidden sm:block"></div>
+              <div className="h-6 w-px bg-navy-900 hidden sm:block"></div>
 
               <button
                 onClick={() => {
                   sessionStorage.removeItem('adminToken');
                   window.location.href = '/admin/login';
                 }}
-                className="flex items-center px-4 py-2 rounded-full text-sm font-semibold text-sage-200 hover:text-terracotta-400 hover:bg-forest-800 transition-colors"
+                className="flex items-center px-4 py-2 rounded-full text-sm font-semibold text-neon-200 hover:text-sky-400 hover:bg-navy-900 transition-colors"
                 title="Logout"
               >
                 <LogOut className="w-4 h-4 sm:mr-2" />

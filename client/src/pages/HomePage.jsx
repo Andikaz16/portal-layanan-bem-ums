@@ -23,7 +23,13 @@ import {
   FileStack,
   MoreHorizontal,
   ArrowRight,
-  ChevronDown
+  ChevronDown,
+  ShieldAlert,
+  ShieldCheck,
+  Mail,
+  KeyRound,
+  Database,
+  Cpu
 } from 'lucide-react';
 
 const HomePage = () => {
@@ -83,28 +89,30 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen font-sans bg-navy-900 text-white relative">
+    <div className="flex flex-col min-h-screen font-sans bg-[#F8FAFC] text-slate-800 relative">
       
       {/* SECTION 1: HERO */}
-      <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-20 overflow-hidden">
-        {/* Soft Organic Ambient Blobs & Sage Asymmetric Backdrop */}
-        <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
-          {/* Organic Ambient Glows */}
-          <div className="absolute top-12 right-[10%] w-[450px] h-[450px] bg-panel-600/30 rounded-full blur-[110px]"></div>
-          <div className="absolute bottom-12 left-[5%] w-[400px] h-[400px] bg-sky-800/60 rounded-full blur-[90px]"></div>
-          
-          {/* Subtle Organic Curved Motif Lines */}
-          <svg className="absolute top-1/4 right-[2%] w-96 h-96 text-neon-400/20 stroke-current fill-none pointer-events-none" viewBox="0 0 200 200">
-            <path d="M 20,100 C 40,20 160,20 180,100 C 160,180 40,180 20,100 Z" strokeWidth="1" />
-            <path d="M 40,100 C 55,40 145,40 160,100 C 145,160 55,160 40,100 Z" strokeWidth="1" strokeDasharray="4 4" />
-            <path d="M 60,100 C 70,60 130,60 140,100 C 130,140 70,140 60,100 Z" strokeWidth="1" />
+      <section className="relative min-h-[92vh] flex items-center pt-24 pb-16 overflow-hidden bg-gradient-to-b from-[#0052FF] via-[#0070FF] to-[#00A6FF]">
+        {/* Subtle Blueprint Grid & Contour Ripple Overlay */}
+        <div className="absolute inset-0 pointer-events-none -z-0">
+          {/* Blueprint Grid Lines */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+
+          {/* Top Right Topographic / Contour Circles Motif */}
+          <svg className="absolute -top-12 -right-12 w-[420px] h-[420px] text-white/15 stroke-current fill-none pointer-events-none" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="25" strokeWidth="1" strokeDasharray="3 3" />
+            <circle cx="100" cy="100" r="45" strokeWidth="1" />
+            <circle cx="100" cy="100" r="65" strokeWidth="1" strokeDasharray="4 4" />
+            <circle cx="100" cy="100" r="85" strokeWidth="1" />
+            <circle cx="100" cy="100" r="105" strokeWidth="1" strokeDasharray="5 5" />
+            <circle cx="100" cy="100" r="125" strokeWidth="1" />
           </svg>
 
-          {/* Organic Leaf / Botanical Line Art Accent */}
-          <svg className="absolute bottom-8 right-[38%] w-32 h-32 text-white/10 stroke-current fill-none pointer-events-none hidden lg:block" viewBox="0 0 100 100">
-            <path d="M 50,90 Q 50,45 85,25 Q 55,35 50,90 Z" strokeWidth="1.5" />
-            <path d="M 50,90 Q 45,55 20,40 Q 42,50 50,90 Z" strokeWidth="1.5" />
-            <path d="M 50,90 L 50,15" strokeWidth="1.5" />
+          {/* Concentric Water Waves on Mid-Screen */}
+          <svg className="absolute -bottom-20 -left-20 w-[350px] h-[350px] text-white/10 stroke-current fill-none pointer-events-none" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="30" strokeWidth="1" />
+            <circle cx="100" cy="100" r="60" strokeWidth="1" strokeDasharray="3 3" />
+            <circle cx="100" cy="100" r="90" strokeWidth="1" />
           </svg>
         </div>
 
@@ -113,26 +121,26 @@ const HomePage = () => {
             
             {/* Left Content */}
             <div className="flex-1 text-center lg:text-left mt-6 lg:mt-0 lg:ml-8 xl:ml-16 max-w-3xl z-20">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-panel-800 border border-panel-600 text-white rounded-full text-xs sm:text-sm font-bold mb-6 shadow-sm">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/20 backdrop-blur-md border border-white/30 text-white rounded-full text-xs sm:text-sm font-bold mb-6 shadow-sm">
                 <Megaphone size={15} className="text-white" />
                 <span>Layanan Resmi BEM UMS</span>
               </div>
               
-              <h1 className="text-6xl sm:text-7xl lg:text-7xl xl:text-8xl font-black text-white italic tracking-tight uppercase mb-6 leading-none">
+              <h1 className="text-6xl sm:text-7xl lg:text-7xl xl:text-8xl font-black text-white italic tracking-tight uppercase mb-6 leading-none drop-shadow-md">
                 LAPOR<br/>
-                <span className="text-white0">PRES!!</span>
+                <span className="text-white">PRES!!</span>
               </h1>
               
-              <p className="max-w-xl mx-auto lg:mx-0 text-base sm:text-lg text-sky-200 mb-8 leading-relaxed font-normal">
+              <p className="max-w-xl mx-auto lg:mx-0 text-base sm:text-lg text-white/95 mb-8 leading-relaxed font-normal drop-shadow-sm">
                 Kanal resmi Badan Eksekutif Mahasiswa untuk menampung keluhan dan aspirasi mahasiswa. Laporanmu aman, terlacak, dan ditindaklanjuti.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <Link to="/lapor" className="btn-primary w-full sm:w-auto text-base py-3.5 px-8 flex items-center justify-center gap-2.5">
+                <Link to="/lapor" className="btn-primary w-full sm:w-auto text-base py-3.5 px-8 flex items-center justify-center gap-2.5 bg-white text-[#0066FF] hover:bg-blue-50 font-bold rounded-full shadow-lg shadow-blue-900/20 border-none">
                   <FileEdit size={18} />
                   Buat Laporan
                 </Link>
-                <Link to="/lacak" className="btn-secondary w-full sm:w-auto text-base py-3.5 px-8 flex items-center justify-center gap-2.5">
+                <Link to="/lacak" className="btn-secondary w-full sm:w-auto text-base py-3.5 px-8 flex items-center justify-center gap-2.5 bg-white/15 backdrop-blur-md text-white hover:bg-white/25 border border-white/40 font-bold rounded-full">
                   <Search size={18} />
                   Lacak Laporan
                 </Link>
@@ -141,22 +149,9 @@ const HomePage = () => {
 
             {/* Right Decorative Graphic with Abstract Organic Container */}
             <div className="hidden lg:flex lg:flex-1 justify-center items-center relative z-10 min-h-[400px]">
-              
               {/* Multi-layered Abstract Blob Backgrounds */}
               <div className="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none">
-                {/* Blob 1 - Panel Blue */}
-                <div className="absolute w-[500px] h-[500px] bg-panel-500/40 mix-blend-screen filter blur-3xl opacity-70 animate-[pulse_8s_ease-in-out_infinite] rounded-[40%_60%_70%_30%/40%_50%_60%_50%] transform translate-x-10"></div>
-                
-                {/* Blob 2 - Neon Glow */}
-                <div className="absolute w-[400px] h-[400px] bg-neon-500/30 mix-blend-screen filter blur-3xl opacity-60 animate-[pulse_10s_ease-in-out_infinite_reverse] rounded-[60%_40%_30%_70%/60%_30%_70%_40%] transform -translate-x-10 translate-y-10"></div>
-                
-                {/* Blob 3 - Sky Blue Accent */}
-                <div className="absolute w-[350px] h-[350px] bg-sky-500/40 mix-blend-screen filter blur-2xl opacity-80 animate-[pulse_12s_ease-in-out_infinite] rounded-[50%_50%_20%_80%/25%_80%_20%_75%] transform -translate-y-12"></div>
-                
-                {/* Sharp Vector Abstract Element (Fluid Shape SVG) */}
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="absolute w-[450px] h-[450px] text-panel-600/30 fill-current transform rotate-12 transition-transform duration-1000 ease-in-out hover:rotate-45">
-                  <path d="M47.7,-57.2C59.4,-45.3,64.8,-27.1,65.8,-9.6C66.8,7.9,63.5,24.8,53.4,37.3C43.3,49.8,26.4,57.9,8.5,59.8C-9.4,61.7,-28.4,57.5,-42.6,46.1C-56.8,34.7,-66.2,16,-66.5,-2.5C-66.8,-21,-58,-39.3,-43.8,-51.7C-29.6,-64.1,-10,-70.6,4.6,-76C19.2,-81.4,36,-69.1,47.7,-57.2Z" transform="translate(100 100)" />
-                </svg>
+                <div className="absolute w-[450px] h-[450px] bg-white/15 filter blur-2xl rounded-full"></div>
               </div>
 
               {/* Raw Transparent Logo LAPOR PRES floating on the abstract background */}
@@ -164,7 +159,7 @@ const HomePage = () => {
                 <img 
                   src="/logo-lapor-pres.png" 
                   alt="Logo LAPOR PRES" 
-                  className="w-72 xl:w-[420px] h-auto object-contain filter brightness-0 invert opacity-90 drop-shadow-[0_10px_25px_rgba(32,54,43,0.15)] group-hover:scale-105 group-hover:-translate-y-2 transition-all duration-500 ease-out" 
+                  className="w-72 xl:w-[420px] h-auto object-contain filter brightness-0 invert opacity-95 drop-shadow-[0_10px_25px_rgba(0,0,0,0.15)] group-hover:scale-105 group-hover:-translate-y-2 transition-all duration-500 ease-out" 
                 />
               </div>
             </div>
@@ -173,8 +168,8 @@ const HomePage = () => {
 
         {/* Smooth Organic Fluid Wave Transition to Next Section */}
         <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none z-10 pointer-events-none">
-          <svg className="relative block w-full h-8 text-navy-900 fill-current" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,0 C300,60 600,0 900,45 C1050,65 1150,30 1200,20 L1200,120 L0,120 Z" opacity="0.4" />
+          <svg className="relative block w-full h-8 text-[#F8FAFC] fill-current" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0 C300,60 600,0 900,45 C1050,65 1150,30 1200,20 L1200,120 L0,120 Z" />
           </svg>
         </div>
       </section>
@@ -189,35 +184,35 @@ const HomePage = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <div className="bg-navy-800 border border-panel-600 rounded-3xl p-6 flex flex-col items-start shadow-neon hover:shadow-neon-md hover:-translate-y-1 transition-all duration-300 group">
-              <div className="w-12 h-12 rounded-2xl bg-panel-800 text-white flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+            <div className="bg-white border border-sky-100 rounded-3xl p-6 flex flex-col items-start shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
                 <TrendingUp size={22} />
               </div>
-              <div className="text-3xl font-black text-white mb-1">500+</div>
-              <div className="text-xs font-bold uppercase tracking-wider text-sky-400">Laporan Diterima</div>
+              <div className="text-3xl font-black text-slate-900 mb-1">500+</div>
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Laporan Diterima</div>
             </div>
             
-            <div className="bg-navy-800 border border-panel-600 rounded-3xl p-6 flex flex-col items-start shadow-neon hover:shadow-neon-md hover:-translate-y-1 transition-all duration-300 group">
-              <div className="w-12 h-12 rounded-2xl bg-sky-800 text-neon-600 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+            <div className="bg-white border border-sky-100 rounded-3xl p-6 flex flex-col items-start shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
                 <CheckCircle size={22} />
               </div>
-              <div className="text-3xl font-black text-white mb-1">430+</div>
-              <div className="text-xs font-bold uppercase tracking-wider text-sky-400">Laporan Selesai</div>
+              <div className="text-3xl font-black text-slate-900 mb-1">430+</div>
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Laporan Selesai</div>
             </div>
             
-            <div className="bg-navy-800 border border-panel-600 rounded-3xl p-6 flex flex-col items-start shadow-neon hover:shadow-neon-md hover:-translate-y-1 transition-all duration-300 group">
-              <div className="w-12 h-12 rounded-2xl bg-panel-800 text-white flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+            <div className="bg-white border border-sky-100 rounded-3xl p-6 flex flex-col items-start shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
                 <Clock size={22} />
               </div>
-              <div className="text-3xl font-black text-white mb-1">3 Hari</div>
-              <div className="text-xs font-bold uppercase tracking-wider text-sky-400">Rata-rata Respon</div>
+              <div className="text-3xl font-black text-slate-900 mb-1">3 Hari</div>
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Rata-rata Respon</div>
             </div>
           </div>
         </motion.div>
       </section>
 
       {/* SECTION 2: ABOUT / VALUE PROPOSITION */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden bg-slate-50">
         <motion.div 
           className="container mx-auto px-4 relative z-10"
           initial={{ opacity: 0, y: 30 }}
@@ -226,44 +221,46 @@ const HomePage = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-panel-800 border border-panel-600 text-white rounded-full text-xs font-bold mb-4 shadow-sm">
-              <Info size={14} className="text-white" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 text-[#0066FF] rounded-full text-xs font-bold mb-4 shadow-sm">
+              <Info size={14} className="text-[#0066FF]" />
               <span>Tentang Portal</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 uppercase tracking-tight mb-4">
               Apa Itu Layanan BEM UMS?
             </h2>
-            <p className="max-w-2xl mx-auto text-base text-sky-200">
+            <p className="max-w-2xl mx-auto text-base text-slate-600">
               Layanan BEM UMS adalah kanal resmi BEM yang menghubungkan suara mahasiswa dengan kebijakan kampus. Setiap laporan ditangani secara profesional dan transparan.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <div className="bg-navy-800 border border-panel-600 rounded-3xl p-8 flex flex-col items-center text-center shadow-neon hover:shadow-neon-md hover:-translate-y-1 transition-all duration-300">
-              <div className="w-14 h-14 rounded-2xl bg-panel-800 text-white flex items-center justify-center mb-5">
+            <div className="bg-white border border-sky-100 rounded-3xl p-8 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-5">
                 <Shield size={28} />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Aman & Anonim</h3>
-              <p className="text-sm text-sky-300 leading-relaxed">
-                Identitas Anda terlindungi. Opsi anonim tersedia agar Anda bisa melapor tanpa rasa khawatir.
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Aman & Anonim</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Identitas Anda terlindungi. Opsi pelaporan anonim tersedia agar Anda dapat melapor tanpa rasa khawatir.
               </p>
             </div>
-            <div className="bg-navy-800 border border-panel-600 rounded-3xl p-8 flex flex-col items-center text-center shadow-neon hover:shadow-neon-md hover:-translate-y-1 transition-all duration-300">
-              <div className="w-14 h-14 rounded-2xl bg-sky-800 text-neon-600 flex items-center justify-center mb-5">
+
+            <div className="bg-white border border-sky-100 rounded-3xl p-8 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-5">
                 <Eye size={28} />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Transparan & Terlacak</h3>
-              <p className="text-sm text-sky-300 leading-relaxed">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Transparan & Terlacak</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
                 Pantau progres laporan Anda secara real-time menggunakan kode tiket unik.
               </p>
             </div>
-            <div className="bg-navy-800 border border-panel-600 rounded-3xl p-8 flex flex-col items-center text-center shadow-neon hover:shadow-neon-md hover:-translate-y-1 transition-all duration-300">
-              <div className="w-14 h-14 rounded-2xl bg-panel-800 text-white flex items-center justify-center mb-5">
+
+            <div className="bg-white border border-sky-100 rounded-3xl p-8 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-5">
                 <Handshake size={28} />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Ditindaklanjuti</h3>
-              <p className="text-sm text-sky-300 leading-relaxed">
-                Setiap laporan diproses hingga tahap audiensi dengan pihak kampus untuk mencapai resolusi.
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Ditindaklanjuti</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Setiap laporan diproses hingga ke tahap audiensi dengan pihak kampus untuk mencapai resolusi.
               </p>
             </div>
           </div>
@@ -271,7 +268,7 @@ const HomePage = () => {
       </section>
 
       {/* SECTION 3: HOW IT WORKS */}
-      <section className="py-20 relative bg-navy-900/70 border-y border-panel-600">
+      <section className="py-20 relative bg-white border-y border-slate-100">
         <motion.div 
           className="container mx-auto px-4 relative z-10"
           initial={{ opacity: 0, y: 30 }}
@@ -280,14 +277,14 @@ const HomePage = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-panel-800 border border-panel-600 text-white rounded-full text-xs font-bold mb-4 shadow-sm">
-              <Workflow size={14} className="text-white" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 text-[#0066FF] rounded-full text-xs font-bold mb-4 shadow-sm">
+              <Workflow size={14} className="text-[#0066FF]" />
               <span>Cara Kerja</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tight mb-3">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 uppercase tracking-tight mb-3">
               Bagaimana Cara Kerjanya?
             </h2>
-            <p className="max-w-2xl mx-auto text-base text-sky-200">
+            <p className="max-w-2xl mx-auto text-base text-slate-500">
               Empat langkah sederhana untuk menyuarakan aspirasimu
             </p>
           </div>
@@ -295,49 +292,148 @@ const HomePage = () => {
           <div className="relative max-w-6xl mx-auto">
             {/* Desktop Connector Line */}
             <div className="hidden md:block absolute top-7 left-[12%] right-[12%] h-[2px]">
-              <div className="w-full h-full border-t-2 border-dashed border-panel-600"></div>
+              <div className="w-full h-full border-t-2 border-dashed border-sky-300"></div>
             </div>
             
             <div className="grid md:grid-cols-4 gap-8 relative z-10">
               <div className="flex flex-col items-center text-center group">
-                <div className="w-14 h-14 rounded-full bg-navy-800 border-2 border-panel-600 text-sky-400 font-bold text-lg flex items-center justify-center mb-5 shadow-neon group-hover:bg-panel-800 group-hover:border-neon-500 group-hover:text-neon-400 group-hover:scale-105 transition-all">
+                <div className="w-14 h-14 rounded-full bg-[#0066FF] text-white font-bold text-lg flex items-center justify-center mb-5 shadow-md shadow-blue-500/30 group-hover:scale-105 transition-all">
                   01
                 </div>
-                <FileEdit className="text-sky-400 mb-2 group-hover:text-neon-400 transition-colors" size={24} />
-                <h3 className="text-base font-bold text-white mb-1">Isi Formulir</h3>
-                <p className="text-sky-300 text-xs leading-relaxed">Sampaikan keluhan melalui form pelaporan yang mudah digunakan</p>
+                <FileEdit className="text-[#0066FF] mb-2" size={24} />
+                <h3 className="text-base font-bold text-slate-900 mb-1">Isi Formulir</h3>
+                <p className="text-slate-500 text-xs leading-relaxed">Sampaikan keluhan melalui form pelaporan yang mudah digunakan</p>
               </div>
               <div className="flex flex-col items-center text-center group">
-                <div className="w-14 h-14 rounded-full bg-navy-800 border-2 border-panel-600 text-sky-400 font-bold text-lg flex items-center justify-center mb-5 shadow-neon group-hover:bg-panel-800 group-hover:border-neon-500 group-hover:text-neon-400 group-hover:scale-105 transition-all">
+                <div className="w-14 h-14 rounded-full bg-[#0066FF] text-white font-bold text-lg flex items-center justify-center mb-5 shadow-md shadow-blue-500/30 group-hover:scale-105 transition-all">
                   02
                 </div>
-                <Ticket className="text-sky-400 mb-2 group-hover:text-neon-400 transition-colors" size={24} />
-                <h3 className="text-base font-bold text-white mb-1">Dapatkan Kode Tiket</h3>
-                <p className="text-sky-300 text-xs leading-relaxed">Kode unik BEM-XXXX dikirim ke email Anda untuk melacak status laporan</p>
+                <Ticket className="text-[#0066FF] mb-2" size={24} />
+                <h3 className="text-base font-bold text-slate-900 mb-1">Dapatkan Kode Tiket</h3>
+                <p className="text-slate-500 text-xs leading-relaxed">Kode unik BEM-XXXX dikirim ke email Anda untuk melacak status laporan</p>
               </div>
               <div className="flex flex-col items-center text-center group">
-                <div className="w-14 h-14 rounded-full bg-navy-800 border-2 border-panel-600 text-sky-400 font-bold text-lg flex items-center justify-center mb-5 shadow-neon group-hover:bg-panel-800 group-hover:border-neon-500 group-hover:text-neon-400 group-hover:scale-105 transition-all">
+                <div className="w-14 h-14 rounded-full bg-[#0066FF] text-white font-bold text-lg flex items-center justify-center mb-5 shadow-md shadow-blue-500/30 group-hover:scale-105 transition-all">
                   03
                 </div>
-                <Settings className="text-sky-400 mb-2 group-hover:text-neon-400 transition-colors" size={24} />
-                <h3 className="text-base font-bold text-white mb-1">Tim BEM Bergerak</h3>
-                <p className="text-sky-300 text-xs leading-relaxed">Laporan diverifikasi, diproses, dan dikawal oleh kementerian</p>
+                <Settings className="text-[#0066FF] mb-2" size={24} />
+                <h3 className="text-base font-bold text-slate-900 mb-1">Tim BEM Bergerak</h3>
+                <p className="text-slate-500 text-xs leading-relaxed">Laporan diverifikasi, diproses, dan dikawal oleh kementerian</p>
               </div>
               <div className="flex flex-col items-center text-center group">
-                <div className="w-14 h-14 rounded-full bg-navy-800 border-2 border-panel-600 text-sky-400 font-bold text-lg flex items-center justify-center mb-5 shadow-neon group-hover:bg-panel-800 group-hover:border-neon-500 group-hover:text-neon-400 group-hover:scale-105 transition-all">
+                <div className="w-14 h-14 rounded-full bg-[#0066FF] text-white font-bold text-lg flex items-center justify-center mb-5 shadow-md shadow-blue-500/30 group-hover:scale-105 transition-all">
                   04
                 </div>
-                <CheckCircle2 className="text-sky-400 mb-2 group-hover:text-neon-400 transition-colors" size={24} />
-                <h3 className="text-base font-bold text-white mb-1">Masalah Selesai</h3>
-                <p className="text-sky-300 text-xs leading-relaxed">Resolusi dicapai melalui audiensi dengan pihak kampus</p>
+                <CheckCircle2 className="text-[#0066FF] mb-2" size={24} />
+                <h3 className="text-base font-bold text-slate-900 mb-1">Masalah Selesai</h3>
+                <p className="text-slate-500 text-xs leading-relaxed">Resolusi dicapai melalui audiensi dengan pihak kampus</p>
               </div>
             </div>
           </div>
         </motion.div>
       </section>
 
+      {/* SECTION: CYBER FORENSIC & BREACH CHECKER */}
+      <section className="py-20 relative bg-slate-50 border-b border-sky-100">
+        <motion.div 
+          className="container mx-auto px-4 relative z-10"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 text-[#0066FF] rounded-full text-xs font-bold mb-4 shadow-sm">
+              <ShieldAlert size={14} className="text-[#0066FF]" />
+              <span>Proteksi & Bantuan Siber Mahasiswa</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 uppercase tracking-tight mb-4">
+              Akun Medsos Kena Hack? <span className="text-[#0066FF]">Cek Sumber Kebocorannya</span>
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
+              Lebih dari 80% peretasan akun terjadi karena kata sandi pernah bocor di database publik. Temukan akar masalahnya dan selamatkan akun Anda sebelum terjadi pemerasan.
+            </p>
+          </div>
+
+          {/* 4-Step Forensic Workflow Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-12">
+            {/* Step 1 */}
+            <div className="bg-white border border-sky-100 rounded-3xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                <Mail size={22} />
+              </div>
+              <div className="text-[11px] font-bold text-[#0066FF] uppercase tracking-wider mb-1">Tahap 01</div>
+              <h3 className="text-base font-bold text-slate-900 mb-2">Input Identitas Akun</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Masukkan alamat email yang terhubung dengan akun media sosial Anda yang dicurigai dibobol.
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="bg-white border border-sky-100 rounded-3xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                <Database size={22} />
+              </div>
+              <div className="text-[11px] font-bold text-[#0066FF] uppercase tracking-wider mb-1">Tahap 02</div>
+              <h3 className="text-base font-bold text-slate-900 mb-2">Audit Intelijen Siber</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Sistem mencocokkan kredensial secara real-time dengan ribuan riwayat insiden kebocoran data terverifikasi.
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="bg-white border border-sky-100 rounded-3xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                <KeyRound size={22} />
+              </div>
+              <div className="text-[11px] font-bold text-[#0066FF] uppercase tracking-wider mb-1">Tahap 03</div>
+              <h3 className="text-base font-bold text-slate-900 mb-2">Analisis Akar Masalah</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Mengetahui platform mana yang membocorkan kata sandi, nomor HP, atau data pribadi yang dimanfaatkan peretas.
+              </p>
+            </div>
+
+            {/* Step 4 */}
+            <div className="bg-white border border-sky-100 rounded-3xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                <ShieldCheck size={22} />
+              </div>
+              <div className="text-[11px] font-bold text-[#0066FF] uppercase tracking-wider mb-1">Tahap 04</div>
+              <h3 className="text-base font-bold text-slate-900 mb-2">Langkah Penyelamatan</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Mendapatkan panduan terarah untuk mengamankan email induk, memutus sesi hacker, dan merebut kembali akun.
+              </p>
+            </div>
+          </div>
+
+          {/* Action CTA Box */}
+          <div className="max-w-3xl mx-auto text-center bg-gradient-to-r from-blue-50 via-sky-50 to-blue-50 border border-sky-200 rounded-3xl p-8 shadow-sm">
+            <h3 className="text-xl font-bold text-slate-900 mb-2">Ingin Memeriksa Keamanan Akun Anda Sekarang?</h3>
+            <p className="text-xs sm:text-sm text-slate-600 mb-6 max-w-xl mx-auto">
+              Layanan ini gratis untuk seluruh mahasiswa. Tidak ada kata sandi yang diminta atau disimpan oleh sistem.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link 
+                to="/cek-akun" 
+                className="btn-primary py-3.5 px-8 flex items-center justify-center gap-2 text-sm font-bold bg-[#0066FF] hover:bg-blue-600 text-white rounded-full shadow-md shadow-blue-500/20"
+              >
+                <Search size={16} />
+                <span>Pindai Akun Saya Sekarang</span>
+              </Link>
+              <Link 
+                to="/lapor" 
+                className="btn-secondary py-3.5 px-8 flex items-center justify-center gap-2 text-sm font-bold bg-white text-[#0066FF] hover:bg-blue-50 border border-blue-200 rounded-full shadow-sm"
+              >
+                <FileEdit size={16} />
+                <span>Lapor Ancaman / Pemerasan</span>
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
       {/* SECTION 4: CATEGORIES */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden bg-white">
         <motion.div 
           className="container mx-auto px-4 relative z-10"
           initial={{ opacity: 0, y: 30 }}
@@ -346,10 +442,10 @@ const HomePage = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tight mb-3">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 uppercase tracking-tight mb-3">
               Kategori Pengaduan
             </h2>
-            <p className="max-w-2xl mx-auto text-base text-sky-200">
+            <p className="max-w-2xl mx-auto text-base text-slate-600">
               Pilih kategori yang sesuai dengan permasalahan Anda
             </p>
           </div>
@@ -359,13 +455,13 @@ const HomePage = () => {
               <Link 
                 to="/lapor" 
                 key={idx} 
-                className="bg-navy-800 border border-panel-600 rounded-3xl p-6 flex flex-col shadow-neon hover:shadow-neon-md hover:border-panel-400 hover:-translate-y-1 transition-all duration-300 group"
+                className="bg-gradient-to-br from-[#0062FF] to-[#00A3FF] text-white rounded-3xl p-6 flex flex-col shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-2xl bg-navy-800 border border-panel-600 text-white group-hover:bg-panel-800 group-hover:text-white flex items-center justify-center mb-4 transition-colors">
+                <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm text-white flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
                   <cat.icon size={22} />
                 </div>
                 <h3 className="text-base font-bold text-white mb-1.5">{cat.name}</h3>
-                <p className="text-sky-300 text-xs leading-relaxed">{cat.desc}</p>
+                <p className="text-white/85 text-xs leading-relaxed">{cat.desc}</p>
               </Link>
             ))}
           </div>
@@ -373,7 +469,7 @@ const HomePage = () => {
       </section>
 
       {/* SECTION 5: QUICK TRACK */}
-      <section className="py-16 relative">
+      <section className="py-16 relative bg-slate-50 border-t border-slate-100">
         <motion.div 
           className="container mx-auto px-4 relative z-10"
           initial={{ opacity: 0, y: 30 }}
@@ -381,17 +477,17 @@ const HomePage = () => {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
         >
-          <div className="max-w-3xl mx-auto bg-panel-800/60 border border-panel-600 rounded-3xl p-8 sm:p-12 text-center shadow-neon">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white uppercase tracking-tight mb-2">
+          <div className="max-w-3xl mx-auto bg-gradient-to-r from-sky-100/80 via-blue-50/90 to-sky-100/80 border border-sky-200 rounded-3xl p-8 sm:p-12 text-center shadow-sm">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 uppercase tracking-tight mb-2">
               Lacak Laporan Anda
             </h2>
-            <p className="text-sm sm:text-base text-sky-200 mb-8 max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-slate-600 mb-8 max-w-xl mx-auto">
               Masukkan kode tiket untuk melihat perkembangan laporan Anda secara real-time
             </p>
 
             <form onSubmit={handleTrackSubmit} className="max-w-xl mx-auto flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-sky-400 z-10">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#0066FF] z-10">
                   <Ticket size={20} />
                 </div>
                 <input
@@ -399,11 +495,11 @@ const HomePage = () => {
                   value={trackCode}
                   onChange={(e) => setTrackCode(e.target.value)}
                   placeholder="BEM-XXXX"
-                  className="w-full pl-12 pr-4 py-3.5 rounded-full text-white bg-navy-800 border border-panel-600 placeholder-charcoal-400 focus:outline-none focus:border-neon-500 focus:ring-2 focus:ring-neon-500/20 transition-all uppercase font-mono tracking-wider text-sm"
+                  className="w-full pl-12 pr-4 py-3.5 rounded-full text-slate-900 bg-white border border-sky-200 placeholder-slate-400 focus:outline-none focus:border-[#0066FF] focus:ring-2 focus:ring-[#0066FF]/20 transition-all uppercase font-mono tracking-wider text-sm shadow-sm"
                   required
                 />
               </div>
-              <button type="submit" className="btn-primary py-3.5 px-8 text-sm whitespace-nowrap">
+              <button type="submit" className="btn-primary py-3.5 px-8 text-sm whitespace-nowrap bg-[#0066FF] text-white hover:bg-blue-600 rounded-full font-bold shadow-md shadow-blue-500/20">
                 <span>Lacak Sekarang</span>
                 <ArrowRight size={16} />
               </button>
@@ -413,7 +509,7 @@ const HomePage = () => {
       </section>
 
       {/* SECTION 6: FAQ */}
-      <section className="py-20">
+      <section className="py-20 bg-white border-t border-slate-100">
         <motion.div 
           className="container mx-auto px-4 relative z-10"
           initial={{ opacity: 0, y: 30 }}
@@ -422,7 +518,7 @@ const HomePage = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tight mb-3">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 uppercase tracking-tight mb-3">
               Tanya Jawab
             </h2>
           </div>
@@ -433,24 +529,24 @@ const HomePage = () => {
               return (
                 <div 
                   key={idx} 
-                  className={`bg-navy-800 rounded-2xl overflow-hidden transition-all duration-300 border shadow-sm ${
-                    isOpen ? 'border-neon-400 bg-navy-800/50' : 'border-panel-600 hover:border-panel-400'
+                  className={`bg-white rounded-2xl overflow-hidden transition-all duration-300 border shadow-sm ${
+                    isOpen ? 'border-[#0066FF] bg-blue-50/30 shadow-md' : 'border-sky-100 hover:border-sky-300'
                   }`}
                 >
                   <button
                     onClick={() => toggleFaq(idx)}
                     className="w-full text-left px-6 py-4 flex items-center justify-between focus:outline-none"
                   >
-                    <span className="font-bold text-white text-sm sm:text-base pr-4">{faq.q}</span>
+                    <span className="font-bold text-slate-900 text-sm sm:text-base pr-4">{faq.q}</span>
                     <ChevronDown 
-                      className={`text-white0 transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`} 
+                      className={`text-[#0066FF] transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`} 
                       size={18} 
                     />
                   </button>
                   <div 
                     className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 pb-5 opacity-100' : 'max-h-0 opacity-0'}`}
                   >
-                    <p className="text-sky-200 text-sm leading-relaxed pt-2 border-t border-panel-800">{faq.a}</p>
+                    <p className="text-slate-600 text-sm leading-relaxed pt-2 border-t border-sky-100">{faq.a}</p>
                   </div>
                 </div>
               );

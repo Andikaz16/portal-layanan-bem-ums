@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const ReportController = require('../controllers/report.controller');
+const CyberController = require('../controllers/cyber.controller');
 const { validate, createReportSchema, trackReportSchema } = require('../middleware/validate');
 const upload = require('../middleware/upload');
 
@@ -35,6 +36,10 @@ router.get(
 // GET /api/v1/reports/attachments/:attachmentId
 // Public route to view attachments via URL
 router.get('/reports/attachments/:attachmentId', ReportController.viewAttachment);
+
+// POST /api/v1/cyber/check-email
+// Check if email has been compromised in any public data breaches
+router.post('/cyber/check-email', CyberController.checkEmail);
 
 // Temporary diagnostic route to test email on Vercel
 router.get('/test-email', async (req, res) => {

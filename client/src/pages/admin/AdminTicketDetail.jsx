@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Send, CheckCircle2, Clock, AlertCircle, MessageCircle, Paperclip, ExternalLink, Image, Trash2 } from 'lucide-react';
+import { ArrowLeft, Send, CheckCircle2, Clock, AlertCircle, MessageCircle, Paperclip, ExternalLink, Image, Trash2, Lock } from 'lucide-react';
 
 export default function AdminTicketDetail() {
   const { id } = useParams();
@@ -238,8 +238,9 @@ export default function AdminTicketDetail() {
                           <Image className="w-5 h-5 text-white" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-bold text-white group-hover:text-white transition-colors">
-                            📎 Lampiran #{index + 1}
+                          <p className="text-xs font-bold text-white group-hover:text-white transition-colors flex items-center gap-1.5">
+                            <Paperclip className="w-3.5 h-3.5 text-sky-400" />
+                            <span>Lampiran #{index + 1}</span>
                           </p>
                           <p className="text-[11px] text-sky-400">
                             Diunggah {new Date(attachment.created_at).toLocaleDateString('id-ID', {
@@ -273,8 +274,9 @@ export default function AdminTicketDetail() {
               </div>
               {ticket.is_anonymous && (
                 <div className="sm:col-span-2">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-amber-900/40 text-amber-300 border border-amber-700">
-                    🔒 Dilaporkan secara anonim
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-900/40 text-amber-300 border border-amber-700">
+                    <Lock className="w-3.5 h-3.5" />
+                    <span>Dilaporkan secara anonim</span>
                   </span>
                 </div>
               )}
@@ -401,8 +403,9 @@ export default function AdminTicketDetail() {
                         <Image className="w-4 h-4 text-white" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-white group-hover:text-white transition-colors truncate">
-                          📎 Lampiran #{index + 1}
+                        <p className="text-xs font-bold text-white group-hover:text-white transition-colors truncate flex items-center gap-1.5">
+                          <Paperclip className="w-3 h-3 text-sky-400" />
+                          <span>Lampiran #{index + 1}</span>
                         </p>
                         <p className="text-[11px] text-sky-400">
                           Klik untuk melihat

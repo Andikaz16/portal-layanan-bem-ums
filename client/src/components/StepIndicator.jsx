@@ -50,7 +50,7 @@ export default function StepIndicator({ currentStep = 1, steps = DEFAULT_STEPS }
               <div className="flex flex-col items-center gap-2 group relative z-10">
                 <div
                   className={`${getStepClass(stepNum, activeStep)} ${
-                    isActive ? 'scale-105 ring-4 ring-sky-900' : ''
+                    isActive ? 'scale-105 ring-4 ring-blue-100' : ''
                   }`}
                   aria-current={isActive ? 'step' : undefined}
                 >
@@ -71,10 +71,10 @@ export default function StepIndicator({ currentStep = 1, steps = DEFAULT_STEPS }
                 <span
                   className={`text-xs font-semibold hidden sm:block text-center transition-colors duration-300 max-w-[120px] leading-tight ${
                     isActive
-                      ? 'text-neon-600 font-bold'
+                      ? 'text-[#0066FF] font-bold'
                       : isCompleted
-                      ? 'text-white'
-                      : 'text-sky-400'
+                      ? 'text-slate-800 font-semibold'
+                      : 'text-slate-400'
                   }`}
                 >
                   {step.title}

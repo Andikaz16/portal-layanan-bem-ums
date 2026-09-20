@@ -214,28 +214,28 @@ export default function ReportForm() {
 
   return (
     <>
-      <div className="min-h-screen font-sans bg-navy-900 text-white relative pt-24 pb-16">
-        {/* Soft Organic Ambient Blobs */}
+      <div className="min-h-screen font-sans bg-[#F8FAFC] text-slate-800 relative pt-28 pb-16">
+        {/* Soft Ambient Blobs */}
         <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
-          <div className="absolute top-10 right-[5%] w-[450px] h-[450px] bg-panel-700/30 rounded-full blur-[100px]"></div>
-          <div className="absolute bottom-10 left-[5%] w-[400px] h-[400px] bg-sky-800/40 rounded-full blur-[90px]"></div>
+          <div className="absolute top-10 right-[5%] w-[450px] h-[450px] bg-blue-100/40 rounded-full blur-[100px]"></div>
+          <div className="absolute bottom-10 left-[5%] w-[400px] h-[400px] bg-sky-100/50 rounded-full blur-[90px]"></div>
         </div>
 
         {/* ─── Main Content ─── */}
         <div className="relative z-10 px-4 py-8 sm:px-6 lg:px-8">
           {/* ─── Header ─── */}
           <div className="text-center mb-10 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-panel-800 border border-panel-600 text-white rounded-full text-xs font-bold mb-4 shadow-sm">
-              <Megaphone size={14} className="text-white" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 text-[#0066FF] rounded-full text-xs font-bold mb-4 shadow-sm">
+              <Megaphone size={14} className="text-[#0066FF]" />
               <span>Layanan BEM UMS</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-3 uppercase tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-3 uppercase tracking-tight">
               Form Pelaporan
-              <span className="text-white0">
+              <span className="text-[#0066FF]">
                 {' '}BEM UMS
               </span>
             </h1>
-            <p className="text-sky-200 max-w-xl mx-auto text-sm sm:text-base">
+            <p className="text-slate-600 max-w-xl mx-auto text-sm sm:text-base">
               Sampaikan keluhan atau aspirasi Anda terkait UKT, fasilitas kampus, akademik, dan lainnya.
               Laporan Anda akan ditindaklanjuti oleh BEM.
             </p>
@@ -246,13 +246,13 @@ export default function ReportForm() {
 
           {/* ─── Form Card ─── */}
           <div className="max-w-3xl mx-auto">
-            <div className="bg-navy-800 border border-panel-600 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-neon">
+            <div className="bg-white border border-sky-100 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-sm">
               {/* Step Title */}
               <div className="mb-6">
-                <h2 className="text-xl font-bold text-white uppercase tracking-wide">
+                <h2 className="text-xl font-bold text-slate-900 uppercase tracking-wide">
                   {STEPS[currentStep - 1].title}
                 </h2>
-                <div className="w-12 h-1 bg-sky-500 rounded-full mt-2" />
+                <div className="w-12 h-1 bg-[#0066FF] rounded-full mt-2" />
               </div>
 
               {/* Step Content */}
@@ -268,7 +268,7 @@ export default function ReportForm() {
               )}
 
               {/* ─── Navigation Buttons ─── */}
-              <div className="flex items-center justify-between mt-8 pt-6 border-t border-panel-800">
+              <div className="flex items-center justify-between mt-8 pt-6 border-t border-slate-100">
                 {currentStep > 1 ? (
                   <button
                     type="button"
@@ -316,7 +316,7 @@ export default function ReportForm() {
             </div>
 
             {/* ─── Disclaimer ─── */}
-            <p className="text-center text-xs text-sky-400 mt-6 px-4">
+            <p className="text-center text-xs text-slate-500 mt-6 px-4">
               Dengan mengirimkan laporan ini, saya menyatakan bahwa seluruh informasi yang diberikan adalah benar dan dapat dipertanggungjawabkan.
             </p>
           </div>

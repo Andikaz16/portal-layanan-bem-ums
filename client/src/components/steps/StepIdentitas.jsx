@@ -8,6 +8,7 @@ import {
   GraduationCap,
   Shield,
   ShieldCheck,
+  AlertTriangle,
 } from 'lucide-react';
 
 const FACULTIES = [
@@ -34,8 +35,8 @@ const StepIdentitas = ({ formData = {}, errors = {}, updateField }) => {
       <div
         className={`p-5 rounded-2xl border transition-all duration-300 ${
           isAnonymous
-            ? 'bg-amber-950/80 border-amber-300 shadow-sm'
-            : 'bg-navy-800/80 border-panel-600 hover:border-panel-600 shadow-sm'
+            ? 'bg-amber-50 border-amber-200 shadow-sm'
+            : 'bg-slate-50 border-slate-200 hover:border-slate-300 shadow-sm'
         }`}
       >
         <div className="flex items-start gap-3.5">
@@ -51,16 +52,16 @@ const StepIdentitas = ({ formData = {}, errors = {}, updateField }) => {
           <div className="flex-1">
             <label
               htmlFor="is_anonymous"
-              className="flex items-center gap-2 text-sm font-bold text-white cursor-pointer select-none"
+              className="flex items-center gap-2 text-sm font-bold text-slate-800 cursor-pointer select-none"
             >
               {isAnonymous ? (
                 <ShieldCheck className="w-5 h-5 text-amber-600" />
               ) : (
-                <Shield className="w-5 h-5 text-sky-400" />
+                <Shield className="w-5 h-5 text-slate-400" />
               )}
               <span>Laporkan secara anonim</span>
             </label>
-            <p className="text-xs sm:text-sm text-sky-300 mt-1 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed">
               Identitas Anda (Nama & NIM) akan disembunyikan dari tampilan publik, namun tetap tersimpan aman untuk keperluan validasi internal.
             </p>
           </div>
@@ -68,8 +69,8 @@ const StepIdentitas = ({ formData = {}, errors = {}, updateField }) => {
 
         {/* Warning Alert Box when Anonymous mode is enabled */}
         {isAnonymous && (
-          <div className="mt-4 p-3.5 bg-amber-900/40/80 border border-amber-700/90 rounded-xl text-amber-900 text-xs sm:text-sm flex items-start gap-2.5 animate-fade-in">
-            <span className="text-base leading-none select-none">⚠️</span>
+          <div className="mt-4 p-3.5 bg-amber-100/60 border border-amber-200 rounded-xl text-amber-800 text-xs sm:text-sm flex items-start gap-2.5 animate-fade-in">
+            <AlertTriangle size={16} className="text-amber-600 mt-0.5 shrink-0" />
             <div className="flex-1 leading-snug">
               <strong>Mode Anonim Aktif</strong> — Identitas Anda hanya dapat diakses oleh pejabat BEM yang berwenang.
             </div>
@@ -84,10 +85,10 @@ const StepIdentitas = ({ formData = {}, errors = {}, updateField }) => {
           {/* Nama Lengkap */}
           <div>
             <label className="form-label" htmlFor="student_name">
-              Nama Lengkap <span className="text-white0">*</span>
+              Nama Lengkap <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sky-400 pointer-events-none">
+              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
                 <User size={18} />
               </div>
               <input
@@ -105,10 +106,10 @@ const StepIdentitas = ({ formData = {}, errors = {}, updateField }) => {
           {/* NIM */}
           <div>
             <label className="form-label" htmlFor="student_nim">
-              NIM <span className="text-white0">*</span>
+              NIM <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sky-400 pointer-events-none">
+              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
                 <CreditCard size={18} />
               </div>
               <input
@@ -129,10 +130,10 @@ const StepIdentitas = ({ formData = {}, errors = {}, updateField }) => {
           {/* Email Kampus */}
           <div>
             <label className="form-label" htmlFor="student_email">
-              Email Kampus <span className="text-white0">*</span>
+              Email Kampus <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sky-400 pointer-events-none">
+              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
                 <Mail size={18} />
               </div>
               <input
@@ -150,10 +151,10 @@ const StepIdentitas = ({ formData = {}, errors = {}, updateField }) => {
           {/* No. WhatsApp */}
           <div>
             <label className="form-label" htmlFor="student_phone">
-              No. WhatsApp <span className="text-white0">*</span>
+              No. WhatsApp <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sky-400 pointer-events-none">
+              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
                 <Phone size={18} />
               </div>
               <input
@@ -170,11 +171,11 @@ const StepIdentitas = ({ formData = {}, errors = {}, updateField }) => {
         </div>
 
         {/* Full-width Email Notice */}
-        <div className="flex items-start gap-2.5 p-3.5 bg-sky-900/50/70 border border-sky-800 rounded-xl">
-          <Mail size={16} className="text-white0 mt-0.5 shrink-0" />
-          <p className="text-xs text-sky-200 leading-relaxed">
-            <span className="font-bold">Penting:</span> Gunakan email aktif yang benar. Kode tiket laporan dan pemberitahuan tindak lanjut akan dikirimkan melalui email ini. 
-            <span className="block mt-1 text-sky-300 italic">Harap cek folder <span className="font-semibold">Spam/Junk</span> jika email tidak masuk ke kotak masuk utama Anda.</span>
+        <div className="flex items-start gap-2.5 p-3.5 bg-blue-50/80 border border-blue-200 rounded-xl">
+          <Mail size={16} className="text-[#0066FF] mt-0.5 shrink-0" />
+          <p className="text-xs text-slate-700 leading-relaxed">
+            <span className="font-bold text-[#0066FF]">Penting:</span> Gunakan email aktif yang benar. Kode tiket laporan dan pemberitahuan tindak lanjut akan dikirimkan melalui email ini. 
+            <span className="block mt-1 text-slate-500 italic">Harap cek folder <span className="font-semibold">Spam/Junk</span> jika email tidak masuk ke kotak masuk utama Anda.</span>
           </p>
         </div>
 
@@ -183,10 +184,10 @@ const StepIdentitas = ({ formData = {}, errors = {}, updateField }) => {
           {/* Fakultas */}
           <div>
             <label className="form-label" htmlFor="student_faculty">
-              Fakultas <span className="text-white0">*</span>
+              Fakultas <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sky-400 pointer-events-none">
+              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
                 <Building size={18} />
               </div>
               <select
@@ -195,9 +196,9 @@ const StepIdentitas = ({ formData = {}, errors = {}, updateField }) => {
                 value={formData.student_faculty || ''}
                 onChange={(e) => updateField('student_faculty', e.target.value)}
               >
-                <option value="" className="bg-navy-800 text-white">-- Pilih Fakultas --</option>
+                <option value="">-- Pilih Fakultas --</option>
                 {FACULTIES.map((faculty) => (
-                  <option key={faculty} value={faculty} className="bg-navy-800 text-white">
+                  <option key={faculty} value={faculty}>
                     {faculty}
                   </option>
                 ))}
@@ -209,10 +210,10 @@ const StepIdentitas = ({ formData = {}, errors = {}, updateField }) => {
           {/* Program Studi */}
           <div>
             <label className="form-label" htmlFor="student_program">
-              Program Studi <span className="text-white0">*</span>
+              Program Studi <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sky-400 pointer-events-none">
+              <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
                 <GraduationCap size={18} />
               </div>
               <input

@@ -23,21 +23,23 @@ import {
 const STATUS_CONFIG = {
   menunggu_verifikasi: { label: 'Menunggu Verifikasi', color: 'amber', icon: Clock },
   sedang_diproses: { label: 'Sedang Diproses', color: 'blue', icon: Settings },
-  tahap_audiensi: { label: 'Tahap Audiensi', color: 'amber', icon: Users },
+  tahap_audiensi: { label: 'Tahap Audiensi', color: 'indigo', icon: Users },
   selesai: { label: 'Selesai', color: 'emerald', icon: CheckCircle2 },
 };
 
 const STATUS_ORDER = ['menunggu_verifikasi', 'sedang_diproses', 'tahap_audiensi', 'selesai'];
 
 const STATUS_BADGE_STYLES = {
-  amber: 'bg-amber-900/40 text-amber-400 border-amber-700',
-  blue: 'bg-blue-900/40 text-blue-400 border-blue-700',
-  emerald: 'bg-emerald-900/40 text-emerald-400 border-emerald-700',
+  amber: 'bg-amber-50 text-amber-700 border-amber-200',
+  blue: 'bg-blue-50 text-[#0066FF] border-blue-200',
+  indigo: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+  emerald: 'bg-emerald-50 text-emerald-700 border-emerald-200',
 };
 
 const STATUS_DOT_STYLES = {
-  amber: 'bg-amber-9500',
-  blue: 'bg-blue-500',
+  amber: 'bg-amber-500',
+  blue: 'bg-[#0066FF]',
+  indigo: 'bg-indigo-500',
   emerald: 'bg-emerald-500',
 };
 
@@ -99,7 +101,6 @@ export default function TrackPage() {
     setIsLoading(true);
     setResult(null);
 
-
     try {
       const response = await fetch(`/api/v1/reports/track/${searchCode}`);
       const data = await response.json();
@@ -129,11 +130,11 @@ export default function TrackPage() {
   };
 
   return (
-    <div className="min-h-screen font-sans bg-navy-900 text-white relative pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-      {/* Soft Organic Ambient Blobs */}
+    <div className="min-h-screen font-sans bg-[#F8FAFC] text-slate-800 relative pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+      {/* Soft Ambient Blobs */}
       <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
-        <div className="absolute top-10 right-[5%] w-[450px] h-[450px] bg-panel-700/30 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-10 left-[5%] w-[400px] h-[400px] bg-sky-800/40 rounded-full blur-[90px]"></div>
+        <div className="absolute top-10 right-[5%] w-[450px] h-[450px] bg-blue-100/40 rounded-full blur-[100px]"></div>
+        <div className="absolute bottom-10 left-[5%] w-[400px] h-[400px] bg-sky-100/50 rounded-full blur-[90px]"></div>
       </div>
 
       <div className="max-w-3xl mx-auto relative z-10">
@@ -142,35 +143,35 @@ export default function TrackPage() {
         {!result && !isLoading && (
           <div className="animate-slide-up">
             <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-panel-800 border border-panel-600 text-white rounded-full text-xs font-bold mb-4 shadow-sm">
-                <Search size={14} className="text-white" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 text-[#0066FF] rounded-full text-xs font-bold mb-4 shadow-sm">
+                <Search size={14} className="text-[#0066FF]" />
                 <span>Lacak Laporan</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-3 uppercase tracking-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-3 uppercase tracking-tight">
                 Lacak Status{' '}
-                <span className="text-white0">Laporan Anda</span>
+                <span className="text-[#0066FF]">Laporan Anda</span>
               </h1>
-              <p className="text-sky-200 max-w-lg mx-auto text-sm sm:text-base">
+              <p className="text-slate-600 max-w-lg mx-auto text-sm sm:text-base">
                 Masukkan kode tiket yang Anda terima saat mengirim laporan untuk melihat status dan perkembangan terkini.
               </p>
             </div>
 
-            <div className="bg-navy-800 border border-panel-600 rounded-3xl p-8 sm:p-10 shadow-neon">
+            <div className="bg-white border border-sky-100 rounded-3xl p-8 sm:p-10 shadow-sm">
               <div className="space-y-4">
-                <label className="block text-xs font-bold text-white uppercase tracking-wider">Kode Tiket</label>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">Kode Tiket</label>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <div className="relative flex-1">
-                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-sky-400 z-10"><Ticket size={20} /></div>
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#0066FF] z-10"><Ticket size={20} /></div>
                     <input 
                       type="text" 
                       value={inputCode}
                       onChange={(e) => { setInputCode(e.target.value.toUpperCase()); setError(''); }}
                       onKeyDown={(e) => e.key === 'Enter' && doSearch()}
                       placeholder="BEM-XXXX"
-                      className="w-full pl-12 pr-4 py-3.5 rounded-full text-white bg-navy-900 border border-panel-600 placeholder-charcoal-400 focus:outline-none focus:border-neon-500 focus:ring-2 focus:ring-neon-500/20 transition-colors uppercase font-mono tracking-wider text-sm" 
+                      className="w-full pl-12 pr-4 py-3.5 rounded-full text-slate-900 bg-white border border-sky-200 placeholder-slate-400 focus:outline-none focus:border-[#0066FF] focus:ring-2 focus:ring-[#0066FF]/20 transition-colors uppercase font-mono tracking-wider text-sm shadow-sm" 
                     />
                   </div>
-                  <button onClick={() => doSearch()} className="btn-primary py-3.5 px-8 text-sm whitespace-nowrap">
+                  <button onClick={() => doSearch()} className="btn-primary py-3.5 px-8 text-sm whitespace-nowrap bg-[#0066FF] text-white hover:bg-blue-600 rounded-full font-bold shadow-md shadow-blue-500/20">
                     Lacak <ArrowRight size={18} />
                   </button>
                 </div>
@@ -180,13 +181,13 @@ export default function TrackPage() {
                   </div>
                 )}
                 <div className="flex justify-between items-center mt-2">
-                  <p className="text-sky-400 text-xs font-mono">Format: BEM-XXXX</p>
+                  <p className="text-slate-400 text-xs font-mono">Format: BEM-XXXX</p>
                 </div>
-                <div className="flex items-start gap-2.5 mt-4 p-3.5 bg-navy-800/80 border border-panel-600 rounded-2xl">
-                  <Mail size={15} className="text-neon-500 mt-0.5 shrink-0" />
-                  <p className="text-xs text-white leading-relaxed">
+                <div className="flex items-start gap-2.5 mt-4 p-3.5 bg-blue-50/80 border border-blue-200 rounded-2xl">
+                  <Mail size={15} className="text-[#0066FF] mt-0.5 shrink-0" />
+                  <p className="text-xs text-slate-700 leading-relaxed">
                     Kode tiket telah dikirimkan ke email yang Anda daftarkan saat melapor. Anda juga akan menerima pemberitahuan melalui email setiap ada perkembangan tindak lanjut laporan. 
-                    <span className="block mt-1 font-medium italic">Jangan lupa cek folder Spam/Junk jika email tidak ditemukan.</span>
+                    <span className="block mt-1 font-medium italic text-slate-500">Jangan lupa cek folder Spam/Junk jika email tidak ditemukan.</span>
                   </p>
                 </div>
               </div>
@@ -197,59 +198,59 @@ export default function TrackPage() {
         {/* ─── Loading ─── */}
         {isLoading && (
           <div className="text-center py-20 animate-fade-in">
-            <Loader2 size={44} className="animate-spin text-white0 mx-auto mb-4" />
-            <p className="text-sky-300 font-medium">Mencari laporan Anda...</p>
+            <Loader2 size={44} className="animate-spin text-[#0066FF] mx-auto mb-4" />
+            <p className="text-slate-600 font-medium">Mencari laporan Anda...</p>
           </div>
         )}
 
         {/* ─── Result ─── */}
         {result && !isLoading && (
           <div className="animate-slide-up space-y-6">
-            <button onClick={handleReset} className="flex items-center gap-2 text-sm font-semibold text-sky-200 hover:text-white transition-colors py-2">
+            <button onClick={handleReset} className="flex items-center gap-2 text-sm font-semibold text-[#0066FF] hover:text-blue-700 transition-colors py-2">
               <ArrowLeft size={16} /> Cari tiket lain
             </button>
 
             {/* Header Card */}
-            <div className="bg-navy-800 border border-panel-600 rounded-3xl p-6 sm:p-8 shadow-neon">
+            <div className="bg-white border border-sky-100 rounded-3xl p-6 sm:p-8 shadow-sm">
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
                 <div>
-                  <p className="text-xs font-bold text-sky-400 uppercase tracking-wider mb-1">Kode Tiket</p>
-                  <p className="text-2xl sm:text-3xl font-black font-mono tracking-wider text-white">{result.ticket_code}</p>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Kode Tiket</p>
+                  <p className="text-2xl sm:text-3xl font-black font-mono tracking-wider text-slate-900">{result.ticket_code}</p>
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
                   {(() => {
                     const c = STATUS_CONFIG[result.status] || { label: result.status, color: 'amber', icon: Clock };
-                    const s = STATUS_BADGE_STYLES[c.color] || 'bg-amber-900/40 text-amber-400 border-amber-700';
+                    const s = STATUS_BADGE_STYLES[c.color] || 'bg-amber-50 text-amber-700 border-amber-200';
                     const I = c.icon;
                     return <span className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold border ${s}`}><I size={14} />{c.label}</span>;
                   })()}
                   {result.is_anonymous && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-amber-950 text-amber-300 rounded-full text-xs font-bold border border-amber-700">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-amber-50 text-amber-800 rounded-full text-xs font-bold border border-amber-200">
                       <Shield size={12} /> Anonim
                     </span>
                   )}
                 </div>
               </div>
-              <div className="space-y-4 pt-5 border-t border-panel-800">
-                <div className="flex items-start gap-3"><Tag size={16} className="text-sky-400 mt-0.5 shrink-0" /><div><p className="text-xs text-sky-400 font-bold uppercase tracking-wider">Kategori</p><p className="text-sm font-bold text-white">{result.category}</p></div></div>
-                <div className="flex items-start gap-3"><MessageSquare size={16} className="text-sky-400 mt-0.5 shrink-0" /><div><p className="text-xs text-sky-400 font-bold uppercase tracking-wider">Perihal</p><p className="text-sm font-bold text-white">{result.subject}</p></div></div>
-                <div className="flex items-start gap-3"><Calendar size={16} className="text-sky-400 mt-0.5 shrink-0" /><div><p className="text-xs text-sky-400 font-bold uppercase tracking-wider">Tanggal Pelaporan</p><p className="text-sm font-medium text-sky-200">{formatDate(result.created_at)}</p></div></div>
+              <div className="space-y-4 pt-5 border-t border-slate-100">
+                <div className="flex items-start gap-3"><Tag size={16} className="text-[#0066FF] mt-0.5 shrink-0" /><div><p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Kategori</p><p className="text-sm font-bold text-slate-900">{result.category}</p></div></div>
+                <div className="flex items-start gap-3"><MessageSquare size={16} className="text-[#0066FF] mt-0.5 shrink-0" /><div><p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Perihal</p><p className="text-sm font-bold text-slate-900">{result.subject}</p></div></div>
+                <div className="flex items-start gap-3"><Calendar size={16} className="text-[#0066FF] mt-0.5 shrink-0" /><div><p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Tanggal Pelaporan</p><p className="text-sm font-medium text-slate-600">{formatDate(result.created_at)}</p></div></div>
               </div>
             </div>
 
             {/* Timeline */}
-            <div className="bg-navy-800 border border-panel-600 rounded-3xl p-6 sm:p-8 shadow-neon">
-              <h3 className="text-base sm:text-lg font-bold text-white mb-6 flex items-center gap-2 uppercase tracking-wide">
-                <Clock size={18} className="text-white0" /> Timeline Perkembangan
+            <div className="bg-white border border-sky-100 rounded-3xl p-6 sm:p-8 shadow-sm">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-6 flex items-center gap-2 uppercase tracking-wide">
+                <Clock size={18} className="text-[#0066FF]" /> Timeline Perkembangan
               </h3>
               <div className="relative">
                 {buildFullTimeline().map((step, index, arr) => {
                   const Icon = step.icon;
                   const isLast = index === arr.length - 1;
                   let dotClass, lineClass;
-                  if (step.isCompleted) { dotClass = 'bg-neon-500 text-white shadow-neon'; lineClass = 'bg-panel-500'; }
-                  else if (step.isCurrent) { dotClass = 'bg-sky-500 text-white shadow-sky ring-4 ring-sky-900'; lineClass = 'bg-panel-600'; }
-                  else { dotClass = 'bg-panel-600 text-sky-400'; lineClass = 'bg-panel-600'; }
+                  if (step.isCompleted) { dotClass = 'bg-emerald-500 text-white shadow-sm'; lineClass = 'bg-emerald-200'; }
+                  else if (step.isCurrent) { dotClass = 'bg-[#0066FF] text-white shadow-md shadow-blue-500/30 ring-4 ring-blue-100'; lineClass = 'bg-slate-200'; }
+                  else { dotClass = 'bg-slate-100 border border-slate-200 text-slate-400'; lineClass = 'bg-slate-200'; }
 
                   return (
                     <div key={step.status} className="flex gap-4 relative">
@@ -260,13 +261,13 @@ export default function TrackPage() {
                         {!isLast && <div className={`w-0.5 flex-1 min-h-[40px] my-1 ${lineClass}`} />}
                       </div>
                       <div className={isLast ? 'pb-0 pt-2' : 'pb-8 pt-2'}>
-                        <p className={`text-sm font-bold tracking-wide ${step.isCurrent ? 'text-white' : step.isCompleted ? 'text-white' : 'text-sky-400'}`}>
+                        <p className={`text-sm font-bold tracking-wide ${step.isCurrent ? 'text-slate-900' : step.isCompleted ? 'text-slate-800' : 'text-slate-400'}`}>
                           {step.label}
-                          {step.isCurrent && <span className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 bg-sky-900/50 border border-sky-700 text-sky-300 rounded-full text-[10px] font-bold uppercase tracking-wider">Saat ini</span>}
+                          {step.isCurrent && <span className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 bg-blue-50 border border-blue-200 text-[#0066FF] rounded-full text-[10px] font-bold uppercase tracking-wider">Saat ini</span>}
                         </p>
-                        {step.note && <p className="text-sm text-sky-200 mt-1">{step.note}</p>}
-                        {step.timestamp && <p className="text-xs text-sky-400 mt-1">{formatDateShort(step.timestamp)}</p>}
-                        {step.isUpcoming && <p className="text-xs text-sky-400 italic mt-1">Menunggu...</p>}
+                        {step.note && <p className="text-sm text-slate-600 mt-1">{step.note}</p>}
+                        {step.timestamp && <p className="text-xs text-slate-400 mt-1">{formatDateShort(step.timestamp)}</p>}
+                        {step.isUpcoming && <p className="text-xs text-slate-400 italic mt-1">Menunggu...</p>}
                       </div>
                     </div>
                   );
@@ -276,15 +277,15 @@ export default function TrackPage() {
 
             {/* Public Responses */}
             {result.public_responses?.length > 0 && (
-              <div className="bg-navy-800 border border-panel-600 rounded-3xl p-6 sm:p-8 shadow-neon">
-                <h3 className="text-base sm:text-lg font-bold text-white mb-5 flex items-center gap-2 uppercase tracking-wide">
-                  <MessageSquare size={18} className="text-white0" /> Respon Tim BEM
+              <div className="bg-white border border-sky-100 rounded-3xl p-6 sm:p-8 shadow-sm">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-5 flex items-center gap-2 uppercase tracking-wide">
+                  <MessageSquare size={18} className="text-[#0066FF]" /> Respon Tim BEM
                 </h3>
                 <div className="space-y-4">
                   {result.public_responses.map((resp, idx) => (
-                    <div key={idx} className="p-5 bg-navy-800/70 border border-panel-600 border-l-4 border-l-neon-500 rounded-r-2xl relative overflow-hidden">
-                      <p className="text-sm text-sky-200 leading-relaxed">{resp.content}</p>
-                      <p className="text-xs text-sky-400 mt-3 flex items-center gap-1 font-mono"><Calendar size={12} /> {formatDateShort(resp.created_at)}</p>
+                    <div key={idx} className="p-5 bg-blue-50/50 border border-blue-100 border-l-4 border-l-[#0066FF] rounded-r-2xl relative overflow-hidden">
+                      <p className="text-sm text-slate-700 leading-relaxed">{resp.content}</p>
+                      <p className="text-xs text-slate-400 mt-3 flex items-center gap-1 font-mono"><Calendar size={12} /> {formatDateShort(resp.created_at)}</p>
                     </div>
                   ))}
                 </div>

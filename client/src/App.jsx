@@ -7,6 +7,7 @@ import ReportForm from './components/ReportForm';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminTicketDetail from './pages/admin/AdminTicketDetail';
+import BreachCheckPage from './pages/BreachCheckPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 
@@ -21,6 +22,8 @@ export default function App() {
           <Route path="/lapor" element={<ReportForm />} />
           <Route path="/lacak" element={<TrackPage />} />
           <Route path="/lacak/:ticketCode" element={<TrackPage />} />
+          <Route path="/cek-akun" element={<BreachCheckPage />} />
+          <Route path="/cek-kebocoran" element={<Navigate to="/cek-akun" replace />} />
         </Route>
 
         {/* Admin Routes */}

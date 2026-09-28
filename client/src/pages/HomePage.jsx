@@ -5,9 +5,6 @@ import {
   Megaphone,
   FileEdit,
   Search,
-  TrendingUp,
-  CheckCircle,
-  Clock,
   Info,
   Shield,
   Eye,
@@ -172,43 +169,6 @@ const HomePage = () => {
             <path d="M0,0 C300,60 600,0 900,45 C1050,65 1150,30 1200,20 L1200,120 L0,120 Z" />
           </svg>
         </div>
-      </section>
-
-      {/* SECTION 1.5: STATS BENTO CARDS */}
-      <section className="py-8 relative z-10">
-        <motion.div 
-          className="container mx-auto px-4 sm:px-6 lg:px-8"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <div className="bg-white border border-sky-100 rounded-3xl p-6 flex flex-col items-start shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
-                <TrendingUp size={22} />
-              </div>
-              <div className="text-3xl font-black text-slate-900 mb-1">500+</div>
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Laporan Diterima</div>
-            </div>
-            
-            <div className="bg-white border border-sky-100 rounded-3xl p-6 flex flex-col items-start shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
-                <CheckCircle size={22} />
-              </div>
-              <div className="text-3xl font-black text-slate-900 mb-1">430+</div>
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Laporan Selesai</div>
-            </div>
-            
-            <div className="bg-white border border-sky-100 rounded-3xl p-6 flex flex-col items-start shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#0066FF] border border-blue-100 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
-                <Clock size={22} />
-              </div>
-              <div className="text-3xl font-black text-slate-900 mb-1">3 Hari</div>
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Rata-rata Respon</div>
-            </div>
-          </div>
-        </motion.div>
       </section>
 
       {/* SECTION 2: ABOUT / VALUE PROPOSITION */}

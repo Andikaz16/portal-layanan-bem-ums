@@ -7,7 +7,10 @@ import ReportForm from './components/ReportForm';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminTicketDetail from './pages/admin/AdminTicketDetail';
+import AdminPressRelease from './pages/admin/AdminPressRelease';
 import BreachCheckPage from './pages/BreachCheckPage';
+import PressReleasePage from './pages/PressReleasePage';
+import PressReleaseDetail from './pages/PressReleaseDetail';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 
@@ -22,6 +25,8 @@ export default function App() {
           <Route path="/lapor" element={<ReportForm />} />
           <Route path="/lacak" element={<TrackPage />} />
           <Route path="/lacak/:ticketCode" element={<TrackPage />} />
+          <Route path="/press-release" element={<PressReleasePage />} />
+          <Route path="/press-release/:slug" element={<PressReleaseDetail />} />
           <Route path="/cek-akun" element={<BreachCheckPage />} />
           <Route path="/cek-kebocoran" element={<Navigate to="/cek-akun" replace />} />
         </Route>
@@ -33,6 +38,7 @@ export default function App() {
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="tickets/:id" element={<AdminTicketDetail />} />
+          <Route path="press-releases" element={<AdminPressRelease />} />
         </Route>
       </Routes>
     </Router>

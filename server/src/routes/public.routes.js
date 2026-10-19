@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const ReportController = require('../controllers/report.controller');
 const CyberController = require('../controllers/cyber.controller');
+const PressReleaseController = require('../controllers/press_release.controller');
 const { validate, createReportSchema, trackReportSchema } = require('../middleware/validate');
 const upload = require('../middleware/upload');
 
@@ -40,6 +41,14 @@ router.get('/reports/attachments/:attachmentId', ReportController.viewAttachment
 // POST /api/v1/cyber/check-email
 // Check if email has been compromised in any public data breaches
 router.post('/cyber/check-email', CyberController.checkEmail);
+
+// GET /api/v1/press-releases
+// Fetch published press releases
+router.get('/press-releases', PressReleaseController.getPublicPressReleases);
+
+// GET /api/v1/press-releases/:slug
+// Fetch single press release by slug
+router.get('/press-releases/:slug', PressReleaseController.getPublicPressReleaseBySlug);
 
 // Temporary diagnostic route to test email on Vercel
 router.get('/test-email', async (req, res) => {

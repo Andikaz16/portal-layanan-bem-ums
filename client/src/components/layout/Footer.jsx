@@ -8,6 +8,7 @@ export default function Footer() {
     { to: '/', label: 'Beranda' },
     { to: '/lapor', label: 'Buat Laporan' },
     { to: '/lacak', label: 'Lacak Laporan' },
+    { to: '/press-release', label: 'Press Release' },
   ];
 
   return (

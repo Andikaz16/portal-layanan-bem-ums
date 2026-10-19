@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, FileEdit, Search, Menu, X, ShieldCheck } from 'lucide-react';
+import { Home, FileEdit, Search, Menu, X, ShieldCheck, Newspaper } from 'lucide-react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,6 +26,7 @@ export default function Navbar() {
     { to: '/', label: 'Beranda', icon: Home },
     { to: '/lapor', label: 'Buat Laporan', icon: FileEdit },
     { to: '/lacak', label: 'Lacak Laporan', icon: Search },
+    { to: '/press-release', label: 'Press Release', icon: Newspaper },
     { to: '/cek-akun', label: 'Cek Akun', icon: ShieldCheck },
   ];
 

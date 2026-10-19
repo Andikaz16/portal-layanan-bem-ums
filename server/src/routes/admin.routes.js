@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { adminLogin, getAllTickets, getTicketDetail, updateTicketStatus, addTicketNote, getStatistics, viewAttachment, deleteTicket, exportTickets } = require('../controllers/admin.controller');
+const PressReleaseController = require('../controllers/press_release.controller');
 const authMiddleware = require('../middleware/auth');
 
 const router = Router();
@@ -27,7 +28,6 @@ router.get('/tickets/export', exportTickets);
 router.get('/tickets', getAllTickets);
 
 // GET /api/v1/admin/tickets/:id
-// GET /api/v1/admin/tickets/:id
 router.get('/tickets/:id', getTicketDetail);
 
 // DELETE /api/v1/admin/tickets/:id
@@ -41,6 +41,22 @@ router.post('/tickets/:id/notes', addTicketNote);
 
 // GET /api/v1/admin/attachments/:attachmentId — View attachment file
 router.get('/attachments/:attachmentId', viewAttachment);
+
+// ─── Press Release Admin Routes ───
+// GET /api/v1/admin/press-releases
+router.get('/press-releases', PressReleaseController.adminGetAll);
+
+// POST /api/v1/admin/press-releases
+router.post('/press-releases', PressReleaseController.adminCreate);
+
+// GET /api/v1/admin/press-releases/:id
+router.get('/press-releases/:id', PressReleaseController.adminGetById);
+
+// PUT /api/v1/admin/press-releases/:id
+router.put('/press-releases/:id', PressReleaseController.adminUpdate);
+
+// DELETE /api/v1/admin/press-releases/:id
+router.delete('/press-releases/:id', PressReleaseController.adminDelete);
 
 module.exports = router;
 

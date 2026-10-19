@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -26,13 +26,34 @@ import {
   Mail,
   KeyRound,
   Database,
-  Cpu
+  Cpu,
+  Newspaper,
+  Calendar
 } from 'lucide-react';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [trackCode, setTrackCode] = useState('');
   const [openFaq, setOpenFaq] = useState(null);
+  const [pressReleases, setPressReleases] = useState([]);
+  const [loadingPR, setLoadingPR] = useState(true);
+
+  useEffect(() => {
+    const fetchPR = async () => {
+      try {
+        const res = await fetch('/api/v1/press-releases?limit=3');
+        if (res.ok) {
+          const json = await res.json();
+          setPressReleases(json.data || []);
+        }
+      } catch (err) {
+        console.error('Failed to fetch press releases:', err);
+      } finally {
+        setLoadingPR(false);
+      }
+    };
+    fetchPR();
+  }, []);
 
   const handleTrackSubmit = (e) => {
     e.preventDefault();
@@ -425,6 +446,131 @@ const HomePage = () => {
               </Link>
             ))}
           </div>
+        </motion.div>
+      </section>
+
+      {/* SECTION 4.5: PRESS RELEASE */}
+      <section className="py-20 relative bg-white border-t border-slate-100">
+        <motion.div 
+          className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 text-[#0066FF] rounded-full text-xs font-bold mb-3 shadow-sm">
+                <Newspaper size={14} className="text-[#0066FF]" />
+                <span>Pernyataan Sikap & Berita Resmi</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 uppercase tracking-tight">
+                Press Release Terbaru
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 mt-2 max-w-xl">
+                Siaran pers resmi, kabar advokasi, dan pernyataan kelembagaan BEM UMS
+              </p>
+            </div>
+            <Link
+              to="/press-release"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#0066FF] hover:text-[#0052FF] group whitespace-nowrap self-start sm:self-auto"
+            >
+              <span>Lihat Semua Rilis</span>
+              <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          {loadingPR ? (
+            <div className="py-16 text-center text-slate-400 text-xs sm:text-sm">
+              Memuat press release...
+            </div>
+          ) : pressReleases.length === 0 ? (
+            <div className="bg-slate-50 border border-slate-200/80 rounded-3xl p-8 sm:p-12 text-center max-w-2xl mx-auto">
+              <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200 text-[#0066FF] flex items-center justify-center mx-auto mb-4 shadow-sm">
+                <Newspaper size={26} />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1">
+                Belum Ada Siaran Pers Terbaru
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-md mx-auto mb-6">
+                Seluruh siaran pers dan pernyataan sikap resmi BEM UMS akan dipublikasikan di kanal ini secara berkala.
+              </p>
+              <Link
+                to="/press-release"
+                className="btn-primary py-2.5 px-6 rounded-full text-xs font-bold inline-flex items-center gap-2 bg-[#0066FF] text-white"
+              >
+                <span>Buka Kanal Press Release</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+              {pressReleases.map((item) => (
+                <article
+                  key={item.id}
+                  className="bg-white border border-sky-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                >
+                  <div className="relative aspect-[16/9] w-full bg-gradient-to-br from-blue-50 to-sky-100 overflow-hidden border-b border-slate-100">
+                    {item.thumbnail ? (
+                      <img
+                        src={item.thumbnail}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center text-[#0066FF]/40 p-6">
+                        <Newspaper size={40} className="mb-2 group-hover:scale-110 transition-transform duration-300" />
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Siaran Pers</span>
+                      </div>
+                    )}
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#0066FF] text-white shadow-sm">
+                        {item.category || 'Advokasi'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-3 text-[11px] text-slate-400 font-medium mb-2.5">
+                        <span className="flex items-center gap-1">
+                          <Calendar size={12} />
+                          {new Date(item.created_at).toLocaleDateString('id-ID', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric'
+                          })}
+                        </span>
+                      </div>
+
+                      <h3 className="text-base font-bold text-slate-900 group-hover:text-[#0066FF] transition-colors line-clamp-2 mb-2 leading-snug">
+                        <Link to={`/press-release/${item.slug}`}>
+                          {item.title}
+                        </Link>
+                      </h3>
+
+                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-4">
+                        {item.summary || (item.content ? item.content.substring(0, 120) + '...' : '')}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between mt-auto">
+                      <span className="text-xs font-semibold text-slate-500 truncate max-w-[130px]">
+                        {item.author || 'BEM UMS'}
+                      </span>
+                      <Link
+                        to={`/press-release/${item.slug}`}
+                        className="text-xs font-bold text-[#0066FF] hover:text-[#0052FF] flex items-center gap-1 group-hover:translate-x-1 transition-transform"
+                      >
+                        <span>Baca Rilis</span>
+                        <ArrowRight size={12} />
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
         </motion.div>
       </section>
 

@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, LogOut } from 'lucide-react';
+import { LayoutDashboard, Newspaper, LogOut } from 'lucide-react';
 
 export default function AdminLayout() {
   const location = useLocation();
@@ -34,6 +34,18 @@ export default function AdminLayout() {
               >
                 <LayoutDashboard className="w-4 h-4 sm:mr-2" />
                 <span className="hidden sm:inline">Dashboard</span>
+              </Link>
+
+              <Link
+                to="/admin/press-releases"
+                className={`flex items-center px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
+                  location.pathname.startsWith('/admin/press-releases') 
+                    ? 'bg-panel-800/15 text-white border border-panel-400/30' 
+                    : 'text-neon-200 hover:text-white hover:bg-navy-900'
+                }`}
+              >
+                <Newspaper className="w-4 h-4 sm:mr-2" />
+                <span className="hidden sm:inline">Press Release</span>
               </Link>
 
               <div className="h-6 w-px bg-navy-900 hidden sm:block"></div>

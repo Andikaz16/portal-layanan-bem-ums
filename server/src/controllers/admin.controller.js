@@ -278,7 +278,7 @@ const exportTickets = async (req, res, next) => {
         t.status,
         new Date(t.created_at).toLocaleString('id-ID'),
         t.lampiran_ids 
-          ? t.lampiran_ids.split(',').map(id => `https://portal-layanan-bem-ums.vercel.app/api/v1/reports/attachments/${id}`).join(', ') 
+          ? t.lampiran_ids.split(',').map(id => `https://lapor.bemums.id/api/v1/reports/attachments/${id}`).join(', ') 
           : 'Tidak ada'
       ];
       csvContent += row.map(escapeCsv).join(';') + '\r\n';

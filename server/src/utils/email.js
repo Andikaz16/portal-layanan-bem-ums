@@ -35,7 +35,7 @@ const sendTicketEmail = async (to, ticketCode, studentName, subject) => {
     to: to,
     replyTo: process.env.SMTP_USER,
     subject: `Kode Tiket Laporan Anda: ${ticketCode}`,
-    text: `Halo ${name},\n\nTerima kasih telah menggunakan Portal Layanan BEM UMS. Laporan Anda dengan subjek "${subject}" telah berhasil kami terima.\n\nKODE TIKET ANDA: ${ticketCode}\n\nSimpan kode tiket ini untuk melacak status laporan Anda di website kami.\n\nLacak Laporan Sekarang: ${process.env.FRONTEND_URL || 'https://portal-layanan-bem-ums.vercel.app'}/lacak/${ticketCode}\n\nTerima kasih,\nBEM UMS`,
+    text: `Halo ${name},\n\nTerima kasih telah menggunakan Portal Layanan BEM UMS. Laporan Anda dengan subjek "${subject}" telah berhasil kami terima.\n\nKODE TIKET ANDA: ${ticketCode}\n\nSimpan kode tiket ini untuk melacak status laporan Anda di website kami.\n\nLacak Laporan Sekarang: ${process.env.FRONTEND_URL || 'https://lapor.bemums.id'}/lacak/${ticketCode}\n\nTerima kasih,\nBEM UMS`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eaeaea; border-radius: 10px; overflow: hidden;">
         <div style="background-color: #dc2626; padding: 20px; text-align: center;">
@@ -54,7 +54,7 @@ const sendTicketEmail = async (to, ticketCode, studentName, subject) => {
           <p style="font-size: 16px; line-height: 1.5;">Simpan kode tiket ini baik-baik. Anda dapat menggunakan kode ini untuk melacak status dan perkembangan laporan Anda di website kami.</p>
           
           <div style="text-align: center; margin-top: 30px;">
-            <a href="${process.env.FRONTEND_URL || 'https://portal-layanan-bem-ums.vercel.app'}/lacak/${ticketCode}" style="display: inline-block; background-color: #dc2626; color: #ffffff; text-decoration: none; padding: 12px 25px; border-radius: 6px; font-weight: bold; font-size: 16px;">Lacak Laporan Sekarang</a>
+            <a href="${process.env.FRONTEND_URL || 'https://lapor.bemums.id'}/lacak/${ticketCode}" style="display: inline-block; background-color: #dc2626; color: #ffffff; text-decoration: none; padding: 12px 25px; border-radius: 6px; font-weight: bold; font-size: 16px;">Lacak Laporan Sekarang</a>
           </div>
         </div>
         
@@ -115,7 +115,7 @@ const sendStatusUpdateEmail = async (to, ticketCode, studentName, subject, newSt
     to: to,
     replyTo: process.env.SMTP_USER,
     subject: `[Update] Laporan Anda (${ticketCode}): ${statusLabel}`,
-    text: `Halo ${name},\n\nStatus laporan Anda "${subject}" (${ticketCode}) telah diperbarui menjadi: ${statusLabel}.\n\n${adminNote ? 'Catatan Admin: ' + adminNote + '\n\n' : ''}Cek detail laporan Anda di: ${process.env.FRONTEND_URL || 'https://portal-layanan-bem-ums.vercel.app'}/lacak/${ticketCode}\n\nBEM UMS`,
+    text: `Halo ${name},\n\nStatus laporan Anda "${subject}" (${ticketCode}) telah diperbarui menjadi: ${statusLabel}.\n\n${adminNote ? 'Catatan Admin: ' + adminNote + '\n\n' : ''}Cek detail laporan Anda di: ${process.env.FRONTEND_URL || 'https://lapor.bemums.id'}/lacak/${ticketCode}\n\nBEM UMS`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eaeaea; border-radius: 10px; overflow: hidden;">
         <div style="background-color: #dc2626; padding: 20px; text-align: center;">
@@ -136,7 +136,7 @@ const sendStatusUpdateEmail = async (to, ticketCode, studentName, subject, newSt
           ${noteHtml}
           
           <div style="text-align: center; margin-top: 30px;">
-            <a href="${process.env.FRONTEND_URL || 'https://portal-layanan-bem-ums.vercel.app'}/lacak/${ticketCode}" style="display: inline-block; background-color: #dc2626; color: #ffffff; text-decoration: none; padding: 12px 25px; border-radius: 6px; font-weight: bold; font-size: 16px;">Lihat Detail Laporan</a>
+            <a href="${process.env.FRONTEND_URL || 'https://lapor.bemums.id'}/lacak/${ticketCode}" style="display: inline-block; background-color: #dc2626; color: #ffffff; text-decoration: none; padding: 12px 25px; border-radius: 6px; font-weight: bold; font-size: 16px;">Lihat Detail Laporan</a>
           </div>
         </div>
         

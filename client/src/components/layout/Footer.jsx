@@ -18,11 +18,18 @@ export default function Footer() {
           {/* Column 1: Brand */}
           <div>
             <div className="flex items-center gap-2.5 mb-6">
-              <img 
-                src="/logo-nvbar.png" 
-                alt="Logo BEM UMS" 
-                className="w-48 sm:w-60 h-auto max-h-16 object-contain origin-left -ml-2 filter brightness-0 invert drop-shadow-sm" 
-              />
+              <picture className="block">
+                <source srcSet="/logo-nvbar.webp" type="image/webp" />
+                <img 
+                  src="/logo-nvbar.png" 
+                  alt="Logo BEM UMS" 
+                  width="240"
+                  height="64"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-48 sm:w-60 h-auto max-h-16 object-contain origin-left -ml-2 filter brightness-0 invert drop-shadow-sm" 
+                />
+              </picture>
             </div>
             <p className="text-sm text-white/85 leading-relaxed max-w-xs">
               Kanal resmi Badan Eksekutif Mahasiswa Universitas Muhammadiyah Surakarta untuk menampung keluhan dan aspirasi mahasiswa secara aman, transparan, dan akuntabel.

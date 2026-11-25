@@ -232,14 +232,19 @@ export default function BreachCheckPage() {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
+                <label htmlFor="breach-email-input" className="sr-only">
+                  Alamat email untuk pemindaian kebocoran data
+                </label>
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#0066FF]">
                   <Mail size={18} />
                 </div>
                 <input
+                  id="breach-email-input"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Masukkan alamat email (cth: student@mail.com)"
+                  aria-label="Alamat email untuk pemindaian kebocoran data"
                   className="w-full pl-11 pr-4 py-4 bg-white border border-sky-200 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0066FF]/20 focus:border-[#0066FF] text-sm transition-all shadow-sm"
                   required
                 />

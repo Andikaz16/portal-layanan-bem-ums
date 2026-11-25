@@ -173,13 +173,18 @@ const HomePage = () => {
               </div>
 
               {/* Raw Transparent Logo LAPOR PRES floating on the abstract background */}
-              <div className="relative animate-fade-in group z-10">
+              <picture className="relative animate-fade-in group z-10 block">
+                <source srcSet="/logo-lapor-pres.webp" type="image/webp" />
                 <img 
                   src="/logo-lapor-pres.png" 
-                  alt="Logo LAPOR PRES" 
+                  alt="Logo LAPOR PRES BEM UMS" 
+                  width="420"
+                  height="138"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-72 xl:w-[420px] h-auto object-contain filter brightness-0 invert opacity-95 drop-shadow-[0_10px_25px_rgba(0,0,0,0.15)] group-hover:scale-105 group-hover:-translate-y-2 transition-all duration-500 ease-out" 
                 />
-              </div>
+              </picture>
             </div>
           </div>
         </div>
@@ -436,6 +441,7 @@ const HomePage = () => {
               <Link 
                 to="/lapor" 
                 key={idx} 
+                aria-label={`Buat laporan kategori ${cat.name}: ${cat.desc}`}
                 className="bg-gradient-to-br from-[#0062FF] to-[#00A3FF] text-white rounded-3xl p-6 flex flex-col shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 group"
               >
                 <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm text-white flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
@@ -515,6 +521,10 @@ const HomePage = () => {
                       <img
                         src={item.thumbnail}
                         alt={item.title}
+                        width="400"
+                        height="225"
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
@@ -593,19 +603,28 @@ const HomePage = () => {
 
             <form onSubmit={handleTrackSubmit} className="max-w-xl mx-auto flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
+                <label htmlFor="track-code-hero" className="sr-only">
+                  Kode Tiket Laporan
+                </label>
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#0066FF] z-10">
                   <Ticket size={20} />
                 </div>
                 <input
+                  id="track-code-hero"
                   type="text"
                   value={trackCode}
                   onChange={(e) => setTrackCode(e.target.value)}
                   placeholder="BEM-XXXX"
+                  aria-label="Kode Tiket Laporan"
                   className="w-full pl-12 pr-4 py-3.5 rounded-full text-slate-900 bg-white border border-sky-200 placeholder-slate-400 focus:outline-none focus:border-[#0066FF] focus:ring-2 focus:ring-[#0066FF]/20 transition-all uppercase font-mono tracking-wider text-sm shadow-sm"
                   required
                 />
               </div>
-              <button type="submit" className="btn-primary py-3.5 px-8 text-sm whitespace-nowrap bg-[#0066FF] text-white hover:bg-blue-600 rounded-full font-bold shadow-md shadow-blue-500/20">
+              <button 
+                type="submit" 
+                aria-label="Lacak status laporan sekarang"
+                className="btn-primary py-3.5 px-8 text-sm whitespace-nowrap bg-[#0066FF] text-white hover:bg-blue-600 rounded-full font-bold shadow-md shadow-blue-500/20"
+              >
                 <span>Lacak Sekarang</span>
                 <ArrowRight size={16} />
               </button>
@@ -640,6 +659,9 @@ const HomePage = () => {
                   }`}
                 >
                   <button
+                    id={`faq-btn-${idx}`}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${idx}`}
                     onClick={() => toggleFaq(idx)}
                     className="w-full text-left px-6 py-4 flex items-center justify-between focus:outline-none"
                   >
@@ -650,6 +672,9 @@ const HomePage = () => {
                     />
                   </button>
                   <div 
+                    id={`faq-answer-${idx}`}
+                    role="region"
+                    aria-labelledby={`faq-btn-${idx}`}
                     className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 pb-5 opacity-100' : 'max-h-0 opacity-0'}`}
                   >
                     <p className="text-slate-600 text-sm leading-relaxed pt-2 border-t border-sky-100">{faq.a}</p>

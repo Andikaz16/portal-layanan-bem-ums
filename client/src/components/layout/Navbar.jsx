@@ -41,16 +41,22 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <img 
-              src="/logo-nvbar.png" 
-              alt="Logo BEM UMS" 
-              className={`w-32 sm:w-44 h-auto max-h-12 object-contain group-hover:scale-105 transition-all duration-300 origin-left ${
-                isTransparent 
-                  ? 'filter brightness-0 invert drop-shadow-sm' 
-                  : 'filter brightness-0 opacity-90 group-hover:opacity-100'
-              }`} 
-            />
+          <Link to="/" aria-label="Beranda Portal Layanan BEM UMS" className="flex items-center gap-2.5 group">
+            <picture className="flex items-center">
+              <source srcSet="/logo-nvbar.webp" type="image/webp" />
+              <img 
+                src="/logo-nvbar.png" 
+                alt="Logo BEM UMS" 
+                width="176"
+                height="48"
+                fetchPriority="high"
+                className={`w-32 sm:w-44 h-auto max-h-12 object-contain group-hover:scale-105 transition-all duration-300 origin-left ${
+                  isTransparent 
+                    ? 'filter brightness-0 invert drop-shadow-sm' 
+                    : 'filter brightness-0 opacity-90 group-hover:opacity-100'
+                }`} 
+              />
+            </picture>
           </Link>
 
           {/* Desktop Nav */}
@@ -114,7 +120,9 @@ export default function Navbar() {
                 ? 'text-white hover:bg-white/15'
                 : 'text-slate-800 hover:bg-slate-100'
             }`}
-            aria-label="Toggle menu"
+            aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation-menu"
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -122,9 +130,12 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
-        isOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
-      }`}>
+      <div 
+        id="mobile-navigation-menu"
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
+          isOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
         <div className={`px-4 py-4 space-y-1.5 shadow-xl backdrop-blur-xl border-t transition-colors duration-300 ${
           isTransparent
             ? 'bg-[#0052FF]/98 border-white/15'

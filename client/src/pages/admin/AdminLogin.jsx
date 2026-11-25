@@ -47,7 +47,7 @@ export default function AdminLogin() {
       <div className="max-w-md w-full space-y-8 bg-navy-800 p-8 sm:p-10 rounded-3xl shadow-neon-lg border border-panel-600 relative z-10">
         
         <div className="flex flex-col items-center">
-          <img src="/logo-nvbar.png" alt="Logo BEM" className="w-40 sm:w-52 h-auto max-h-16 mb-4 object-contain filter brightness-0 invert opacity-90" />
+          <img src="/logo-nvbar.png" alt="Logo BEM" width="208" height="56" className="w-40 sm:w-52 h-auto max-h-16 mb-4 object-contain filter brightness-0 invert opacity-90" />
           <h2 className="mt-2 text-center text-3xl font-black text-white uppercase tracking-wider">
             Admin <span className="text-white0">Login</span>
           </h2>
@@ -65,10 +65,11 @@ export default function AdminLogin() {
         <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-white uppercase tracking-wider mb-1.5">
+              <label htmlFor="admin-username-input" className="block text-xs font-bold text-white uppercase tracking-wider mb-1.5">
                 Username
               </label>
               <input
+                id="admin-username-input"
                 type="text"
                 required
                 className="appearance-none rounded-2xl relative block w-full px-4 py-3.5 bg-navy-900 border border-panel-600 placeholder-charcoal-400 text-white focus:outline-none focus:ring-2 focus:ring-neon-500/25 focus:border-neon-500 transition-colors sm:text-sm"
@@ -78,10 +79,11 @@ export default function AdminLogin() {
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-white uppercase tracking-wider mb-1.5">
+              <label htmlFor="admin-password-input" className="block text-xs font-bold text-white uppercase tracking-wider mb-1.5">
                 Password
               </label>
               <input
+                id="admin-password-input"
                 type="password"
                 required
                 className="appearance-none rounded-2xl relative block w-full px-4 py-3.5 bg-navy-900 border border-panel-600 placeholder-charcoal-400 text-white focus:outline-none focus:ring-2 focus:ring-neon-500/25 focus:border-neon-500 transition-colors sm:text-sm"

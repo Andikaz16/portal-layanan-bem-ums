@@ -74,12 +74,17 @@ export default function PressReleasePage() {
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             {/* Search Input */}
             <form onSubmit={handleSearchSubmit} className="relative w-full md:w-96">
+              <label htmlFor="search-pr-input" className="sr-only">
+                Cari rilis pers atau topik
+              </label>
               <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
+                id="search-pr-input"
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Cari rilis pers atau topik..."
+                aria-label="Cari rilis pers atau topik"
                 className="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#0066FF] focus:bg-white transition-all"
               />
             </form>

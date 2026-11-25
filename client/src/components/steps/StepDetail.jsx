@@ -345,6 +345,7 @@ export default function StepDetail({
             multiple
             accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             className="hidden"
+            aria-label="Unggah file lampiran bukti"
             onChange={(e) => {
               handleFilesAdded(e.target.files);
               e.target.value = null; // reset input

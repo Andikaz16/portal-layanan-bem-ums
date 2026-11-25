@@ -158,20 +158,22 @@ export default function TrackPage() {
 
             <div className="bg-white border border-sky-100 rounded-3xl p-8 sm:p-10 shadow-sm">
               <div className="space-y-4">
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">Kode Tiket</label>
+                <label htmlFor="track-input-code" className="block text-xs font-bold text-slate-700 uppercase tracking-wider">Kode Tiket</label>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <div className="relative flex-1">
                     <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#0066FF] z-10"><Ticket size={20} /></div>
                     <input 
+                      id="track-input-code"
                       type="text" 
                       value={inputCode}
                       onChange={(e) => { setInputCode(e.target.value.toUpperCase()); setError(''); }}
                       onKeyDown={(e) => e.key === 'Enter' && doSearch()}
                       placeholder="BEM-XXXX"
+                      aria-label="Kode Tiket Laporan"
                       className="w-full pl-12 pr-4 py-3.5 rounded-full text-slate-900 bg-white border border-sky-200 placeholder-slate-400 focus:outline-none focus:border-[#0066FF] focus:ring-2 focus:ring-[#0066FF]/20 transition-colors uppercase font-mono tracking-wider text-sm shadow-sm" 
                     />
                   </div>
-                  <button onClick={() => doSearch()} className="btn-primary py-3.5 px-8 text-sm whitespace-nowrap bg-[#0066FF] text-white hover:bg-blue-600 rounded-full font-bold shadow-md shadow-blue-500/20">
+                  <button onClick={() => doSearch()} aria-label="Lacak tiket laporan" className="btn-primary py-3.5 px-8 text-sm whitespace-nowrap bg-[#0066FF] text-white hover:bg-blue-600 rounded-full font-bold shadow-md shadow-blue-500/20">
                     Lacak <ArrowRight size={18} />
                   </button>
                 </div>

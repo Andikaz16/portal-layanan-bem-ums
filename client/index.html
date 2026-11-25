@@ -30,10 +30,33 @@
     <link rel="canonical" href="https://lapor.bemums.id/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+    </noscript>
+
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "GovernmentOrganization",
+      "name": "BEM Universitas Muhammadiyah Surakarta",
+      "alternateName": "Lapor Pres! BEM UMS",
+      "url": "https://lapor.bemums.id/",
+      "logo": "https://lapor.bemums.id/logo-bem.png",
+      "description": "Kanal pengaduan & advokasi resmi Badan Eksekutif Mahasiswa Universitas Muhammadiyah Surakarta (BEM UMS).",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Surakarta",
+        "addressRegion": "Jawa Tengah",
+        "addressCountry": "ID"
+      }
+    }
+    </script>
     <title>Lapor Pres! — Portal Layanan & Advokasi BEM UMS</title>
   </head>
-  <body class="bg-[#04044A]">
+  <body class="bg-[#F8FAFC]">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
